@@ -5,6 +5,7 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 SCREEN_TITLE = 'Unknown Game'
 
+
 class GameWindow(arcade.Window):
     """
     Main application class
@@ -24,14 +25,11 @@ class GameWindow(arcade.Window):
 
         #Do rendering here
 
-
     def on_update(self, delta_time: float):
         """Update logic goes here"""
 
-
     def on_key_press(self, key, key_modifiers):
         """Called when a key on the keyboard is pressed"""
-
 
     def on_key_release(self, key, key_modifiers):
         """Called whenever a key on the keyboard is released"""
