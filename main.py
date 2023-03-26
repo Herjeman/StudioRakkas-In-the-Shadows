@@ -1,12 +1,9 @@
 import arcade
 import player
 import guard
-<<<<<<< Updated upstream
 import os
 import guardmanager
-=======
 import userinterface
->>>>>>> Stashed changes
 from HelperClasses import vector
 import userinterface
 
@@ -23,12 +20,11 @@ class GameWindow(arcade.Window):
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
 
-        self.player = player.Player(0, 0)
-        self.guard = guard.Guard(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5)
+        self.player = player.Player(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5)
+        self.guard_manager = guardmanager.GuardManager()
         self.ui = userinterface.UserInterface()
 
         self.background_sprite_list = None
-        self.guard_manager = guardmanager.GuardManager()
         self.ui = userinterface.UserInterface()
 
     def setup(self):
@@ -44,6 +40,7 @@ class GameWindow(arcade.Window):
                 sprite.position = x, y
                 self.background_sprite_list.append(sprite)
 
+
     def on_draw(self):
         """Render the screen"""
 
@@ -53,14 +50,14 @@ class GameWindow(arcade.Window):
         # Do rendering here
         self.background_sprite_list.draw()
         self.player.draw_self()
-        self.guard.draw_self()
+        self.guard_manager.draw_guards()
         self.ui.draw_self()
 
     def on_update(self, delta_time: float):
         """Update logic goes here"""
 
         self.player.update(delta_time)
-        self.guard.update(delta_time, self.player)
+        self.guard_manager.update(delta_time, self.player)
 
     def on_key_press(self, key, key_modifiers):
         """Called when a key on the keyboard is pressed"""

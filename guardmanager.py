@@ -11,8 +11,8 @@ class GuardManager:
         self.spawn_interval = 5
         self.spawn_timer = self.spawn_interval
         self.active_guards = []
-        self.minimum_spawn_distance = 500
-        self.maximum_spawn_distance = 1000
+        self.minimum_spawn_distance = 300
+        self.maximum_spawn_distance = 500
 
     def update(self, delta_time, active_player):
 
@@ -23,7 +23,7 @@ class GuardManager:
             self.spawn_timer = self.spawn_interval
 
         for instance in self.active_guards:
-            instance.update()
+            instance.update(delta_time, active_player)
 
     def draw_guards(self):
         for instance in self.active_guards:
@@ -35,6 +35,7 @@ class GuardManager:
         # find a spot at a reasonable distance from player
         offset = random.randint(self.minimum_spawn_distance, self.maximum_spawn_distance)
 
-        spawn_offset = vector.get_random_unit_vector()*offset
+        spawn_position = active_player.position + vector.get_random_unit_vector()*offset
 
-        self.active_guards.append(guard.Guard(spawn_offset.x, spawn_offset.y))
+        print(spawn_position)
+        self.active_guards.append(guard.Guard(spawn_position.x, spawn_position.y))
