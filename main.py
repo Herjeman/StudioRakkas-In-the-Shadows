@@ -1,8 +1,12 @@
 import arcade
 import player
 import guard
+<<<<<<< Updated upstream
 import os
 import guardmanager
+=======
+import userinterface
+>>>>>>> Stashed changes
 from HelperClasses import vector
 import userinterface
 
@@ -21,6 +25,7 @@ class GameWindow(arcade.Window):
 
         self.player = player.Player(0, 0)
         self.guard = guard.Guard(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5)
+        self.ui = userinterface.UserInterface()
 
         self.background_sprite_list = None
         self.guard_manager = guardmanager.GuardManager()

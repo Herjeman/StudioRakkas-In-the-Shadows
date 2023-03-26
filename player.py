@@ -52,3 +52,7 @@ class Player:
 
         elif key == arcade.key.D or key == arcade.key.RIGHT:
             self.move.x -= 1
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
