@@ -1,9 +1,10 @@
 import arcade
 import player
+import guard
 from HelperClasses import vector
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
+SCREEN_WIDTH = 1200
+SCREEN_HEIGHT = 720
 SCREEN_TITLE = 'Unknown Game'
 
 
@@ -16,6 +17,7 @@ class GameWindow(arcade.Window):
         super().__init__(width, height, title)
 
         self.player = player.Player(0, 0)
+        self.guard = guard.Guard(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5)
 
     def setup(self):
         """Sets up the game. Call to restart the game"""
@@ -29,11 +31,13 @@ class GameWindow(arcade.Window):
 
         #Do rendering here
         self.player.draw_self()
+        self.guard.draw_self()
 
     def on_update(self, delta_time: float):
         """Update logic goes here"""
 
         self.player.update(delta_time)
+        self.guard.update(delta_time, self.player)
 
     def on_key_press(self, key, key_modifiers):
         """Called when a key on the keyboard is pressed"""
