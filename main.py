@@ -1,4 +1,5 @@
 import arcade
+import player
 from HelperClasses import vector
 
 SCREEN_WIDTH = 800
@@ -14,8 +15,11 @@ class GameWindow(arcade.Window):
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
 
+        self.player = player.Player(0, 0)
+
     def setup(self):
         """Sets up the game. Call to restart the game"""
+
 
     def on_draw(self):
         """Render the screen"""
@@ -24,15 +28,22 @@ class GameWindow(arcade.Window):
         self.clear()
 
         #Do rendering here
+        self.player.draw_self()
 
     def on_update(self, delta_time: float):
         """Update logic goes here"""
 
+        self.player.update(delta_time)
+
     def on_key_press(self, key, key_modifiers):
         """Called when a key on the keyboard is pressed"""
 
+        self.player.receive_key_down(key)
+
     def on_key_release(self, key, key_modifiers):
         """Called whenever a key on the keyboard is released"""
+
+        self.player.receive_key_up(key)
 
     def on_mouse_motion(self, x, y, delta_x, delta_y):
         """Called when the mouse is moved"""
