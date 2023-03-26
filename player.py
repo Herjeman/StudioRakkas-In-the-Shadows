@@ -123,3 +123,5 @@ class Player:
 
         elif key == arcade.key.D or key == arcade.key.RIGHT:
             self.move.x -= 1
+            self.sprite.change_x -= 1
+            self.right = False
