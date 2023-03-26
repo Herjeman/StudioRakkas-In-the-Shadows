@@ -1,5 +1,6 @@
 import math
 import numpy
+import random
 
 
 class Vector2:
@@ -22,10 +23,30 @@ class Vector2:
         This is useful for getting the pure direction"""
 
         norm = self.get_magnitude()
+        if norm == 0:
+            return zero()
         x = self.x / norm
         y = self.y / norm
 
         return Vector2(x, y)
+
+    def get_snapped(self):
+        """Returns a unit vector that only has absolute values"""
+
+        unit = self.get_normalized()
+        if unit.x > 0.5:
+            return right()
+
+        elif unit.x < -0.5:
+            return left()
+
+        elif unit.y > 0.5:
+            return up()
+        elif unit.y < -0.5:
+            return down()
+
+        else:
+            return zero()
 
     def get_rotated(self, degrees):
         """Returns a vector that is rotated by degrees"""
@@ -54,6 +75,9 @@ class Vector2:
 
         return Vector2(x, y)
 
+    def __str__(self):
+        return f'{self.x}, {self.y}'
+
     def __add__(self, other):
         return Vector2(self.x + other.x, self.y + other.y)
 
@@ -62,6 +86,12 @@ class Vector2:
 
     def __mul__(self, other: float):
         return Vector2(self.x * other, self.y * other)
+
+    def __iadd__(self, other):
+        return Vector2(self.x + other.x, self.y + other.y)
+
+    def __isub__(self, other):
+        return Vector2(self.x - other.x, self.y - other.y)
 
 
 def multiply_dot(a: Vector2, b: Vector2):
@@ -74,3 +104,32 @@ def compare_angle(a: Vector2, b: Vector2):
     """Returns the angle between a and b"""
 
     return numpy.arccos(multiply_dot(a, b) / a.get_magnitude() * b.get_magnitude())
+
+
+def up():
+    """Shorthand for writing Vector2(0, 1)"""
+    return Vector2(0, 1)
+
+
+def down():
+    """Shorthand for writing Vector2(0, -1)"""
+    return Vector2(0, -1)
+
+
+def right():
+    """Shorthand for writing Vector2(1, 0)"""
+    return Vector2(1, 0)
+
+
+def left():
+    """Shorthand for writing Vector2(-1, 0)"""
+    return Vector2(-1, 0)
+
+
+def zero():
+    return Vector2(0, 0)
+
+
+def get_random_unit_vector():
+    """Returns a random vector of length 1"""
+    return Vector2(random.randint(-10, 10), random.randint(-10, 10)).get_normalized()
