@@ -4,6 +4,7 @@ import guard
 import os
 import guardmanager
 from HelperClasses import vector
+import userinterface
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 720
@@ -23,6 +24,7 @@ class GameWindow(arcade.Window):
 
         self.background_sprite_list = None
         self.guard_manager = guardmanager.GuardManager()
+        self.ui = userinterface.UserInterface()
 
     def setup(self):
         """Sets up the game. Call to restart the game"""
@@ -47,6 +49,7 @@ class GameWindow(arcade.Window):
         self.background_sprite_list.draw()
         self.player.draw_self()
         self.guard.draw_self()
+        self.ui.draw_self()
 
     def on_update(self, delta_time: float):
         """Update logic goes here"""
@@ -58,6 +61,7 @@ class GameWindow(arcade.Window):
         """Called when a key on the keyboard is pressed"""
 
         self.player.receive_key_down(key)
+        self.ui.recive_key_down(key)
 
     def on_key_release(self, key, key_modifiers):
         """Called whenever a key on the keyboard is released"""
