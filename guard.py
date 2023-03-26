@@ -5,7 +5,6 @@ from HelperClasses import vector
 
 
 class Guard:
-
     def __init__(self, spawn_x, spawn_y):
 
         self.speed = 400
@@ -23,4 +22,6 @@ class Guard:
             self.position = self.position - distance_vector * self.speed * delta_time
 
     def draw_self(self):
-        arcade.draw_rectangle_filled(self.position.x, self.position.y, 20, 35, arcade.color.RHYTHM)
+        arcade.draw_rectangle_filled(
+            self.position.x, self.position.y, 20, 35, arcade.color.GHOST_WHITE
+        )

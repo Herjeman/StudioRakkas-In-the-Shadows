@@ -1,8 +1,8 @@
 import arcade
 from HelperClasses import vector
 
-class Player:
 
+class Player:
     def __init__(self, spawn_x, spawn_y):
 
         self.up = False
@@ -21,7 +21,9 @@ class Player:
 
     def draw_self(self):
 
-        arcade.draw_rectangle_filled(self.position.x, self.position.y, 20, 35, arcade.color.RHYTHM)
+        arcade.draw_rectangle_filled(
+            self.position.x, self.position.y, 20, 35, arcade.color.RED_DEVIL
+        )
 
     def receive_key_down(self, key: int):
 

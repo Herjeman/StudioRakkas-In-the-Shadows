@@ -1,11 +1,12 @@
 import arcade
 import player
 import guard
+import os
 from HelperClasses import vector
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 720
-SCREEN_TITLE = 'Unknown Game'
+SCREEN_TITLE = "Unknown Game"
 
 
 class GameWindow(arcade.Window):
@@ -18,18 +19,29 @@ class GameWindow(arcade.Window):
 
         self.player = player.Player(0, 0)
         self.guard = guard.Guard(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5)
+        self.background_sprite_list = None
 
     def setup(self):
         """Sets up the game. Call to restart the game"""
 
+        # Create Sprite Lists
+        self.background_sprite_list = arcade.SpriteList()
+
+        # Creates a bigger background from one sprite
+        for x in range(-128, 2000, 128):
+            for y in range(-128, 1000, 128):
+                sprite = arcade.Sprite(os.path.join("assets", "tile", "grass_400.png"))
+                sprite.position = x, y
+                self.background_sprite_list.append(sprite)
 
     def on_draw(self):
         """Render the screen"""
 
-        #clear screen
+        # clear screen
         self.clear()
 
-        #Do rendering here
+        # Do rendering here
+        self.background_sprite_list.draw()
         self.player.draw_self()
         self.guard.draw_self()
 
@@ -75,5 +87,5 @@ def main():
 
 
 # Press the green button in the gutter to run the script.
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
