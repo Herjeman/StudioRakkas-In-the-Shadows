@@ -1,11 +1,8 @@
 import arcade
 import player
 import guard
-<<<<<<< Updated upstream
 import os
-=======
 import guardmanager
->>>>>>> Stashed changes
 from HelperClasses import vector
 
 SCREEN_WIDTH = 1200
@@ -23,16 +20,13 @@ class GameWindow(arcade.Window):
 
         self.player = player.Player(0, 0)
         self.guard = guard.Guard(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5)
-<<<<<<< Updated upstream
+
         self.background_sprite_list = None
-=======
         self.guard_manager = guardmanager.GuardManager()
->>>>>>> Stashed changes
 
     def setup(self):
         """Sets up the game. Call to restart the game"""
 
-<<<<<<< Updated upstream
         # Create Sprite Lists
         self.background_sprite_list = arcade.SpriteList()
 
@@ -43,8 +37,6 @@ class GameWindow(arcade.Window):
                 sprite.position = x, y
                 self.background_sprite_list.append(sprite)
 
-=======
->>>>>>> Stashed changes
     def on_draw(self):
         """Render the screen"""
 
@@ -52,10 +44,7 @@ class GameWindow(arcade.Window):
         self.clear()
 
         # Do rendering here
-<<<<<<< Updated upstream
         self.background_sprite_list.draw()
-=======
->>>>>>> Stashed changes
         self.player.draw_self()
         self.guard.draw_self()
 
@@ -101,9 +90,5 @@ def main():
 
 
 # Press the green button in the gutter to run the script.
-<<<<<<< Updated upstream
 if __name__ == "__main__":
-=======
-if __name__ == '__main__':
->>>>>>> Stashed changes
     main()
