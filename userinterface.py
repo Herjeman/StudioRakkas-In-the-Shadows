@@ -26,7 +26,6 @@ class Options:
         if self.open_options:
             arcade.draw_rectangle_filled(main.SCREEN_WIDTH/2,main.SCREEN_HEIGHT/2, main.SCREEN_WIDTH/2, main.SCREEN_HEIGHT/1.25, arcade.color.RED)
             self.uimanager.draw()
-
             
     def option_buttons(self):
         self.uimanager.enable()
