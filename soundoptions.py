@@ -9,6 +9,7 @@ class SoundOptions():
         self.open_sound = False
         self.uimanager = arcade.gui.UIManager()
         self.volume_buttons()
+        print('Sound options object created')
 
     def volume_buttons(self):
         #self.uimanager.enable()

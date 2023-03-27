@@ -5,10 +5,10 @@ import userinterface
 
 class GeneralOptions():
     ''' Class for option mennue accessed by "SPACE"'''
-    def __init__(self, sound_options):
+    def __init__(self):
         self.open_options = False
         self.uimanager = arcade.gui.UIManager()
-        self.sound_options = sound_options
+        self.sound_options = None
         self.option_buttons()
 
     def option_buttons(self):

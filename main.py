@@ -33,7 +33,6 @@ class GameWindow(arcade.Window):
         self.player = player.Player(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5)
         self.enemy_manager = enemymanager.EnemyManager()
         # self.game_manager = gamemanager.GameManager()
-        self.ui = userinterface.Options()
 
         self.background_sprite_list = None
         self.ui = userinterface.Options()

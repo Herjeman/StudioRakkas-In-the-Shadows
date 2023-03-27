@@ -11,9 +11,15 @@ class Options:
         self.points: int = 0
         self.uimanager = arcade.gui.UIManager()
         self.points = 10
-        #self.uimanager = arcade.gui.UIManager()
+
         self.sound_options = soundoptions.SoundOptions()
-        self.general_options = generaloptions.GeneralOptions(self.sound_options)
+        self.general_options = generaloptions.GeneralOptions()
+
+        main.GAME_MANAGER.UI_sound.append(self.sound_options)
+        main.GAME_MANAGER.UI_general.append(self.general_options)
+
+        self.general_options.sound_options = main.GAME_MANAGER.UI_sound[0]
+
         self.open_options = False
 
         # arcade.draw_text()
