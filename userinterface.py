@@ -18,7 +18,7 @@ class Options:
         main.GAME_MANAGER.UI_sound.append(self.sound_options)
         main.GAME_MANAGER.UI_general.append(self.general_options)
 
-        self.general_options.sound_options = main.GAME_MANAGER.UI_sound[0]
+        self.general_options.sound_options = main.GAME_MANAGER.UI_sound[0] # Evil pointer hack
 
         self.open_options = False
 
