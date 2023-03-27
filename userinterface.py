@@ -5,7 +5,7 @@ import main
 class Options:
     def __init__(self):
         self.open_options = False
-        self.points = 10
+        self.points: int = 0
         self.uimanager = arcade.gui.UIManager()
 
 # arcade.draw_text()
@@ -16,8 +16,12 @@ class Options:
             else:
                 self.open_options = True
                 self.option_buttons()
+
+    def update_score(self, score: float):
+        self.points = int(score)
+
     def draw_self(self):
-        arcade.draw_text(self.points,main.SCREEN_WIDTH/32, main.SCREEN_HEIGHT/1.10,
+        arcade.draw_text(self.points, main.SCREEN_WIDTH/32, main.SCREEN_HEIGHT/1.10,
                          arcade.color.BABY_BLUE,40,40) #anchor_x="right", anchor_y="top" to channge to top right cornner
         if self.open_options:
             arcade.draw_rectangle_filled(main.SCREEN_WIDTH/2,main.SCREEN_HEIGHT/2, main.SCREEN_WIDTH/2, main.SCREEN_HEIGHT/1.25, arcade.color.RED)

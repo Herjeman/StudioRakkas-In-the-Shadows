@@ -3,6 +3,7 @@ import player
 import enemy
 import os
 import enemymanager
+import gamemanager
 import userinterface
 from HelperClasses import vector
 import userinterface
@@ -26,6 +27,7 @@ class GameWindow(arcade.Window):
 
         self.player = player.Player(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5)
         self.enemy_manager = enemymanager.EnemyManager()
+        self.game_manager = gamemanager.GameManager()
         self.ui = userinterface.Options()
 
         self.background_sprite_list = None
@@ -66,7 +68,8 @@ class GameWindow(arcade.Window):
         """Update logic goes here"""
 
         self.player.update(delta_time)
-        self.enemy_manager.update(delta_time, self.player)
+        self.enemy_manager.update(delta_time, self.player, self.game_manager)
+        self.ui.update_score(self.game_manager.score)
         self.follow_camera()
 
     def on_key_press(self, key, key_modifiers):

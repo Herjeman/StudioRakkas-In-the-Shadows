@@ -1,4 +1,5 @@
 import enemy
+import gamemanager
 import main
 import player
 import random
@@ -16,16 +17,20 @@ class EnemyManager:
         self.maximum_spawn_distance = 500
         self.following_enemies = 0
 
-    def update(self, delta_time, active_player):
+    def update(self, delta_time, active_player: player.Player, game_manager: gamemanager.GameManager):
 
+        # Check spawn timer and spawn enemy if time
         self.spawn_timer -= delta_time
-
         if self.spawn_timer < 0:
             self.spawn_new_enemy(active_player)
             self.spawn_timer = self.spawn_interval
 
+        # Update enemies
         for instance in self.active_enemies:
             instance.update(delta_time, active_player, self)
+
+        # Update score
+        game_manager.update_score(self.following_enemies, delta_time)
 
     def draw_enemies(self):
         for instance in self.active_enemies:

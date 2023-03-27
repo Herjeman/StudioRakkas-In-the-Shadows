@@ -89,9 +89,14 @@ class Enemy:
             if not self.following:
                 # Started following, add to enemies following
                 enemy_manager.following_enemies += 1
+                self.following = True
 
-            self.following = True
             self.position = self.position - distance_vector * self.speed * delta_time
+
+        elif self.following:
+            # Was following last cycle, subtract from enemies following
+            enemy_manager.following_enemies -= 1
+            self.following = False
 
         self.sprite.set_position(self.position.x, self.position.y)
         self.sprite_list.update()
@@ -101,4 +106,3 @@ class Enemy:
         # arcade.draw_rectangle_filled(
         # )
         self.sprite_list.draw()
-        self.position.x, self.position.y, 20, 35, arcade.color.GHOST_WHITE
