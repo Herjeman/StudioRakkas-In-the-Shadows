@@ -22,10 +22,10 @@ class GameWindow(arcade.Window):
 
         self.player = player.Player(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5)
         self.guard_manager = guardmanager.GuardManager()
-        self.ui = userinterface.UserInterface()
+        self.ui = userinterface.Options()
 
         self.background_sprite_list = None
-        self.ui = userinterface.UserInterface()
+        self.ui = userinterface.Options()
 
     def setup(self):
         """Sets up the game. Call to restart the game"""
