@@ -11,6 +11,7 @@ class Player:
         self.left = False
         self.position = vector.Vector2(spawn_x, spawn_y)
         self.move = vector.Vector2(0, 0)
+        self.speed = 500
 
         self.set_up()
 
@@ -73,7 +74,7 @@ class Player:
 
     def update(self, delta_time):
 
-        self.position = self.position + self.move
+        self.position = self.position + self.move.get_normalized() * self.speed * delta_time
         self.sprite.set_position(self.position.x, self.position.y)
         self.sprite_list.update()
         self.sprite_list.update_animation()

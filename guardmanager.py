@@ -2,6 +2,7 @@ import guard
 import main
 import player
 import random
+import userinterface
 from HelperClasses import vector
 
 
@@ -37,5 +38,4 @@ class GuardManager:
 
         spawn_position = active_player.position + vector.get_random_unit_vector()*offset
 
-        print(spawn_position)
         self.active_guards.append(guard.Guard(spawn_position.x, spawn_position.y))
