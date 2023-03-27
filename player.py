@@ -13,9 +13,9 @@ class Player:
         self.move = vector.Vector2(0, 0)
         self.speed = 500
 
-        self.set_up()
+        self.set_up_sprite()
 
-    def set_up(self):
+    def set_up_sprite(self):
         player_sprite = os.path.join("assets", "player", "player_sprite.png")
 
         self.sprite_list = arcade.SpriteList()

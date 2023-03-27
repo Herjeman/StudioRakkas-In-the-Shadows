@@ -1,4 +1,6 @@
 import arcade
+
+import enemymanager
 import player
 import os
 
@@ -9,15 +11,17 @@ from HelperClasses import vector
 # make guard animation work
 
 
-class Guard:
+class Enemy:
     def __init__(self, spawn_x, spawn_y):
 
         self.speed = 400
         self.position = vector.Vector2(spawn_x, spawn_y)
         self.follow_distance = 250
-        self.set_up()
+        self.following = False
 
-    def set_up(self):
+        self.set_up_sprite()
+
+    def set_up_sprite(self):
         player_sprite = os.path.join("assets", "player", "player_sprite.png")
 
         self.sprite_list = arcade.SpriteList()
@@ -74,7 +78,7 @@ class Guard:
         self.sprite.scale = 4.5
         self.sprite_list.append(self.sprite)
 
-    def update(self, delta_time, active_player: player.Player):
+    def update(self, delta_time, active_player: player.Player, enemy_manager: enemymanager.EnemyManager):
 
         distance_vector = self.position - active_player.position
         distance_to_player = distance_vector.get_magnitude()
@@ -82,6 +86,11 @@ class Guard:
         distance_vector = distance_vector.get_normalized()
 
         if distance_to_player < self.follow_distance:
+            if not self.following:
+                # Started following, add to enemies following
+                enemy_manager.following_enemies += 1
+
+            self.following = True
             self.position = self.position - distance_vector * self.speed * delta_time
 
         self.sprite.set_position(self.position.x, self.position.y)
