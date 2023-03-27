@@ -8,6 +8,7 @@ import userinterface
 from HelperClasses import vector
 import userinterface
 from pyglet.math import Vec2
+from arcade.experimental.lights import Light, LightLayer
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 720
@@ -15,6 +16,10 @@ SCREEN_TITLE = "Unknown Game"
 
 # How fast the camera pans to the player. 1.0 is instant.
 CAMERA_SPEED = 1
+
+# Color of darkness
+AMBIENT_COLOR = (10, 10, 10)
+GAME_MANAGER = gamemanager.GameManager()
 
 
 class GameWindow(arcade.Window):
@@ -27,7 +32,7 @@ class GameWindow(arcade.Window):
 
         self.player = player.Player(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5)
         self.enemy_manager = enemymanager.EnemyManager()
-        self.game_manager = gamemanager.GameManager()
+        # self.game_manager = gamemanager.GameManager()
         self.ui = userinterface.Options()
 
         self.background_sprite_list = None
@@ -68,8 +73,8 @@ class GameWindow(arcade.Window):
         """Update logic goes here"""
 
         self.player.update(delta_time)
-        self.enemy_manager.update(delta_time, self.player, self.game_manager)
-        self.ui.update_score(self.game_manager.score)
+        self.enemy_manager.update(delta_time, self.player)
+        self.ui.update_score()
         self.follow_camera()
 
     def on_key_press(self, key, key_modifiers):

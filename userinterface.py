@@ -28,8 +28,8 @@ class Options:
                 self.open_options = True
                 self.option_buttons()
 
-    def update_score(self, score: float):
-        self.points = int(score)
+    def update_score(self):
+        self.points = int(main.GAME_MANAGER.score)
 
     def draw_self(self):
         arcade.draw_text(self.points, main.SCREEN_WIDTH/32, main.SCREEN_HEIGHT/1.10,

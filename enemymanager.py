@@ -17,7 +17,7 @@ class EnemyManager:
         self.maximum_spawn_distance = 500
         self.following_enemies = 0
 
-    def update(self, delta_time, active_player: player.Player, game_manager: gamemanager.GameManager):
+    def update(self, delta_time, active_player: player.Player):
 
         # Check spawn timer and spawn enemy if time
         self.spawn_timer -= delta_time
@@ -30,7 +30,7 @@ class EnemyManager:
             instance.update(delta_time, active_player, self)
 
         # Update score
-        game_manager.update_score(self.following_enemies, delta_time)
+        main.GAME_MANAGER.update_score(self.following_enemies, delta_time)
 
     def draw_enemies(self):
         for instance in self.active_enemies:
