@@ -6,10 +6,14 @@ import guardmanager
 import userinterface
 from HelperClasses import vector
 import userinterface
+from pyglet.math import Vec2
 
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 720
 SCREEN_TITLE = "Unknown Game"
+
+# How fast the camera pans to the player. 1.0 is instant.
+CAMERA_SPEED = 1
 
 
 class GameWindow(arcade.Window):
@@ -27,6 +31,9 @@ class GameWindow(arcade.Window):
         self.background_sprite_list = None
         self.ui = userinterface.Options()
 
+        self.camera_sprites = arcade.Camera(SCREEN_WIDTH, SCREEN_HEIGHT)
+        self.camera_gui = arcade.Camera(SCREEN_WIDTH, SCREEN_HEIGHT)
+
     def setup(self):
         """Sets up the game. Call to restart the game"""
 
@@ -40,12 +47,14 @@ class GameWindow(arcade.Window):
                 sprite.position = x, y
                 self.background_sprite_list.append(sprite)
 
-
     def on_draw(self):
         """Render the screen"""
 
         # clear screen
         self.clear()
+
+        # Select the camera we'll use to draw all our sprites
+        self.camera_sprites.use()
 
         # Do rendering here
         self.background_sprite_list.draw()
@@ -58,6 +67,7 @@ class GameWindow(arcade.Window):
 
         self.player.update(delta_time)
         self.guard_manager.update(delta_time, self.player)
+        self.follow_camera()
 
     def on_key_press(self, key, key_modifiers):
         """Called when a key on the keyboard is pressed"""
@@ -85,6 +95,15 @@ class GameWindow(arcade.Window):
         """
         Called when a user releases a mouse button.
         """
+        pass
+
+    def follow_camera(self):
+        """Camera that follows player"""
+        position = Vec2(
+            self.player.position.x - self.width / 2,
+            self.player.position.y - self.height / 2,
+        )
+        self.camera_sprites.move_to(position, CAMERA_SPEED)
         pass
 
 
