@@ -1,10 +1,8 @@
 import arcade
 import player
-
 import main
 from pyglet.math import Vec2
 
-# How fast the camera pans to the player. 1.0 is instant.
 CAMERA_SPEED = 1
 
 
@@ -23,5 +21,4 @@ class GameCamera:
             player.position.x - main.SCREEN_WIDTH / 2,
             player.position.y - main.SCREEN_HEIGHT / 2,
         )
-        # self.camera_sprites.move_to(position, 1)
-        self.camera_sprites.move(position)
+        self.camera_sprites.move_to(position, CAMERA_SPEED)

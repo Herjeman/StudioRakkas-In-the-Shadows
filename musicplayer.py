@@ -3,9 +3,8 @@ import os
 
 
 class MusicPlayer:
-
     def __init__(self):
-        song_path = os.path.join("assets", "audio", "music1.mp3")
+        song_path = os.path.join("assets", "audio", "music1_netconverted.wav")
         self.song = arcade.load_sound(song_path)
 
         self.volume = 1
@@ -16,7 +15,9 @@ class MusicPlayer:
         self.active_music_player = None
 
     def play(self):
-        self.active_music_player = arcade.play_sound(self.song, self.volume, self.pan, self.loop, self.speed)
+        self.active_music_player = arcade.play_sound(
+            self.song, self.volume, self.pan, self.loop, self.speed
+        )
 
     def stop(self):
         arcade.stop_sound(self.active_music_player)
