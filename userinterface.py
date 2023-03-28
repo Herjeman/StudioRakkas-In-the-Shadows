@@ -9,7 +9,6 @@ class UserInterface:
     '''Class for option mennue accessed by "ESCAPE"'''
 
     def __init__(self):
-        self.open_options = False
         self.points: int = 0
         #self.uimanager = arcade.gui.UIManager()
         self.points = 10
@@ -17,22 +16,22 @@ class UserInterface:
         self.sound_options = (soundoptions.SoundOptions())
         self.general_options = (generaloptions.GeneralOptions())
         main.GAME_MANAGER.current_options = self.general_options
+        
         # self.general_options.sound_options = main.GAME_MANAGER.UI_sound[
         #     0
         # ]  # Evil pointer hack
 
-        self.open_options = False
 
 
     def recive_key_down(self, key):
         # if escape iif pressed and options are openn sett all options to false
         if key == arcade.key.ESCAPE:
-            if self.open_options:
-                self.open_options = False
+            if main.GAME_MANAGER.open_options:
+                main.GAME_MANAGER.open_options = False
                 main.GAME_MANAGER.current_options.disable()
             else:
                 # if no optiosn open and press scape start standard optionns
-                self.open_options = True
+                main.GAME_MANAGER.open_options = True
                 main.GAME_MANAGER.current_options = self.general_options
                 main.GAME_MANAGER.current_options.option_buttons()
 
@@ -59,7 +58,7 @@ class UserInterface:
             40,
         )  # anchor_x="right", anchor_y="top" to channge to top right cornner
         # draw the buttons for diferennt options
-        if self.open_options:
+        if main.GAME_MANAGER.open_options:
             main.GAME_MANAGER.current_options.draw_self()
 
 

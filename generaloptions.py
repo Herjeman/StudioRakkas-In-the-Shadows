@@ -63,7 +63,8 @@ class GeneralOptions:
         return self.uimanager.draw()
 
     def resume_game_button_click(self, event):
-        print("resume button", event)
+        self.uimanager.disable()
+        main.GAME_MANAGER.open_options = False
 
     def new_game_button_click(self, event):
         print("new game button", event)
