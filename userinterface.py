@@ -5,24 +5,24 @@ import soundoptions
 import generaloptions
 
 
-class Options:
+class UserInterface:
     '''Class for option mennue accessed by "ESCAPE"'''
 
     def __init__(self):
         self.open_options = False
         self.points: int = 0
-        self.uimanager = arcade.gui.UIManager()
+        #self.uimanager = arcade.gui.UIManager()
         self.points = 10
 
-        self.sound_options = soundoptions.SoundOptions()
-        self.general_options = generaloptions.GeneralOptions()
+        self.sound_options_instance = soundoptions.SoundOptions()
+        self.general_options_instance = generaloptions.GeneralOptions()
 
-        main.GAME_MANAGER.UI_sound.append(self.sound_options)
-        main.GAME_MANAGER.UI_general.append(self.general_options)
+        # main.GAME_MANAGER.UI_sound.append(self.sound_options_instance)
+        # main.GAME_MANAGER.UI_general.append(self.general_options_instance)
 
-        self.general_options.sound_options = main.GAME_MANAGER.UI_sound[
-            0
-        ]  # Evil pointer hack
+        # self.general_options.sound_options = main.GAME_MANAGER.UI_sound[
+        #     0
+        # ]  # Evil pointer hack
 
         self.open_options = False
 
@@ -62,69 +62,78 @@ class Options:
         )  # anchor_x="right", anchor_y="top" to channge to top right cornner
         # draw the buttons for diferennt options
         if self.open_options:
-            arcade.draw_rectangle_filled(
-                main.SCREEN_WIDTH / 2,
-                main.SCREEN_HEIGHT / 2,
-                main.SCREEN_WIDTH / 2,
-                main.SCREEN_HEIGHT / 1.25,
-                arcade.color.RED,
-            )
-            self.uimanager.draw()
+            # arcade.draw_rectangle_filled(
+            #     main.SCREEN_WIDTH / 2,
+            #     main.SCREEN_HEIGHT / 2,
+            #     main.SCREEN_WIDTH / 2,
+            #     main.SCREEN_HEIGHT / 1.25,
+            #     arcade.color.RED,
+            # )
+            self.sound_options_instance.draw_self()
 
-    def option_buttons(self):
-        self.uimanager.enable()
-        resume_game_button = arcade.gui.UIFlatButton(text="Resume Game", width=200)
-        self.uimanager.add(
-            arcade.gui.UIAnchorWidget(
-                anchor_x="center_x",
-                anchor_y="center_y",
-                align_y=+200,
-                child=resume_game_button,
-            )
-        )
-        resume_game_button.on_click = self.resume_game_button_klick
-        self.uimanager.enable()
-        new_game_button = arcade.gui.UIFlatButton(text="New Game", width=200)
-        self.uimanager.add(
-            arcade.gui.UIAnchorWidget(
-                anchor_x="center_x",
-                anchor_y="center_y",
-                align_y=+100,
-                child=new_game_button,
-            )
-        )
-        new_game_button.on_click = self.new_game_button_klick
-        sound_button = arcade.gui.UIFlatButton(text="Sound", width=200)
-        self.uimanager.add(
-            arcade.gui.UIAnchorWidget(
-                anchor_x="center_x", anchor_y="center_y", align_y=0, child=sound_button
-            )
-        )
-        sound_button.on_click = self.sound_button_klick
-        quit_button = arcade.gui.UIFlatButton(text="Quit", width=200)
-        self.uimanager.add(
-            arcade.gui.UIAnchorWidget(
-                anchor_x="center_x",
-                anchor_y="center_y",
-                align_y=-100,
-                child=quit_button,
-            )
-        )
-        quit_button.on_click = self.quit_game_button_klick
 
-    def resume_game_button_klick(self, event):
-        print("resume button", event)
 
-    def new_game_button_klick(self, event):
-        print("new game button", event)
 
-    def sound_button_klick(self, event):
-        print("sound button", event)
 
-    def quit_game_button_klick(self, event):
-        print("quit button")
 
-        if self.sound_options.open_sound:
-            self.sound_options.draw_self()
-        else:
-            self.general_options.draw_self()
+
+
+
+
+    # def option_buttons(self):
+    #     self.uimanager.enable()
+    #     resume_game_button = arcade.gui.UIFlatButton(text="Resume Game", width=200)
+    #     self.uimanager.add(
+    #         arcade.gui.UIAnchorWidget(
+    #             anchor_x="center_x",
+    #             anchor_y="center_y",
+    #             align_y=+200,
+    #             child=resume_game_button,
+    #         )
+    #     )
+    #     resume_game_button.on_click = self.resume_game_button_klick
+    #     self.uimanager.enable()
+    #     new_game_button = arcade.gui.UIFlatButton(text="New Game", width=200)
+    #     self.uimanager.add(
+    #         arcade.gui.UIAnchorWidget(
+    #             anchor_x="center_x",
+    #             anchor_y="center_y",
+    #             align_y=+100,
+    #             child=new_game_button,
+    #         )
+    #     )
+    #     new_game_button.on_click = self.new_game_button_klick
+    #     sound_button = arcade.gui.UIFlatButton(text="Sound", width=200)
+    #     self.uimanager.add(
+    #         arcade.gui.UIAnchorWidget(
+    #             anchor_x="center_x", anchor_y="center_y", align_y=0, child=sound_button
+    #         )
+    #     )
+    #     sound_button.on_click = self.sound_button_klick
+    #     quit_button = arcade.gui.UIFlatButton(text="Quit", width=200)
+    #     self.uimanager.add(
+    #         arcade.gui.UIAnchorWidget(
+    #             anchor_x="center_x",
+    #             anchor_y="center_y",
+    #             align_y=-100,
+    #             child=quit_button,
+    #         )
+    #     )
+    #     quit_button.on_click = self.quit_game_button_klick
+
+    # def resume_game_button_klick(self, event):
+    #     print("resume button", event)
+
+    # def new_game_button_klick(self, event):
+    #     print("new game button", event)
+
+    # def sound_button_klick(self, event):
+    #     print("sound button", event)
+
+    # def quit_game_button_klick(self, event):
+    #     print("quit button")
+
+    #     if self.sound_options.open_sound:
+    #         self.sound_options.draw_self()
+    #     else:
+    #         self.general_options.draw_self()

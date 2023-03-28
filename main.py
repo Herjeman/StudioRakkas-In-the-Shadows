@@ -33,7 +33,7 @@ class GameWindow(arcade.Window):
         # self.game_manager = gamemanager.GameManager()
 
         self.background_sprite_list = None
-        self.ui = userinterface.Options()
+        self.ui = userinterface.UserInterface()
 
         self.music_player = musicplayer.MusicPlayer()
 
