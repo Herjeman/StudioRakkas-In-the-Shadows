@@ -74,4 +74,4 @@ class GeneralOptions:
         self.uimanager.disable()
 
     def quit_game_button_click(self, event):
-        print("quit button")
+        arcade.exit()

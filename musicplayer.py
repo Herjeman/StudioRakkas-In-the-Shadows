@@ -7,7 +7,7 @@ class MusicPlayer:
         song_path = os.path.join("assets", "audio", "music1_netconverted.wav")
         self.song = arcade.load_sound(song_path)
 
-        self.volume = 1
+        self.volume = 0.5
         self.pan = 0.0
         self.loop = True
         self.speed = 1.0
