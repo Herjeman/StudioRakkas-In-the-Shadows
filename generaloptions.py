@@ -8,10 +8,11 @@ import soundoptions
 class GeneralOptions:
     '''Class for option mennue accessed by "SPACE"'''
 
-    def __init__(self):
+    def __init__(self, music_player):
         self.open_options = False
         self.uimanager = arcade.gui.UIManager()
         self.option_buttons()
+        self.music_player = music_player
 
     def option_buttons(self):
         # self.uimanager.enable()
@@ -42,6 +43,7 @@ class GeneralOptions:
             )
         )
         sound_button.on_click = self.sound_button_click
+
         quit_button = arcade.gui.UIFlatButton(text="Quit", width=200)
         self.uimanager.add(
             arcade.gui.UIAnchorWidget(
@@ -70,7 +72,7 @@ class GeneralOptions:
         print("new game button", event)
 
     def sound_button_click(self, event):
-        main.GAME_MANAGER.current_options = (soundoptions.SoundOptions())
+        main.GAME_MANAGER.current_options = soundoptions.SoundOptions(self.music_player)
         self.uimanager.disable()
 
     def quit_game_button_click(self, event):

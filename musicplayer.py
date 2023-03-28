@@ -11,6 +11,7 @@ class MusicPlayer:
         self.pan = 0.0
         self.loop = True
         self.speed = 1.0
+        self.volume_change = 0.1
 
         self.active_music_player = None
         print("music innnitiated")
@@ -20,5 +21,19 @@ class MusicPlayer:
             self.song, self.volume, self.pan, self.loop, self.speed
         )
 
+    def start(self):
+        self.active_music_player.pause()
+
     def stop(self):
-        arcade.stop_sound(self.active_music_player)
+        self.active_music_player.play()
+
+    def volume_up(self):
+        if self.volume < 1:
+            self.volume += self.volume_change
+            self.song.set_volume(self.volume, self.active_music_player)
+
+    def volume_down(self):
+        if self.volume >= self.volume_change:
+            self.volume -= self.volume_change
+            self.song.set_volume(self.volume, self.active_music_player)
+            print(self.song.get_volume(self.active_music_player))

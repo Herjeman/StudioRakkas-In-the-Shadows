@@ -36,9 +36,11 @@ class GameWindow(arcade.Window):
         # self.game_manager = gamemanager.GameManager()
 
         self.background_sprite_list = None
-        self.ui = userinterface.UserInterface()
+
 
         self.music_player = musicplayer.MusicPlayer()
+
+        self.ui = userinterface.UserInterface(self.music_player)
 
         self.camera = camera.GameCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.camera_gui = camera.GameCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
