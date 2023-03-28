@@ -65,14 +65,14 @@ class SoundOptions:
         self.uimanager.enable()
         return self.uimanager.draw()
 
+    def volume_off_click(self, event):
+        print("volume off", event)
+
     def volume_up_click(self, event):
         print("volume up", event)
 
     def volume_down_click(self, event):
         print("volume down", event)
-
-    def volume_off_click(self, event):
-        print("volume off", event)
 
     def options_click(self, event):
         main.GAME_MANAGER.current_options = generaloptions.GeneralOptions()
