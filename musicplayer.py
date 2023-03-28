@@ -4,7 +4,7 @@ import os
 
 class MusicPlayer:
     def __init__(self):
-        song_path = os.path.join("assets", "audio", "music1_netconverted.wav")
+        song_path = os.path.join("assets", "audio", "in_the_shadows_2.wav")
         self.song = arcade.load_sound(song_path)
 
         self.volume = 0.5

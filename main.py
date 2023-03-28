@@ -10,6 +10,7 @@ import userinterface
 import musicplayer
 import camera
 from arcade.experimental.lights import Light, LightLayer
+from pyglet.math import Vec2
 
 # 1280x720 = HD
 # 1920x1080 = FullHD
@@ -42,6 +43,10 @@ class GameWindow(arcade.Window):
         self.camera = camera.GameCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.camera_gui = camera.GameCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
 
+        # Light Related
+        self.light_layer = None
+        self.player_light = None
+
     def setup(self):
         """Sets up the game. Call to restart the game"""
 
@@ -54,6 +59,17 @@ class GameWindow(arcade.Window):
                 sprite = arcade.Sprite(os.path.join("assets", "tile", "grass_400.png"))
                 sprite.position = x, y
                 self.background_sprite_list.append(sprite)
+
+        # Light Related
+        self.light_layer = LightLayer(SCREEN_WIDTH, SCREEN_HEIGHT)
+        self.light_layer.set_background_color(arcade.color.BLACK)
+        # Create a light to follow the player around.
+        radius = 175
+        mode = "soft"
+        color = (
+            arcade.csscolor.DARK_GOLDENROD
+        )  # DARK_GOLDENROD  # PALE_GOLDENROD  # LIGHT_SLATE_GREY
+        self.player_light = Light(0, 0, radius, color, mode)
 
         # Start music
         self.music_player.play()
@@ -68,9 +84,14 @@ class GameWindow(arcade.Window):
         self.camera.camera_sprites.use()
 
         # Do rendering here
-        self.background_sprite_list.draw()
-        self.player.draw_self()
-        self.enemy_manager.draw_enemies()
+        # Light Related
+        with self.light_layer:
+            self.background_sprite_list.draw()
+            self.player.draw_self()
+            self.enemy_manager.draw_enemies()
+        self.light_layer.draw(ambient_color=AMBIENT_COLOR)
+
+        # self.player.draw_self()
         self.camera.camera_gui.use()
         self.camera.draw_border()
         self.ui.draw_self()
@@ -81,6 +102,7 @@ class GameWindow(arcade.Window):
         self.player.update(delta_time)
         self.enemy_manager.update(delta_time, self.player)
         self.camera.follow_camera(self.player)
+        self.player_light.position = self.player.position.x, self.player.position.y
         self.ui.update_score()
 
     def on_key_press(self, key, key_modifiers):
@@ -88,6 +110,15 @@ class GameWindow(arcade.Window):
 
         self.player.receive_key_down(key)
         self.ui.recive_key_down(key)
+
+        if key == arcade.key.TAB:
+            # --- Light related ---
+            # We can add/remove lights from the light layer. If they aren't
+            # in the light layer, the light is off.
+            if self.player_light in self.light_layer:
+                self.light_layer.remove(self.player_light)
+            else:
+                self.light_layer.add(self.player_light)
 
     def on_key_release(self, key, key_modifiers):
         """Called whenever a key on the keyboard is released"""
