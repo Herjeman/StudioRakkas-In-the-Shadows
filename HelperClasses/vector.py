@@ -76,7 +76,7 @@ class Vector2:
         return Vector2(x, y)
 
     def __str__(self):
-        return f'{self.x}, {self.y}'
+        return f"{self.x}, {self.y}"
 
     def __add__(self, other):
         return Vector2(self.x + other.x, self.y + other.y)

@@ -7,6 +7,8 @@ CAMERA_SPEED = 1
 
 
 class GameCamera:
+    """Camera class"""
+
     def __init__(self, width, height):
 
         self.camera_sprites = arcade.Camera(width, height)
@@ -16,7 +18,7 @@ class GameCamera:
         self.camera_sprites.use()
 
     def follow_camera(self, player: player.Player):
-        """Camera that follows player"""
+        """Camera that follows player, centered screen"""
         position = Vec2(
             player.position.x - main.SCREEN_WIDTH / 2,
             player.position.y - main.SCREEN_HEIGHT / 2,

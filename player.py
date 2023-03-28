@@ -74,7 +74,9 @@ class Player:
 
     def update(self, delta_time):
 
-        self.position = self.position + self.move.get_normalized() * self.speed * delta_time
+        self.position = (
+            self.position + self.move.get_normalized() * self.speed * delta_time
+        )
         self.sprite.set_position(self.position.x, self.position.y)
         self.sprite_list.update()
         self.sprite_list.update_animation()

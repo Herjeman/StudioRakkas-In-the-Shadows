@@ -8,7 +8,6 @@ from HelperClasses import vector
 
 
 class EnemyManager:
-
     def __init__(self):
         self.spawn_interval = 5
         self.spawn_timer = self.spawn_interval
@@ -40,8 +39,12 @@ class EnemyManager:
         """Spawns a new guard"""
 
         # find a spot at a reasonable distance from player
-        offset = random.randint(self.minimum_spawn_distance, self.maximum_spawn_distance)
+        offset = random.randint(
+            self.minimum_spawn_distance, self.maximum_spawn_distance
+        )
 
-        spawn_position = active_player.position + vector.get_random_unit_vector()*offset
+        spawn_position = (
+            active_player.position + vector.get_random_unit_vector() * offset
+        )
 
         self.active_enemies.append(enemy.Enemy(spawn_position.x, spawn_position.y))

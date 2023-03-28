@@ -78,7 +78,12 @@ class Enemy:
         self.sprite.scale = 4.5
         self.sprite_list.append(self.sprite)
 
-    def update(self, delta_time, active_player: player.Player, enemy_manager: enemymanager.EnemyManager):
+    def update(
+        self,
+        delta_time,
+        active_player: player.Player,
+        enemy_manager: enemymanager.EnemyManager,
+    ):
 
         distance_vector = self.position - active_player.position
         distance_to_player = distance_vector.get_magnitude()
