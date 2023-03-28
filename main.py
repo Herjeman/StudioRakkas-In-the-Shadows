@@ -11,8 +11,10 @@ import musicplayer
 import camera
 from arcade.experimental.lights import Light, LightLayer
 
-SCREEN_WIDTH = 1200
-SCREEN_HEIGHT = 720
+# 1280x720 = HD
+# 1920x1080 = FullHD
+SCREEN_WIDTH = 1640
+SCREEN_HEIGHT = 1000
 SCREEN_TITLE = "Unknown Game"
 
 # Color of darkness
@@ -37,8 +39,8 @@ class GameWindow(arcade.Window):
 
         self.music_player = musicplayer.MusicPlayer()
 
-        self.camera_gui = arcade.Camera(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.camera = camera.GameCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
+        self.camera_gui = camera.GameCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
 
     def setup(self):
         """Sets up the game. Call to restart the game"""
@@ -63,13 +65,15 @@ class GameWindow(arcade.Window):
         self.clear()
 
         # Select the camera we'll use to draw all our sprites
-        self.camera.draw()
+        self.camera.camera_sprites.use()
 
         # Do rendering here
         self.background_sprite_list.draw()
         self.player.draw_self()
         self.enemy_manager.draw_enemies()
         self.ui.draw_self()
+        self.camera.camera_gui.use()
+        self.camera.draw_border()
 
     def on_update(self, delta_time: float):
         """Update logic goes here"""
@@ -77,7 +81,6 @@ class GameWindow(arcade.Window):
         self.player.update(delta_time)
         self.enemy_manager.update(delta_time, self.player)
         self.ui.update_score()
-        # self.follow_camera()
         self.camera.follow_camera(self.player)
 
     def on_key_press(self, key, key_modifiers):
