@@ -84,15 +84,13 @@ class SoundOptions:
 
     # different buttons
     def volume_on_click(self, event):
-        print("volume on")
-        self.music_player.start()
+        self.music_player.stop()
         self.music_on = True
         self.volume_buttons()
 
 
     def volume_off_click(self, event):
-        print("volume off")
-        self.music_player.stop()
+        self.music_player.start()
         self.music_on = False
         self.volume_buttons()
 
