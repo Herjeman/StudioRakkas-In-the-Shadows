@@ -10,18 +10,16 @@ class UserInterface:
 
     def __init__(self):
         self.points: int = 0
-        #self.uimanager = arcade.gui.UIManager()
+        # self.uimanager = arcade.gui.UIManager()
         self.points = 10
 
-        self.sound_options = (soundoptions.SoundOptions())
-        self.general_options = (generaloptions.GeneralOptions())
+        self.sound_options = soundoptions.SoundOptions()
+        self.general_options = generaloptions.GeneralOptions()
         main.GAME_MANAGER.current_options = self.general_options
-        
+
         # self.general_options.sound_options = main.GAME_MANAGER.UI_sound[
         #     0
         # ]  # Evil pointer hack
-
-
 
     def recive_key_down(self, key):
         # if escape iif pressed and options are openn sett all options to false
@@ -34,7 +32,6 @@ class UserInterface:
                 main.GAME_MANAGER.open_options = True
                 main.GAME_MANAGER.current_options = self.general_options
                 main.GAME_MANAGER.current_options.option_buttons()
-
 
     def update_score(self):
         self.points = int(main.GAME_MANAGER.score)
@@ -51,8 +48,8 @@ class UserInterface:
         # socriing
         arcade.draw_text(
             self.points,
-            main.SCREEN_WIDTH / 32,
-            main.SCREEN_HEIGHT / 1.10,
+            main.SCREEN_WIDTH / 5,
+            main.SCREEN_HEIGHT / 1.17,
             arcade.color.BABY_BLUE,
             40,
             40,
@@ -60,15 +57,6 @@ class UserInterface:
         # draw the buttons for diferennt options
         if main.GAME_MANAGER.open_options:
             main.GAME_MANAGER.current_options.draw_self()
-
-
-
-
-
-
-
-
-
 
     # def option_buttons(self):
     #     self.uimanager.enable()

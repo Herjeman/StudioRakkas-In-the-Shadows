@@ -71,17 +71,17 @@ class GameWindow(arcade.Window):
         self.background_sprite_list.draw()
         self.player.draw_self()
         self.enemy_manager.draw_enemies()
-        self.ui.draw_self()
         self.camera.camera_gui.use()
         self.camera.draw_border()
+        self.ui.draw_self()
 
     def on_update(self, delta_time: float):
         """Update logic goes here"""
 
         self.player.update(delta_time)
         self.enemy_manager.update(delta_time, self.player)
-        self.ui.update_score()
         self.camera.follow_camera(self.player)
+        self.ui.update_score()
 
     def on_key_press(self, key, key_modifiers):
         """Called when a key on the keyboard is pressed"""
