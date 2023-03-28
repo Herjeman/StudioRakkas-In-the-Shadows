@@ -15,13 +15,25 @@ class SoundOptions:
         print("Sound options object created")
 
     def volume_buttons(self):
+
+        volume_off_button = arcade.gui.UIFlatButton(text="Volume Off", width=200)
+        self.uimanager.add(
+            arcade.gui.UIAnchorWidget(
+                anchor_x="center_x",
+                anchor_y="center_y",
+                align_y=+200,
+                child=volume_off_button,
+            )
+        )
+        volume_off_button.on_click = self.volume_off_click
+
         # self.uimanager.enable()
         valume_up_button = arcade.gui.UIFlatButton(text="Volume UP", width=200)
         self.uimanager.add(
             arcade.gui.UIAnchorWidget(
                 anchor_x="center_x",
                 anchor_y="center_y",
-                align_y=+200,
+                align_y=+100,
                 child=valume_up_button,
             )
         )
@@ -32,29 +44,18 @@ class SoundOptions:
             arcade.gui.UIAnchorWidget(
                 anchor_x="center_x",
                 anchor_y="center_y",
-                align_y=+100,
+                align_y=0,
                 child=volume_down_button,
             )
         )
         volume_down_button.on_click = self.volume_down_click
-
-        volume_off_button = arcade.gui.UIFlatButton(text="Volume Off", width=200)
-        self.uimanager.add(
-            arcade.gui.UIAnchorWidget(
-                anchor_x="center_x",
-                anchor_y="center_y",
-                align_y=0,
-                child=volume_off_button,
-            )
-        )
-        volume_off_button.on_click = self.volume_off_click
 
         options_button = arcade.gui.UIFlatButton(text="Options", width=200)
         self.uimanager.add(
             arcade.gui.UIAnchorWidget(
                 anchor_x="center_x",
                 anchor_y="center_y",
-                align_y=0,
+                align_y=-100,
                 child=options_button,
             )
         )
