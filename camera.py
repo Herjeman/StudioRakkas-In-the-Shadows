@@ -1,5 +1,4 @@
 import arcade
-
 import player
 
 import main
@@ -14,22 +13,9 @@ class GameCamera:
 
         self.camera_sprites = arcade.Camera(width, height)
         self.camera_gui = arcade.Camera(width, height)
-        # self.position = Vec2(width, height)
-        # self.player = main.player.Player(
-        #     main.SCREEN_WIDTH * 0.5, main.SCREEN_HEIGHT * 0.5
-        # )
-
-        # player.Player(width * 0.5, height * 0.5)
-        # self.position = Vec2(
-        #     self.player.position.x - width / 2,
-        #     self.player.position.y - height / 2,
-        # )
 
     def draw(self):
         self.camera_sprites.use()
-
-    # def update(self):
-    #     self.follow_camera(player.Player)
 
     def follow_camera(self, player: player.Player):
         """Camera that follows player"""

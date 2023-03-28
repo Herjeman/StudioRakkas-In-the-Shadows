@@ -71,7 +71,6 @@ class GameWindow(arcade.Window):
         self.clear()
 
         # Select the camera we'll use to draw all our sprites
-        # self.camera.draw()
         self.camera.draw()
 
         # Do rendering here
@@ -116,14 +115,6 @@ class GameWindow(arcade.Window):
         Called when a user releases a mouse button.
         """
         pass
-
-    # def follow_camera(self):
-    #     """Camera that follows player"""
-    #     position = Vec2(
-    #         self.player.position.x - self.width / 2,
-    #         self.player.position.y - self.height / 2,
-    #     )
-    #     self.camera_sprites.move_to(position, CAMERA_SPEED)
 
 
 def main():
