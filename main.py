@@ -8,6 +8,7 @@ import userinterface
 from HelperClasses import vector
 import userinterface
 import musicplayer
+import camera
 from pyglet.math import Vec2
 from arcade.experimental.lights import Light, LightLayer
 
@@ -16,7 +17,7 @@ SCREEN_HEIGHT = 720
 SCREEN_TITLE = "Unknown Game"
 
 # How fast the camera pans to the player. 1.0 is instant.
-CAMERA_SPEED = 1
+CAMERA_SPEED = camera.CAMERA_SPEED
 
 # Color of darkness
 AMBIENT_COLOR = (10, 10, 10)
@@ -42,6 +43,10 @@ class GameWindow(arcade.Window):
 
         self.camera_sprites = arcade.Camera(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.camera_gui = arcade.Camera(SCREEN_WIDTH, SCREEN_HEIGHT)
+        self.camera = camera.GameCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
+        # print(self.camera.camera_sprites)
+        # self.camera_sprites = arcade.Camera(SCREEN_WIDTH, SCREEN_HEIGHT)
+        # self.camera_gui = arcade.Camera(SCREEN_WIDTH, SCREEN_HEIGHT)
 
     def setup(self):
         """Sets up the game. Call to restart the game"""
@@ -66,7 +71,8 @@ class GameWindow(arcade.Window):
         self.clear()
 
         # Select the camera we'll use to draw all our sprites
-        self.camera_sprites.use()
+        # self.camera.draw()
+        self.camera.draw()
 
         # Do rendering here
         self.background_sprite_list.draw()
@@ -81,6 +87,7 @@ class GameWindow(arcade.Window):
         self.enemy_manager.update(delta_time, self.player)
         self.ui.update_score()
         self.follow_camera()
+        self.camera.follow_camera(self.player)
 
     def on_key_press(self, key, key_modifiers):
         """Called when a key on the keyboard is pressed"""
@@ -110,14 +117,13 @@ class GameWindow(arcade.Window):
         """
         pass
 
-    def follow_camera(self):
-        """Camera that follows player"""
-        position = Vec2(
-            self.player.position.x - self.width / 2,
-            self.player.position.y - self.height / 2,
-        )
-        self.camera_sprites.move_to(position, CAMERA_SPEED)
-        pass
+    # def follow_camera(self):
+    #     """Camera that follows player"""
+    #     position = Vec2(
+    #         self.player.position.x - self.width / 2,
+    #         self.player.position.y - self.height / 2,
+    #     )
+    #     self.camera_sprites.move_to(position, CAMERA_SPEED)
 
 
 def main():
