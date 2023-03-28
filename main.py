@@ -7,6 +7,7 @@ import gamemanager
 import userinterface
 from HelperClasses import vector
 import userinterface
+import musicplayer
 from pyglet.math import Vec2
 from arcade.experimental.lights import Light, LightLayer
 
@@ -37,6 +38,8 @@ class GameWindow(arcade.Window):
         self.background_sprite_list = None
         self.ui = userinterface.Options()
 
+        self.music_player = musicplayer.MusicPlayer()
+
         self.camera_sprites = arcade.Camera(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.camera_gui = arcade.Camera(SCREEN_WIDTH, SCREEN_HEIGHT)
 
@@ -52,6 +55,9 @@ class GameWindow(arcade.Window):
                 sprite = arcade.Sprite(os.path.join("assets", "tile", "grass_400.png"))
                 sprite.position = x, y
                 self.background_sprite_list.append(sprite)
+
+        # Start music
+        self.music_player.play()
 
     def on_draw(self):
         """Render the screen"""
