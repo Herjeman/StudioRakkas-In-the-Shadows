@@ -63,7 +63,7 @@ class GameWindow(arcade.Window):
         # Light Related
         self.light_layer = LightLayer(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.light_layer.set_background_color(arcade.color.BLACK)
-        # Create a light to follow the player around.
+        # Creates a light that follows the player around.
         radius = 175
         mode = "soft"
         color = (
@@ -91,9 +91,11 @@ class GameWindow(arcade.Window):
             self.enemy_manager.draw_enemies()
         self.light_layer.draw(ambient_color=AMBIENT_COLOR)
 
-        # self.player.draw_self()
         self.camera.camera_gui.use()
-        self.camera.draw_border()
+
+        # use this if u want a border
+        # self.camera.draw_border()
+
         self.ui.draw_self()
 
     def on_update(self, delta_time: float):
