@@ -13,7 +13,8 @@ class MusicPlayer:
         self.speed = 1.0
 
         self.active_music_player = None
-
+        print("music innnitiated")
+        
     def play(self):
         self.active_music_player = arcade.play_sound(
             self.song, self.volume, self.pan, self.loop, self.speed

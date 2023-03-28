@@ -65,6 +65,12 @@ class SoundOptions:
         self.uimanager.enable()
         return self.uimanager.draw()
 
+    
+    def enable(self):
+        self.uimanager.enable()
+    def diable(self):
+        self.uimanager.disable()
+
     def volume_off_click(self, event):
         print("volume off", event)
 
