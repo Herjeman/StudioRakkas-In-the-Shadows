@@ -14,41 +14,39 @@ class UserInterface:
         #self.uimanager = arcade.gui.UIManager()
         self.points = 10
 
-        self.sound_options_instance = soundoptions.SoundOptions()
-        self.general_options_instance = generaloptions.GeneralOptions()
-
-        # main.GAME_MANAGER.UI_sound.append(self.sound_options_instance)
-        # main.GAME_MANAGER.UI_general.append(self.general_options_instance)
-
+        self.sound_options = (soundoptions.SoundOptions())
+        self.general_options = (generaloptions.GeneralOptions())
+        main.GAME_MANAGER.current_options = self.general_options
         # self.general_options.sound_options = main.GAME_MANAGER.UI_sound[
         #     0
         # ]  # Evil pointer hack
 
         self.open_options = False
 
-        # arcade.draw_text()
 
     def recive_key_down(self, key):
-        # iif escape iif pressed and options are openn sett all options to false
+        # if escape iif pressed and options are openn sett all options to false
         if key == arcade.key.ESCAPE:
             if self.open_options:
                 self.open_options = False
-                self.general_options.uimanager.disable()
+                main.GAME_MANAGER.current_options.disable()
             else:
                 # if no optiosn open and press scape start standard optionns
                 self.open_options = True
-                self.option_buttons()
+                main.GAME_MANAGER.current_options = self.general_options
+                main.GAME_MANAGER.current_options.option_buttons()
+
 
     def update_score(self):
         self.points = int(main.GAME_MANAGER.score)
 
-    def draw_self(self):
-        arcade.draw_text(
-            self.points,
-            main.SCREEN_WIDTH / 32,
-            main.SCREEN_HEIGHT / 1.10,
-            self.general_options.uimanager.enable(),
-        )
+    # def draw_self(self):
+    #     arcade.draw_text(
+    #         self.points,
+    #         main.SCREEN_WIDTH / 32,
+    #         main.SCREEN_HEIGHT / 1.10,
+    #         #gamemanager.GameManager.UI_general.uimanager.enable(),
+    #     )
 
     def draw_self(self):
         # socriing
@@ -62,14 +60,7 @@ class UserInterface:
         )  # anchor_x="right", anchor_y="top" to channge to top right cornner
         # draw the buttons for diferennt options
         if self.open_options:
-            # arcade.draw_rectangle_filled(
-            #     main.SCREEN_WIDTH / 2,
-            #     main.SCREEN_HEIGHT / 2,
-            #     main.SCREEN_WIDTH / 2,
-            #     main.SCREEN_HEIGHT / 1.25,
-            #     arcade.color.RED,
-            # )
-            self.sound_options_instance.draw_self()
+            main.GAME_MANAGER.current_options.draw_self()
 
 
 

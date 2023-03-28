@@ -2,6 +2,7 @@ import arcade
 import arcade.gui
 import main
 import userinterface
+import generaloptions
 
 
 class SoundOptions:
@@ -60,6 +61,7 @@ class SoundOptions:
         options_button.on_click = self.options_click
 
     def draw_self(self):
+        self.uimanager.enable()
         return self.uimanager.draw()
 
     def volume_up_click(self, event):
@@ -72,7 +74,5 @@ class SoundOptions:
         print("volume off", event)
 
     def options_click(self, event):
-        print("options click")
-        # self.general_options.open_options = True
-        # self.uimanager.disable()
-        # self.general_options.uimanager.enable()
+        main.GAME_MANAGER.current_options = generaloptions.GeneralOptions()
+        self.uimanager.disable()

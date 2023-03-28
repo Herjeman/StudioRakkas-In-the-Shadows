@@ -2,6 +2,7 @@ import arcade
 import arcade.gui
 import main
 import userinterface
+import soundoptions
 
 
 class GeneralOptions:
@@ -10,7 +11,6 @@ class GeneralOptions:
     def __init__(self):
         self.open_options = False
         self.uimanager = arcade.gui.UIManager()
-        self.sound_options = None
         self.option_buttons()
 
     def option_buttons(self):
@@ -53,7 +53,13 @@ class GeneralOptions:
         )
         quit_button.on_click = self.quit_game_button_click
 
+    def enable(self):
+        self.uimanager.enable()
+    def diable(self):
+        self.uimanager.disable()
+
     def draw_self(self):
+        self.uimanager.enable()
         return self.uimanager.draw()
 
     def resume_game_button_click(self, event):
@@ -63,9 +69,8 @@ class GeneralOptions:
         print("new game button", event)
 
     def sound_button_click(self, event):
-        self.sound_options.open_sound = True
+        main.GAME_MANAGER.current_options = (soundoptions.SoundOptions())
         self.uimanager.disable()
-        self.sound_options.uimanager.enable()
 
     def quit_game_button_click(self, event):
         print("quit button")
