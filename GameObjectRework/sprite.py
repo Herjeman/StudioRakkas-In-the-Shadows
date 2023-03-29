@@ -57,7 +57,7 @@ def set_up_sprites(path, scale: float = 2.5):
                 height=16,
             )
         )
-    sprite.scale = 4.5
+    sprite.scale = scale
     sprite_list.append(sprite)
     return sprite, sprite_list
 

@@ -16,13 +16,13 @@ from HelperClasses import vector
 
 
 class Enemy:
-    def __init__(self, spawn_x, spawn_y):
+    def __init__(self, spawn_x, spawn_y, max_speed=400, acceleration=20, scale=4.5):
 
-        self.sprite = None
-        self.sprite_list = None
+        self.sprite = max_speed
+        self.sprite_list = acceleration
 
-        self.max_speed = 350
-        self.acceleration = 20
+        self.max_speed = max_speed
+        self.acceleration = acceleration
         self.position = vector.Vector2(spawn_x, spawn_y)
         self.velocity = vector.Vector2(0, 0)
 
@@ -30,13 +30,14 @@ class Enemy:
         self.stop_follow_distance = 750
         self.following = False
 
-        self.sprite, self.sprite_list = sprite.set_up_sprites(os.path.join("assets", "enemy_sprites", "enemy1_sprite.png"), 4.5)
+        self.sprite, self.sprite_list = sprite.set_up_sprites(
+            os.path.join("assets", "enemy_sprites", "enemy1_sprite.png"), scale)
 
     def update(
-        self,
-        delta_time,
-        active_player: player.Player,
-        enemy_manager: enemymanager.EnemyManager,
+            self,
+            delta_time,
+            active_player: player.Player,
+            enemy_manager: enemymanager.EnemyManager,
     ):
 
         self.sprite.set_position(self.position.x, self.position.y)

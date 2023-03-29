@@ -49,7 +49,10 @@ class EnemyManager:
             active_player.position + vector.get_random_unit_vector() * offset
         )
 
-        self.active_enemies.append(enemy.Enemy(spawn_position.x, spawn_position.y))
+        max_speed = random.randint(250, 600)
+        acceleration = random.randint(10, 50)
+        scale = random.randint(3, 8)
+        self.active_enemies.append(enemy.Enemy(spawn_position.x, spawn_position.y, max_speed, acceleration, scale))
 
     def is_point_colliding_with_enemy(self, point: pyglet.math.Vec2, exclude: enemy = None):
         """Returns true if the point is colliding with an enemy. An object can be passed to exclude, intended to skip
