@@ -18,7 +18,7 @@ class Player:
 
         self.set_up_sprite()
         self.damage_sfx = self.setup_sound()
-        self.sfx_volume = 1
+        self.sfx_volume = 0.5
 
     def set_up_sprite(self):
         player_sprite = os.path.join("assets", "player", "player_sprite.png")
