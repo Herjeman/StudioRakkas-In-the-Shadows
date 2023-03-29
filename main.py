@@ -101,7 +101,9 @@ class GameWindow(arcade.Window):
             self.background_sprite_list.draw()
             self.player.draw_self()
             self.enemy_manager.draw_enemies()
+
         self.light_layer.draw(ambient_color=AMBIENT_COLOR)
+        # self.light.light_on()
 
         self.camera.camera_gui.use()
 
@@ -161,4 +163,3 @@ def main():
 # Press the green button in the gutter to run the script.
 if __name__ == "__main__":
     main()
-

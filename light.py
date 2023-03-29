@@ -1,5 +1,6 @@
 import arcade
 import player
+import random
 from arcade.experimental.lights import Light, LightLayer
 
 # Color of darkness
@@ -12,7 +13,8 @@ class GameLight:
     def __init__(self, width, height) -> None:
 
         self.light_layer = LightLayer(width, height)
-        self.player_light = Light(0, 0, 175, arcade.csscolor.DARK_GOLDENROD, "soft")
+        self.player_light = None
+        # Light(0, 0, 175, arcade.csscolor.DARK_GOLDENROD, "soft")
 
     # def create_light_point(
     #     self, x_pos: int, y_pos: int, radius: int, color: arcade.csscolor, mode: str
@@ -30,20 +32,46 @@ class GameLight:
     #     # self.light_layer.add(light)
     #     return light
 
-    # def player_flashlight(self):
-    #     """Creates the light point that follows the player around"""
-    #     # DARK_GOLDENROD  # PALE_GOLDENROD  # LIGHT_SLATE_GREY
-    #     self.player_light = Light(0, 0, 175, arcade.csscolor.DARK_GOLDENROD, "soft")
+    def player_flashlight(self):
+        """Creates the light point that follows the player around"""
+        # DARK_GOLDENROD  # a  #
+
+        x = 0
+        y = 0
+        r = random.randint(10, 175)
+        c = random.choice(
+            [
+                arcade.csscolor.DARK_GOLDENROD,
+                arcade.csscolor.PALE_GOLDENROD,
+                arcade.csscolor.LIGHT_SLATE_GREY,
+                arcade.csscolor.LIGHT_GOLDENROD_YELLOW,
+            ]
+        )
+        player_light = Light(x, y, r, c, "soft")
+        return player_light
+
+    def light_on(self):
+
+        if self.player_light not in self.light_layer:
+            self.light_layer.add(self.player_light)
 
     def update(self, player: player.Player):
         """updates the light that follows player, centered to player"""
-        self.player_light.position = player.position.x, player.position.y
+
+        if self.player_light not in self.light_layer:
+            self.player_light = self.player_flashlight()
+            self.player_light.position = player.position.x, player.position.y
+            self.light_layer.add(self.player_light)
+        else:
+            # if self.player_light in self.light_layer:
+            self.player_light.position = player.position.x, player.position.y
+            self.light_layer.remove(self.player_light)
 
     def receive_key_down(self, key: int):
         if key == arcade.key.TAB:
             # We can add/remove lights from the light layer. If they aren't
             # in the light layer, the light is off.
-            if self.player_light not in self.light_layer:
-                self.light_layer.add(self.player_light)
-            else:
+            if self.player_light in self.light_layer:
                 self.light_layer.remove(self.player_light)
+            else:
+                self.light_layer.add(self.player_light)
