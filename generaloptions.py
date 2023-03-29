@@ -68,6 +68,7 @@ class GeneralOptions:
 
     def resume_game_button_click(self, event):
         self.uimanager.disable()
+        self.window_class.pause = False
         main.GAME_MANAGER.open_options = False
 
     def new_game_button_click(self, event):
