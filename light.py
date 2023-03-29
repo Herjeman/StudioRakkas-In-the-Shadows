@@ -38,13 +38,18 @@ class GameLight:
 
         x = 0
         y = 0
-        r = random.randint(10, 175)
+        r = random.randint(35, 300)
         c = random.choice(
             [
                 arcade.csscolor.DARK_GOLDENROD,
                 arcade.csscolor.PALE_GOLDENROD,
-                arcade.csscolor.LIGHT_SLATE_GREY,
+                # arcade.csscolor.LIGHT_SLATE_GREY,
                 arcade.csscolor.LIGHT_GOLDENROD_YELLOW,
+                arcade.csscolor.GREENYELLOW,
+                arcade.csscolor.MEDIUM_PURPLE,
+                arcade.csscolor.GHOST_WHITE,
+                arcade.csscolor.PALE_VIOLET_RED,
+                # arcade.csscolor.ORANGE_RED,
             ]
         )
         player_light = Light(x, y, r, c, "soft")
