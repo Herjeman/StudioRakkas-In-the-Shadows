@@ -124,6 +124,9 @@ class Enemy:
             for enemy in enemy_manager.active_enemies:
                 if enemy == self:
                     continue
+                if type(enemy) != type(self):
+                    print(f'WARNING!!! Found object of type: {type(enemy)} in enemy list')
+                    continue
 
                 if self.sprite.collides_with_sprite(enemy.sprite):
                     # Collided with other enemy, check if it is in the move direction
