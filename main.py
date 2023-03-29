@@ -6,6 +6,7 @@ import enemy
 import os
 import enemymanager
 import gamemanager
+import sfxplayer
 import userinterface
 from HelperClasses import vector
 import userinterface
@@ -33,13 +34,13 @@ class GameWindow(arcade.Window):
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
 
-        self.player = player.Player(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5)
         self.enemy_manager = enemymanager.EnemyManager()
-        # self.game_manager = gamemanager.GameManager()
-
         self.background_sprite_list = None
 
         self.music_player = musicplayer.MusicPlayer()
+        self.sfx_player = sfxplayer.SFXPlayer()
+
+        self.player = player.Player(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5, self.sfx_player)
 
         self.ui = userinterface.UserInterface(self.music_player, self)
 
