@@ -8,13 +8,15 @@ import generaloptions
 class UserInterface():
     '''Class for option mennue accessed by "ESCAPE"'''
 
-    def __init__(self, music_player):
+    def __init__(self, music_player, window_class):
         self.points: int = 0
         # self.uimanager = arcade.gui.UIManager()
         self.points = 10
         #self.sound_options = soundoptions.SoundOptions(music_player)
-        self.general_options = generaloptions.GeneralOptions(music_player)
+        self.window_class = window_class
+        self.general_options = generaloptions.GeneralOptions(music_player, self.window_class)
         main.GAME_MANAGER.current_options = self.general_options
+
 
         # self.general_options.sound_options = main.GAME_MANAGER.UI_sound[
         #     0

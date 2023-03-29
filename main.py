@@ -41,13 +41,14 @@ class GameWindow(arcade.Window):
 
         self.music_player = musicplayer.MusicPlayer()
 
-        self.ui = userinterface.UserInterface(self.music_player)
+        self.ui = userinterface.UserInterface(self.music_player, self)
 
         self.camera = camera.GameCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.camera_gui = camera.GameCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
 
         self.light = light.GameLight(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.light_layer = self.light.light_layer
+        self.pause = False
 
     def setup(self):
         """Sets up the game. Call to restart the game"""
@@ -95,12 +96,12 @@ class GameWindow(arcade.Window):
 
     def on_update(self, delta_time: float):
         """Update logic goes here"""
-
-        self.player.update(delta_time)
-        self.enemy_manager.update(delta_time, self.player)
-        self.camera.follow_camera(self.player)
-        self.light.update(self.player)
-        self.ui.update_score()
+        if self.pause == False:
+            self.player.update(delta_time)
+            self.enemy_manager.update(delta_time, self.player)
+            self.camera.follow_camera(self.player)
+            self.light.update(self.player)
+            self.ui.update_score()
 
     def on_key_press(self, key, key_modifiers):
         """Called when a key on the keyboard is pressed"""
@@ -142,3 +143,4 @@ def main():
 # Press the green button in the gutter to run the script.
 if __name__ == "__main__":
     main()
+
