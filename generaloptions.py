@@ -14,6 +14,7 @@ class GeneralOptions:
         self.option_buttons()
         self.music_player = music_player
         self.window_class = window_class
+        self.new_game = False
 
     def option_buttons(self):
         # self.uimanager.enable()
@@ -70,9 +71,13 @@ class GeneralOptions:
         main.GAME_MANAGER.open_options = False
 
     def new_game_button_click(self, event):
-        self.music_player.stop()
-        self.window_class.setup()
-        main.GAME_MANAGER.open_options = False
+        if not self.new_game:
+            self.new_game = True
+            main.GAME_MANAGER.open_options = False
+            main.GAME_MANAGER.score = 0
+            self.music_player.stop()
+            self.window_class.setup()
+
 
     def sound_button_click(self, event):
         main.GAME_MANAGER.current_options = soundoptions.SoundOptions(self.music_player, self.window_class)
