@@ -4,7 +4,7 @@ from HelperClasses import vector
 
 
 class Player:
-    def __init__(self, spawn_x, spawn_y):
+    def __init__(self, spawn_x, spawn_y, sfx_player):
         self.sprite = None
         self.sprite_list = None
         self.up = False
@@ -17,8 +17,7 @@ class Player:
         self.hp = 100
 
         self.set_up_sprite()
-        self.damage_sfx = self.setup_sound()
-        self.sfx_volume = 0.5
+        self.sfx_player = sfx_player
 
     def set_up_sprite(self):
         player_sprite = os.path.join("assets", "player", "player_sprite.png")
@@ -76,10 +75,6 @@ class Player:
             )
         self.sprite.scale = 2.5
         self.sprite_list.append(self.sprite)
-
-    def setup_sound(self):
-        damage_sfx_path = os.path.join("assets", "audio", "oof.wav")
-        return arcade.load_sound(damage_sfx_path)
 
     def update(self, delta_time):
 
@@ -144,6 +139,6 @@ class Player:
 
     def take_damage(self, damage=5):
         self.hp -= damage
-        self.damage_sfx.play(volume=self.sfx_volume)
+        self.sfx_player.play_damage()
         if self.hp <= 0:
             arcade.exit()
