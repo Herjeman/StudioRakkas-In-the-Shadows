@@ -15,7 +15,7 @@ import light
 from pyglet.math import Vec2
 
 # 1280x720 = HD
-# 1920x1080 = FullHD
+# 1920x1080 = FullHDd
 SCREEN_WIDTH = 1640
 SCREEN_HEIGHT = 1000
 SCREEN_TITLE = "Unknown Game"
