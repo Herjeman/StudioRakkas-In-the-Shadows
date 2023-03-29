@@ -104,7 +104,7 @@ class Enemy:
                     collision_direction: vector.Vector2 = self.position - enemy.position
                     collision_direction = collision_direction.get_normalized()
 
-                    if vector.multiply_dot(self.velocity, collision_direction) > 0:
+                    if vector.multiply_dot(self.velocity, collision_direction) > -0.3:
                         # Collision is in move direction undo move
                         self.move(delta_time * -1)
 
