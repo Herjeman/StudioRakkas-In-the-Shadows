@@ -27,7 +27,7 @@ class Enemy:
         self.set_up_sprite()
 
     def set_up_sprite(self):
-        player_sprite = os.path.join("assets", "player", "player_sprite.png")
+        player_sprite = os.path.join("assets", "enemy_sprites", "enemy1_sprite.png")
 
         self.sprite_list = arcade.SpriteList()
         self.sprite = arcade.AnimatedWalkingSprite()
