@@ -18,6 +18,7 @@ class Player:
 
         self.set_up_sprite()
         self.damage_sfx = self.setup_sound()
+        self.sfx_volume = 1
 
     def set_up_sprite(self):
         player_sprite = os.path.join("assets", "player", "player_sprite.png")
@@ -143,6 +144,6 @@ class Player:
 
     def take_damage(self, damage=5):
         self.hp -= damage
-        self.damage_sfx.play()
+        self.damage_sfx.play(volume=self.sfx_volume)
         if self.hp <= 0:
             arcade.exit()
