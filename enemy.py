@@ -1,4 +1,8 @@
+import random
+
 import arcade
+import numpy
+import math
 
 import enemymanager
 import player
@@ -17,6 +21,7 @@ class Enemy:
         self.speed = 400
         self.position = vector.Vector2(spawn_x, spawn_y)
         self.follow_distance = 250
+        self.stop_follow_distance = 500
         self.following = False
 
         self.set_up_sprite()
@@ -85,10 +90,10 @@ class Enemy:
         enemy_manager: enemymanager.EnemyManager,
     ):
 
-        distance_vector = self.position - active_player.position
-        distance_to_player = distance_vector.get_magnitude()
+        move_vector = self.position - active_player.position
+        distance_to_player = move_vector.get_magnitude()
 
-        distance_vector = distance_vector.get_normalized()
+        move_vector = move_vector.get_normalized()
 
         if distance_to_player < self.follow_distance:
             if not self.following:
@@ -96,16 +101,58 @@ class Enemy:
                 enemy_manager.following_enemies += 1
                 self.following = True
 
-            self.position = self.position - distance_vector * self.speed * delta_time
-
-        elif self.following:
+        elif self.following and distance_to_player > self.stop_follow_distance:
             # Was following last cycle, subtract from enemies following
             enemy_manager.following_enemies -= 1
             self.following = False
 
+        if self.following:
+            self.position -= move_vector * self.speed * delta_time
+
         self.sprite.set_position(self.position.x, self.position.y)
         self.sprite_list.update()
         self.sprite_list.update_animation()
+
+        # Process collision
+        collided = False
+
+        if self.sprite.collides_with_sprite(active_player.sprite):
+            # Collided with player, undo Move
+            self.position += move_vector * self.speed * delta_time
+
+        if not collided:
+            for enemy in enemy_manager.active_enemies:
+                if enemy == self:
+                    continue
+
+                if self.sprite.collides_with_sprite(enemy.sprite):
+                    # Collided with other enemy, check if it is in the move direction
+                    collision_direction: vector.Vector2 = self.position - enemy.position
+                    collision_direction = collision_direction.get_normalized()
+
+                    if vector.multiply_dot(move_vector, collision_direction) > 0.3:
+                        # Collision is in move direction
+                        collided = True
+                        break
+
+        if collided:
+            # Undo move
+            self.position += move_vector * self.speed * delta_time
+
+            # Rotate Move
+            collision_angle = numpy.degrees(vector.compare_angle(move_vector, collision_direction))
+
+            if 90 < collision_angle < 180:
+                collision_direction = collision_direction.get_rotated(-65)
+
+            elif 180 < collision_angle < 210:
+                collision_direction = collision_direction.get_rotated(65)
+
+            move_vector = collision_direction
+
+            # Redo move at lower speed
+            self.position += move_vector * self.speed * delta_time * 0.5
+
 
     def draw_self(self):
         # arcade.draw_rectangle_filled(
