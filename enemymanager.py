@@ -49,8 +49,8 @@ class EnemyManager:
             active_player.position + vector.get_random_unit_vector() * offset
         )
 
-        max_speed = random.randint(300, 480)
-        acceleration = random.randint(10, 50)
+        max_speed = random.randint(300, 495)
+        acceleration = random.randint(20, 50)
         scale = random.randint(4, 8)
         self.active_enemies.append(enemy.Enemy(spawn_position.x, spawn_position.y, max_speed, acceleration, scale))
 

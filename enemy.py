@@ -27,7 +27,7 @@ class Enemy:
         self.velocity = vector.Vector2(0, 0)
 
         self.follow_distance = 250
-        self.stop_follow_distance = 750
+        self.stop_follow_distance = 100000
         self.following = False
 
         self.sprite, self.sprite_list = sprite.set_up_sprites(
@@ -104,9 +104,14 @@ class Enemy:
                     collision_direction: vector.Vector2 = self.position - enemy.position
                     collision_direction = collision_direction.get_normalized()
 
-                    if vector.multiply_dot(move_vector, collision_direction) > 0:
-                        # Collision is in move direction undo most of move
-                        self.move(delta_time * -0.5)
+                    if vector.multiply_dot(self.velocity, collision_direction) > 0:
+                        # Collision is in move direction undo move
+                        self.move(delta_time * -1)
+
+                        # Make enemy bounce off
+                        self.velocity = collision_direction * self.velocity.get_magnitude()
+                        self.move(delta_time * 0.6)
+
                         break
             except ValueError:
                 print(f'WARNING!!! Missing hitbox on {enemy}.')
