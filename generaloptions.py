@@ -58,7 +58,7 @@ class GeneralOptions:
 
     def enable(self):
         self.uimanager.enable()
-    def diable(self):
+    def disable(self):
         self.uimanager.disable()
 
     def draw_self(self):
@@ -72,6 +72,7 @@ class GeneralOptions:
     def new_game_button_click(self, event):
         self.music_player.stop()
         self.window_class.setup()
+        main.GAME_MANAGER.open_options = False
 
     def sound_button_click(self, event):
         main.GAME_MANAGER.current_options = soundoptions.SoundOptions(self.music_player, self.window_class)

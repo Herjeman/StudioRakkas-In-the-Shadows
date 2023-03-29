@@ -79,7 +79,7 @@ class SoundOptions:
     
     def enable(self):
         self.uimanager.enable()
-    def diable(self):
+    def disable(self):
         self.uimanager.disable()
 
 

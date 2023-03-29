@@ -4,7 +4,7 @@ from HelperClasses import vector
 
 
 class Player:
-    def __init__(self, spawn_x, spawn_y, sfx_player):
+    def __init__(self, spawn_x, spawn_y, sfx_player, game_window):
         self.sprite = None
         self.sprite_list = None
         self.up = False
@@ -15,6 +15,7 @@ class Player:
         self.move = vector.Vector2(0, 0)
         self.speed = 500
         self.hp = 100
+        self.game_window = game_window
 
         self.set_up_sprite()
         self.sfx_player = sfx_player
@@ -141,4 +142,6 @@ class Player:
         self.hp -= damage
         self.sfx_player.play_damage()
         if self.hp <= 0:
-            arcade.exit()
+            self.game_window.game_over = True
+
+            

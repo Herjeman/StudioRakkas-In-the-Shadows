@@ -14,7 +14,6 @@ class MusicPlayer:
         self.volume_change = 0.1
 
         self.active_music_player = None
-        print("music innnitiated")
         
     def play(self):
         self.active_music_player = arcade.play_sound(

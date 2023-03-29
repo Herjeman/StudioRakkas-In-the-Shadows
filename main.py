@@ -1,6 +1,5 @@
 import arcade
 import pyglet.math
-
 import player
 import enemy
 import os
@@ -14,6 +13,7 @@ import musicplayer
 import camera
 import light
 from pyglet.math import Vec2
+import game_ower_view
 
 # 1280x720 = HD
 # 1920x1080 = FullHDd
@@ -55,7 +55,7 @@ class GameWindow(arcade.Window):
         self.music_player = musicplayer.MusicPlayer()
         self.sfx_player = sfxplayer.SFXPlayer()
 
-        self.player = player.Player(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5, self.sfx_player)
+        self.player = player.Player(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5, self.sfx_player, self)
 
         self.ui = userinterface.UserInterface(self.music_player, self)
 
@@ -65,9 +65,12 @@ class GameWindow(arcade.Window):
         self.light = light.GameLight(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.light_layer = self.light.light_layer
         self.pause = False
+        self.game_over = False
 
         # Create Sprite Lists
         self.background_sprite_list = arcade.SpriteList()
+
+        self.game_over_view = game_ower_view.GameOverView(self)
 
         # Creates a bigger background from one sprite
         for x in range(-128, 2000, 128):
@@ -106,10 +109,12 @@ class GameWindow(arcade.Window):
         # self.camera.draw_border()
 
         self.ui.draw_self()
+        if self.game_over:
+            self.game_over_view.draw_self()
 
     def on_update(self, delta_time: float):
         """Update logic goes here"""
-        if self.pause == False:
+        if self.pause == False and self.game_over == False:
             self.player.update(delta_time)
             self.enemy_manager.update(delta_time, self.player)
             self.camera.follow_camera(self.player)
