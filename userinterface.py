@@ -25,11 +25,17 @@ class UserInterface():
     def recive_key_down(self, key):
         # if escape iif pressed and options are openn sett all options to false
         if key == arcade.key.ESCAPE:
+            # if self.window_class.pause == True:
+            #     self.window_class.pause = False
+            # elif self.window_class.pause == False:
+            #     self.window_class.pause = True  
             if main.GAME_MANAGER.open_options:
                 main.GAME_MANAGER.open_options = False
                 main.GAME_MANAGER.current_options.disable()
+                self.window_class.pause = True 
             else:
                 # if no optiosn open and press scape start standard optionns
+                self.window_class.pause = False
                 main.GAME_MANAGER.open_options = True
                 main.GAME_MANAGER.current_options = self.general_options
                 main.GAME_MANAGER.current_options.option_buttons()
