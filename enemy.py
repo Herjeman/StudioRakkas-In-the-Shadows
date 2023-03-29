@@ -87,22 +87,6 @@ class Enemy:
         else:
             return 0
 
-    def process_collision(self, move_vector, collision_direction, delta_time):
-        # Undo move
-        self.move(delta_time * -1)
-
-        # Rotate Move
-        collision_angle = numpy.degrees(vector.compare_angle(self.velocity, collision_direction))
-
-        if 90 < collision_angle < 180:
-            collision_direction = collision_direction.get_rotated(-65)
-
-        elif 180 < collision_angle < 210:
-            collision_direction = collision_direction.get_rotated(65)
-
-        # Redo move at lower speed
-        self.move(delta_time * 0.5)
-
     def check_collision(self, active_player, move_vector, enemy_manager, delta_time):
         # Check for collision with player
         if self.sprite.collides_with_sprite(active_player.sprite):
@@ -122,7 +106,7 @@ class Enemy:
 
                     if vector.multiply_dot(move_vector, collision_direction) > 0:
                         # Collision is in move direction undo most of move
-                        self.move(delta_time * -0.9)
+                        self.move(delta_time * -0.5)
                         break
             except ValueError:
                 print(f'WARNING!!! Missing hitbox on {enemy}.')
