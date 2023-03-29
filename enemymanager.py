@@ -1,3 +1,5 @@
+import pyglet.math
+
 import enemy
 import gamemanager
 import main
@@ -48,3 +50,16 @@ class EnemyManager:
         )
 
         self.active_enemies.append(enemy.Enemy(spawn_position.x, spawn_position.y))
+
+    def is_point_colliding_with_enemy(self, point: pyglet.math.Vec2, exclude: enemy = None):
+        """Returns true if the point is colliding with an enemy. An object can be passed to exclude, intended to skip
+        self"""
+
+        for instance in self.active_enemies:
+            if instance == exclude:
+                continue
+
+            if instance.sprite.collides_with_point((point.x, point.y)):
+                return True
+
+        return False

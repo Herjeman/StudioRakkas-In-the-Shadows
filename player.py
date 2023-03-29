@@ -5,6 +5,8 @@ from HelperClasses import vector
 
 class Player:
     def __init__(self, spawn_x, spawn_y):
+        self.sprite = None
+        self.sprite_list = None
         self.up = False
         self.down = False
         self.right = False
@@ -12,8 +14,10 @@ class Player:
         self.position = vector.Vector2(spawn_x, spawn_y)
         self.move = vector.Vector2(0, 0)
         self.speed = 500
+        self.hp = 100
 
         self.set_up_sprite()
+        self.damage_sfx = self.setup_sound()
 
     def set_up_sprite(self):
         player_sprite = os.path.join("assets", "player", "player_sprite.png")
@@ -72,6 +76,10 @@ class Player:
         self.sprite.scale = 2.5
         self.sprite_list.append(self.sprite)
 
+    def setup_sound(self):
+        damage_sfx_path = os.path.join("assets", "audio", "oof.wav")
+        return arcade.load_sound(damage_sfx_path)
+
     def update(self, delta_time):
 
         self.position = (
@@ -80,6 +88,10 @@ class Player:
         self.sprite.set_position(self.position.x, self.position.y)
         self.sprite_list.update()
         self.sprite_list.update_animation()
+
+        if self.hp < 100:
+            # Five seconds to regen from 1 hp
+            self.hp += int(20 * delta_time)
 
     def draw_self(self):
 
@@ -128,3 +140,9 @@ class Player:
             self.move.x -= 1
             self.sprite.change_x -= 1
             self.right = False
+
+    def take_damage(self, damage=5):
+        self.hp -= damage
+        self.damage_sfx.play()
+        if self.hp <= 0:
+            arcade.exit()

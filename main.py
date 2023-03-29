@@ -1,4 +1,6 @@
 import arcade
+import pyglet.math
+
 import player
 import enemy
 import os
@@ -36,7 +38,6 @@ class GameWindow(arcade.Window):
         # self.game_manager = gamemanager.GameManager()
 
         self.background_sprite_list = None
-
 
         self.music_player = musicplayer.MusicPlayer()
 

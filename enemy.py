@@ -21,7 +21,7 @@ class Enemy:
         self.speed = 400
         self.position = vector.Vector2(spawn_x, spawn_y)
         self.follow_distance = 250
-        self.stop_follow_distance = 500
+        self.stop_follow_distance = 750
         self.following = False
 
         self.set_up_sprite()
@@ -119,6 +119,7 @@ class Enemy:
         if self.sprite.collides_with_sprite(active_player.sprite):
             # Collided with player, undo Move
             self.position += move_vector * self.speed * delta_time
+            active_player.take_damage()
 
         if not collided:
             for enemy in enemy_manager.active_enemies:
