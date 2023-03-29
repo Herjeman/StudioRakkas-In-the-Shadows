@@ -70,10 +70,11 @@ class GeneralOptions:
         main.GAME_MANAGER.open_options = False
 
     def new_game_button_click(self, event):
-        print("new game button", self.window_class.pause)
+        self.music_player.stop()
+        self.window_class.setup()
 
     def sound_button_click(self, event):
-        main.GAME_MANAGER.current_options = soundoptions.SoundOptions(self.music_player)
+        main.GAME_MANAGER.current_options = soundoptions.SoundOptions(self.music_player, self.window_class)
         self.uimanager.disable()
 
     def quit_game_button_click(self, event):

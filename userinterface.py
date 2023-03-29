@@ -30,12 +30,13 @@ class UserInterface():
             # elif self.window_class.pause == False:
             #     self.window_class.pause = True  
             if main.GAME_MANAGER.open_options:
+                self.window_class.pause = False
                 main.GAME_MANAGER.open_options = False
                 main.GAME_MANAGER.current_options.disable()
-                self.window_class.pause = True 
+
             else:
                 # if no optiosn open and press scape start standard optionns
-                self.window_class.pause = False
+                self.window_class.pause = True
                 main.GAME_MANAGER.open_options = True
                 main.GAME_MANAGER.current_options = self.general_options
                 main.GAME_MANAGER.current_options.option_buttons()

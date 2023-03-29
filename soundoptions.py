@@ -8,13 +8,14 @@ import generaloptions
 class SoundOptions:
     '''Class for option mennue accessed by "SPACE"'''
 
-    def __init__(self, music_player):
+    def __init__(self, music_player, window_class):
         self.music_on = True
         self.open_sound = False
         self.uimanager = arcade.gui.UIManager()
         self.volume_buttons()
         self.music_player = music_player
         print(self.music_player)
+        self.window_class = window_class
 
 
     def volume_buttons(self):
@@ -84,13 +85,13 @@ class SoundOptions:
 
     # different buttons
     def volume_on_click(self, event):
-        self.music_player.stop()
+        self.music_player.start()
         self.music_on = True
         self.volume_buttons()
 
 
     def volume_off_click(self, event):
-        self.music_player.start()
+        self.music_player.stop()
         self.music_on = False
         self.volume_buttons()
 
@@ -104,5 +105,5 @@ class SoundOptions:
 
     # disables uimannager for sound options
     def options_click(self, event):
-        main.GAME_MANAGER.current_options = generaloptions.GeneralOptions(self.music_player)
+        main.GAME_MANAGER.current_options = generaloptions.GeneralOptions(self.music_player, self.window_class)
         self.uimanager.disable()

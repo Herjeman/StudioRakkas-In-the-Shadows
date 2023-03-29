@@ -33,6 +33,11 @@ class GameWindow(arcade.Window):
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
 
+
+    def setup(self):
+        """Sets up the game. Call to restart the game"""
+
+        
         self.player = player.Player(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5)
         self.enemy_manager = enemymanager.EnemyManager()
         # self.game_manager = gamemanager.GameManager()
@@ -49,9 +54,6 @@ class GameWindow(arcade.Window):
         self.light = light.GameLight(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.light_layer = self.light.light_layer
         self.pause = False
-
-    def setup(self):
-        """Sets up the game. Call to restart the game"""
 
         # Create Sprite Lists
         self.background_sprite_list = arcade.SpriteList()

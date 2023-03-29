@@ -22,10 +22,10 @@ class MusicPlayer:
         )
 
     def start(self):
-        self.active_music_player.pause()
+        self.active_music_player.play()
 
     def stop(self):
-        self.active_music_player.play()
+        self.active_music_player.pause()
 
     def volume_up(self):
         if self.volume < 1:
