@@ -114,16 +114,15 @@ class Enemy:
         for enemy in enemy_manager.active_enemies:
             if enemy == self:
                 continue
-            if type(enemy) != type(self):
-                print(f'WARNING!!! Found object of type: {type(enemy)} in enemy list')
-                continue
+            try:
+                if self.sprite.collides_with_sprite(enemy.sprite):
+                    # Collided with other enemy, check if it is in the move direction
+                    collision_direction: vector.Vector2 = self.position - enemy.position
+                    collision_direction = collision_direction.get_normalized()
 
-            if self.sprite.collides_with_sprite(enemy.sprite):
-                # Collided with other enemy, check if it is in the move direction
-                collision_direction: vector.Vector2 = self.position - enemy.position
-                collision_direction = collision_direction.get_normalized()
-
-                if vector.multiply_dot(move_vector, collision_direction) > 0:
-                    # Collision is in move direction undo most of move
-                    self.move(delta_time * -0.9)
-                    break
+                    if vector.multiply_dot(move_vector, collision_direction) > 0:
+                        # Collision is in move direction undo most of move
+                        self.move(delta_time * -0.9)
+                        break
+            except ValueError:
+                print(f'WARNING!!! Missing hitbox on {enemy}.')
