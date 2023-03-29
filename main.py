@@ -33,13 +33,22 @@ class GameWindow(arcade.Window):
 
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
-
+        self.player_light = None
+        self.background_sprite_list = None
+        self.pause = None
+        self.light_layer = None
+        self.light = None
+        self.camera_gui = None
+        self.camera = None
+        self.ui = None
+        self.player = None
+        self.sfx_player = None
+        self.music_player = None
+        self.enemy_manager = None
 
     def setup(self):
         """Sets up the game. Call to restart the game"""
 
-        
-        self.player = player.Player(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5)
         self.enemy_manager = enemymanager.EnemyManager()
         self.background_sprite_list = None
 
