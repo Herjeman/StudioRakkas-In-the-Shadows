@@ -72,7 +72,7 @@ class GameWindow(arcade.Window):
         # Create Sprite Lists
         self.background_sprite_list = arcade.SpriteList()
 
-        self.game_over_view = game_ower_view.GameOverView(self)
+        self.game_over_view = game_ower_view.GameOverView(self.music_player,self)
 
         # Creates a bigger background from one sprite
         for x in range(-128, 2000, 128):

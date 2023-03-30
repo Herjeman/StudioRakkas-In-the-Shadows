@@ -48,8 +48,8 @@ class UserInterface():
         # socriing
         arcade.draw_text(
             self.points,
-            main.SCREEN_WIDTH / 5,
-            main.SCREEN_HEIGHT / 1.17,
+            main.SCREEN_WIDTH / 22,
+            main.SCREEN_HEIGHT / 1.1,
             arcade.color.BABY_BLUE,
             40,
             40,

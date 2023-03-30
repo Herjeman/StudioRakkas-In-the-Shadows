@@ -1,10 +1,14 @@
 import arcade
 import main
 class GameOverView():
-    def __init__(self, game_window):
+    def __init__(self, music_player, game_window):
         super().__init__()
         self.time_taken = 0
-        self.game_window = game_window
+        self.window_class = game_window
+        self.uimanager = arcade.gui.UIManager()
+        self.game_over_buttons()
+        self.music_player = music_player
+
 
     def on_show_view(self):
         arcade.set_background_color(arcade.color.BLACK)
@@ -13,9 +17,25 @@ class GameOverView():
         """
         Draw "Game over" across the screen.
         """
-        arcade.draw_text("Game Over", 240, 400, arcade.color.WHITE, 54)
-        arcade.draw_text("Click to restart", 310, 300, arcade.color.WHITE, 24)
-        output_total = f"Total Score: {round(main.GAME_MANAGER.score)}"
-        arcade.draw_text(output_total, 10, 10, arcade.color.WHITE, 14)
+        # arcade.draw_text("Game Over", main.SCREEN_WIDTH/2-20, main.SCREEN_HEIGHT/2-20, arcade.color.WHITE, 40)
 
+        arcade.draw_text("Game Over",main.SCREEN_WIDTH/2, 
+                         main.SCREEN_HEIGHT/2+100,arcade.color.RED_DEVIL,40,anchor_x="center",anchor_y="center")
+        self.uimanager.draw()
+        self.uimanager.enable()
 
+    def game_over_buttons(self):
+        restart_game_button = arcade.gui.UIFlatButton(text="Restart Game", width=200)
+        self.uimanager.add(
+            arcade.gui.UIAnchorWidget(
+                anchor_x="center_x",
+                anchor_y="center_y",
+                align_y=0,
+                child=restart_game_button,
+            )
+        )
+        restart_game_button.on_click = self.restart_game_click
+
+    def restart_game_click(self, event):
+        self.window_class.setup()
+        self.music_player.stop()
