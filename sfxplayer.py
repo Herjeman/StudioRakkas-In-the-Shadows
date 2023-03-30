@@ -32,13 +32,13 @@ class SFXPlayer:
     def play_poop(self):
         if self.sound_on:
             self.active_sfx_player = arcade.play_sound(
-                self.sfx_poop, self.volume, self.pan, self.loop, self.speed
+                self.sfx_poop, self.volume * 0.7, self.pan, self.loop, self.speed
             )
 
     def play_moo(self):
         if self.sound_on:
             self.active_sfx_player = arcade.play_sound(
-                self.sfx_moo, self.volume, self.pan, self.loop, self.speed
+                self.sfx_moo, self.volume * 0.7, self.pan, self.loop, self.speed
             )
 
     def start(self):
