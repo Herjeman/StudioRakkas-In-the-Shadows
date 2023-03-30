@@ -3,7 +3,7 @@ import random
 import arcade
 import numpy
 import math
-from GameObjectRework import sprite
+
 import enemymanager
 import player
 import os
@@ -27,7 +27,64 @@ class Enemy:
         self.stop_follow_distance = 750
         self.following = False
 
-        self.sprite, self.sprite_list = sprite.set_up_sprites(os.path.join("assets", "enemy_sprites", "enemy1_sprite.png"), 4.5)
+        self.set_up_sprite()
+
+    def set_up_sprite(self):
+        player_sprite = os.path.join("assets", "enemy_sprites", "enemy1_sprite.png")
+
+        self.sprite_list = arcade.SpriteList()
+        self.sprite = arcade.AnimatedWalkingSprite()
+
+        self.sprite.stand_right_textures = [
+            arcade.load_texture(player_sprite, x=0, y=0, width=16, height=16)
+        ]
+        self.sprite.stand_left_textures = [
+            arcade.load_texture(player_sprite, x=0, y=0, width=16, height=16)
+        ]
+
+        self.sprite.walk_down_textures = []
+        self.sprite.walk_up_textures = []
+        self.sprite.walk_right_textures = []
+        self.sprite.walk_left_textures = []
+        for i in range(4):
+            self.sprite.walk_down_textures.append(
+                arcade.load_texture(
+                    player_sprite,
+                    x=i * 16,
+                    y=0,
+                    width=16,
+                    height=16,
+                )
+            )
+            self.sprite.walk_up_textures.append(
+                arcade.load_texture(
+                    player_sprite,
+                    x=i * 16,
+                    y=16,
+                    width=16,
+                    height=16,
+                )
+            )
+            self.sprite.walk_right_textures.append(
+                arcade.load_texture(
+                    player_sprite,
+                    x=i * 16,
+                    y=32,
+                    width=16,
+                    height=16,
+                )
+            )
+            self.sprite.walk_left_textures.append(
+                arcade.load_texture(
+                    player_sprite,
+                    x=i * 16,
+                    y=48,
+                    width=16,
+                    height=16,
+                )
+            )
+        self.sprite.scale = 4.5
+        self.sprite_list.append(self.sprite)
 
     def update(
         self,
