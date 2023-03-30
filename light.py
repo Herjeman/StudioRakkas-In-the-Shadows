@@ -7,6 +7,10 @@ from arcade.experimental.lights import Light, LightLayer
 # Color of darkness
 AMBIENT_COLOR = (0, 0, 0)
 
+# TODO
+# Make light_point class
+# Make lightning effect
+
 
 class GameLight:
     """Lights in the game"""
@@ -16,7 +20,7 @@ class GameLight:
         self.light_layer = LightLayer(width, height)
         self.player_light = None
         self.flicker_timer = 3
-        self.flickering = False
+        self.flickering = True
         self.disco_mode = False
 
     # def create_light_point(
@@ -46,21 +50,25 @@ class GameLight:
                 arcade.csscolor.LIGHT_GOLDENROD_YELLOW,
             ]
         )
+        mode = "soft"
         if self.disco_mode:
+            r = random.randint(150, 750)
             c = random.choice(
                 [
-                    arcade.csscolor.PALE_GOLDENROD,
-                    arcade.csscolor.LIGHT_GOLDENROD_YELLOW,
-                    arcade.csscolor.DARK_GOLDENROD,
-                    arcade.csscolor.LIGHT_SLATE_GREY,
-                    arcade.csscolor.GREENYELLOW,
-                    arcade.csscolor.MEDIUM_PURPLE,
+                    arcade.csscolor.WHITE,
+                    arcade.csscolor.PURPLE,
                     arcade.csscolor.GHOST_WHITE,
                     arcade.csscolor.PALE_VIOLET_RED,
                     arcade.csscolor.ORANGE_RED,
+                    arcade.csscolor.BLUE_VIOLET,
+                    arcade.csscolor.TURQUOISE,
+                    arcade.csscolor.GREEN,
+                    arcade.csscolor.MISTY_ROSE,
+                    arcade.csscolor.LIGHT_YELLOW,
                 ]
             )
-        player_light = Light(x, y, r, c, "soft")
+            mode = random.choice(["soft", "hard"])
+        player_light = Light(x, y, r, c, mode)
         return player_light
 
     def light_on(self):
@@ -75,21 +83,19 @@ class GameLight:
             self.light_layer.add(self.player_light)
         elif self.flicker_timer < 0:
             self.light_layer.remove(self.player_light)
-            if self.flickering:
-                self.flicker_timer = random.randint(2, 15) / 20
-                self.flickering = False
-            else:
-                self.flicker_timer = random.randint(2, 5)
-                self.flickering = True
+            if not self.disco_mode:
+                if self.flickering:
+                    self.flicker_timer = random.randint(2, 15) / 20
+                    self.flickering = False
+                else:
+                    self.flicker_timer = random.randint(2, 5)
+                    self.flickering = True
         self.flicker_timer -= 1 * delta_time
         self.player_light.position = player.position.x, player.position.y
 
     def receive_key_down(self, key: int):
         if key == arcade.key.TAB:
-            # We can add/remove lights from the light layer. If they aren't
-            # in the light layer, the light is off.
-            # this doesnt appy when flicker is applied
-            if self.player_light in self.light_layer:
-                self.light_layer.remove(self.player_light)
+            if not self.disco_mode:
+                self.disco_mode = True
             else:
-                self.light_layer.add(self.player_light)
+                self.disco_mode = False
