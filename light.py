@@ -68,7 +68,8 @@ class GameLight:
         elif self.flicker_timer < 0:
             self.light_layer.remove(self.player_light)
             if self.flickering:
-                self.flicker_timer = random.randint(2, 5) / 10
+                self.flicker_timer = random.randint(2, 15) / 20
+                self.flickering = False
             else:
                 self.flicker_timer = random.randint(2, 5)
                 self.flickering = True
