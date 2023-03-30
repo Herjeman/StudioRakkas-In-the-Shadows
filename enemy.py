@@ -117,3 +117,48 @@ class Enemy:
                         break
             except ValueError:
                 print(f'WARNING!!! Missing hitbox on {enemy}.')
+
+
+def get_basic_enemy():
+    max_speed = 350
+    acceleration = 25
+    scale = 4.5
+
+    return max_speed, acceleration, scale
+
+
+def  get_small_fast_enemy():
+    max_speed = 600
+    acceleration = 10
+    scale = 2.5
+
+    return max_speed, acceleration, scale
+
+
+def get_big_enemy():
+    max_speed = 250
+    acceleration = 18
+    scale = 7.5
+
+    return max_speed, acceleration, scale
+
+
+def get_elite_enemy():
+    max_speed = 400
+    acceleration = 30
+    scale = 5.5
+
+    return max_speed, acceleration, scale
+
+
+def get_random_enemy():
+    rand = random.randint(1, 8)
+
+    if rand < 4:
+        return get_basic_enemy()
+    elif rand < 6:
+        return get_small_fast_enemy()
+    elif rand < 8:
+        return get_big_enemy()
+    else:
+        return  get_elite_enemy()

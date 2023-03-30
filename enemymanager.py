@@ -86,9 +86,7 @@ class EnemyManager:
             self.sfx_player.play_moo()
             return
 
-        max_speed = random.randint(300, 495)
-        acceleration = random.randint(20, 50)
-        scale = random.randint(4, 8)
+        max_speed, acceleration, scale = enemy.get_random_enemy()
         self.active_enemies.append(enemy.Enemy(spawn_position.x, spawn_position.y, max_speed, acceleration, scale))
 
     def is_point_colliding_with_enemy(self, point: pyglet.math.Vec2, exclude: enemy = None):
