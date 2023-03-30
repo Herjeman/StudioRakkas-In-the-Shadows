@@ -14,7 +14,6 @@ class SfxOptions:
         self.uimanager = arcade.gui.UIManager()
         self.volume_buttons()
         self.music_player = music_player
-        print(self.music_player)
         self.window_class = window_class
         self.sfx_player = sfx_player
 
