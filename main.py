@@ -59,7 +59,7 @@ class GameWindow(arcade.Window):
             SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5, self.sfx_player, self
         )
 
-        self.ui = userinterface.UserInterface(self.music_player, self)
+        self.ui = userinterface.UserInterface(self.sfx_player, self.music_player, self)
 
         self.camera = camera.GameCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
         self.camera_gui = camera.GameCamera(SCREEN_WIDTH, SCREEN_HEIGHT)

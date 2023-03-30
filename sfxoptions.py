@@ -5,26 +5,26 @@ import userinterface
 import generaloptions
 
 
-class SoundOptions:
+class SfxOptions:
     '''Class for option mennue accessed by "SPACE"'''
 
     def __init__(self, sfx_player, music_player, window_class):
-        self.music_on = True
+        self.sound_on = True
         self.open_sound = False
         self.uimanager = arcade.gui.UIManager()
         self.volume_buttons()
         self.music_player = music_player
         print(self.music_player)
         self.window_class = window_class
-        self.sfx_player = sfx_player
+        self.sfx_player = self.sfx_player
 
 
     def volume_buttons(self):
-        if self.music_on:
-            text = "Volume Off"
+        if self.sound_on:
+            text = "Sound Off"
             click_funcntion = self.volume_off_click
         else:
-            text = "Volume On"
+            text = "sound On"
             click_funcntion = self.volume_on_click
         
         volume_off_button = arcade.gui.UIFlatButton(text=text, width=200)
@@ -40,7 +40,7 @@ class SoundOptions:
         
 
         # self.uimanager.enable()
-        valume_up_button = arcade.gui.UIFlatButton(text="Volume UP", width=200)
+        valume_up_button = arcade.gui.UIFlatButton(text="Sound UP", width=200)
         self.uimanager.add(
             arcade.gui.UIAnchorWidget(
                 anchor_x="center_x",
@@ -51,7 +51,7 @@ class SoundOptions:
         )
         valume_up_button.on_click = self.volume_up_click
 
-        volume_down_button = arcade.gui.UIFlatButton(text="Volume DOWN", width=200)
+        volume_down_button = arcade.gui.UIFlatButton(text="Sound DOWN", width=200)
         self.uimanager.add(
             arcade.gui.UIAnchorWidget(
                 anchor_x="center_x",
@@ -87,13 +87,13 @@ class SoundOptions:
     # different buttons
     def volume_on_click(self, event):
         self.music_player.start()
-        self.music_on = True
+        self.sound_on = True
         self.volume_buttons()
 
 
     def volume_off_click(self, event):
         self.music_player.stop()
-        self.music_on = False
+        self.sound_on = False
         self.volume_buttons()
 
         # self.uimanager.remove(child=volume_off_button)
@@ -108,5 +108,3 @@ class SoundOptions:
     def options_click(self, event):
         main.GAME_MANAGER.current_options = generaloptions.GeneralOptions(self.sfx_player, self.music_player, self.window_class)
         self.uimanager.disable()
-
-    

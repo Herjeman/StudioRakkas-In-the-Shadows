@@ -8,13 +8,14 @@ import soundoptions
 class GeneralOptions:
     '''Class for option mennue accessed by "SPACE"'''
 
-    def __init__(self, music_player,window_class):
+    def __init__(self, sfx_player, music_player,window_class):
         self.open_options = False
         self.uimanager = arcade.gui.UIManager()
         self.option_buttons()
         self.music_player = music_player
         self.window_class = window_class
         self.new_game = False
+        self.sfx_player = sfx_player
 
     def option_buttons(self):
         # self.uimanager.enable()
@@ -28,6 +29,7 @@ class GeneralOptions:
             )
         )
         resume_game_button.on_click = self.resume_game_button_click
+
         new_game_button = arcade.gui.UIFlatButton(text="New Game", width=200)
         self.uimanager.add(
             arcade.gui.UIAnchorWidget(
@@ -38,6 +40,15 @@ class GeneralOptions:
             )
         )
         new_game_button.on_click = self.new_game_button_click
+
+        music_button = arcade.gui.UIFlatButton(text="Music", width=200)
+        self.uimanager.add(
+            arcade.gui.UIAnchorWidget(
+                anchor_x="center_x", anchor_y="center_y", align_y=0, child=music_button
+            )
+        )
+        music_button.on_click = self.music_button_click
+
         sound_button = arcade.gui.UIFlatButton(text="Sound", width=200)
         self.uimanager.add(
             arcade.gui.UIAnchorWidget(
@@ -79,9 +90,12 @@ class GeneralOptions:
             self.music_player.stop()
             self.window_class.setup()
 
+    def music_button_click(self, event):
+        main.GAME_MANAGER.current_options = soundoptions.SoundOptions(self.sfx_player, self.music_player, self.window_class)
+        self.uimanager.disable()
 
     def sound_button_click(self, event):
-        main.GAME_MANAGER.current_options = soundoptions.SoundOptions(self.music_player, self.window_class)
+        main.GAME_MANAGER.current_options = self.window_class.sfx_player(self.sfx_player, self.music_player, self.window_class)
         self.uimanager.disable()
 
     def quit_game_button_click(self, event):
