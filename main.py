@@ -55,7 +55,9 @@ class GameWindow(arcade.Window):
         self.music_player = musicplayer.MusicPlayer()
         self.sfx_player = sfxplayer.SFXPlayer()
 
-        self.player = player.Player(SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5, self.sfx_player, self)
+        self.player = player.Player(
+            SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5, self.sfx_player, self
+        )
 
         self.ui = userinterface.UserInterface(self.music_player, self)
 
@@ -119,8 +121,8 @@ class GameWindow(arcade.Window):
         if self.pause == False and self.game_over == False:
             self.player.update(delta_time)
             self.enemy_manager.update(delta_time, self.player)
-            self.camera.follow_camera(self.player)
             self.light.update(self.player)
+            self.camera.follow_camera(self.player)
             self.ui.update_score()
 
     def on_key_press(self, key, key_modifiers):
