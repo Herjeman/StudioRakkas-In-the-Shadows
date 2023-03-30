@@ -47,14 +47,19 @@ class GameWindow(arcade.Window):
         self.sfx_player = None
         self.music_player = None
         self.enemy_manager = None
+        '''test'''
+        # self.music_volume = 0.5
+        # self.sound_volume = 0.5
+        # self.play_music = True
+        # self.play_sound = True
 
     def setup(self):
         """Sets up the game. Call to restart the game"""
 
         self.background_sprite_list = None
 
-        self.music_player = musicplayer.MusicPlayer()
-        self.sfx_player = sfxplayer.SFXPlayer()
+        self.music_player = musicplayer.MusicPlayer(self)
+        self.sfx_player = sfxplayer.SFXPlayer(self)
         self.enemy_manager = enemymanager.EnemyManager(self)
 
         self.player = player.Player(

@@ -3,7 +3,7 @@ import os
 
 
 class SFXPlayer:
-    def __init__(self):
+    def __init__(self, window_class):
 
         damage_sfx_path = os.path.join("assets", "audio", "oof.wav")
         self.sfx_damage = arcade.load_sound(damage_sfx_path)
