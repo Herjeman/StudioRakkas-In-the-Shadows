@@ -18,7 +18,7 @@ class EnemyManager:
         self.active_enemies = []
         self.active_cows = []
         self.active_poops = []
-        self.cow_spawn_chance_percent = 100
+        self.cow_spawn_chance_percent = 25
         self.minimum_spawn_distance = 300
         self.maximum_spawn_distance = 500
         self.following_enemies = 0
