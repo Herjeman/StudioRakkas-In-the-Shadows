@@ -4,6 +4,7 @@ import enemymanager
 import player
 import random
 
+import poop
 from HelperClasses import vector
 from GameObjectRework import sprite
 
@@ -13,8 +14,9 @@ class Cow:
             self,
             spawn_x,
             spawn_y,
-            enemy_manager
-    ):
+            enemy_manager,
+            active_player
+            ):
 
         self.speed = 10
         self.move_direction = vector.zero()
@@ -22,6 +24,7 @@ class Cow:
         self.position = vector.Vector2(spawn_x, spawn_y)
 
         self.enemy_manager = enemy_manager
+        self.active_player = active_player
 
         sprite_path = os.path.join("assets", "enemy_sprites", "cow_sprite.png")
         self.sprite, self.sprite_list = sprite.set_up_sprites(sprite_path, 3.5)
@@ -46,8 +49,8 @@ class Cow:
         self.sprite_list.draw()
 
     def poop(self):
-        if random.randint(0, 4) == 4:
-            print('A cow poops... The world keeps on spinning')
+        if random.randint(0, 4) == 0:
+            self.enemy_manager.active_poops.append(poop.Poop(self.position.x, self.position.y, self.active_player, 10))
 
     def change_direction(self, delta_time):
         if self.time_until_next_change < 0:

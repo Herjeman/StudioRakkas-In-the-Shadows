@@ -16,7 +16,8 @@ class EnemyManager:
         self.spawn_timer = self.spawn_interval
         self.active_enemies = []
         self.active_cows = []
-        self.cow_spawn_chance_percent = 15
+        self.active_poops = []
+        self.cow_spawn_chance_percent = 10
         self.minimum_spawn_distance = 300
         self.maximum_spawn_distance = 500
         self.following_enemies = 0
@@ -30,20 +31,29 @@ class EnemyManager:
             self.spawn_timer = self.spawn_interval
 
         # Update enemies
-        for instance in self.active_enemies:
-            instance.update(delta_time, active_player, self)
+        for instance in self.active_poops:
+            if instance.update(delta_time):
+                self.active_poops.remove(instance)
+                del instance
 
         for instance in self.active_cows:
             instance.update(delta_time)
+
+        for instance in self.active_enemies:
+            instance.update(delta_time, active_player, self)
 
         # Update score
         main.GAME_MANAGER.update_score(self.following_enemies, delta_time)
 
     def draw_enemies(self):
-        for instance in self.active_enemies:
+
+        for instance in self.active_poops:
             instance.draw_self()
 
         for instance in self.active_cows:
+            instance.draw_self()
+
+        for instance in self.active_enemies:
             instance.draw_self()
 
     def spawn_new_enemy(self, active_player):
@@ -60,7 +70,7 @@ class EnemyManager:
 
         if random.randint(1, 100) <= self.cow_spawn_chance_percent:
             # Spawn a cow instead of a ghost
-            self.active_cows.append(cow.Cow(spawn_position.x, spawn_position.y, self))
+            self.active_cows.append(cow.Cow(spawn_position.x, spawn_position.y, self, active_player))
             return
 
         max_speed = random.randint(300, 495)

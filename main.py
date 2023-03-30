@@ -101,8 +101,8 @@ class GameWindow(arcade.Window):
         # Rendered inside light layer
         with self.light_layer:
             self.background_sprite_list.draw()
-            self.player.draw_self()
             self.enemy_manager.draw_enemies()
+            self.player.draw_self()
 
         self.light_layer.draw(ambient_color=AMBIENT_COLOR)
         # self.light.light_on()
