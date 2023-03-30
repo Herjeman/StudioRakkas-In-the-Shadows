@@ -89,12 +89,14 @@ class SfxOptions:
         self.sfx_player.sound_on = True
         self.sound_on = True
         self.volume_buttons()
+        main.GAME_MANAGER.play_sound = False
 
 
     def volume_off_click(self, event):
         self.sfx_player.sound_on = False
         self.sound_on = False
         self.volume_buttons()
+        main.GAME_MANAGER.play_sound = True
 
         # self.uimanager.remove(child=volume_off_button)
 

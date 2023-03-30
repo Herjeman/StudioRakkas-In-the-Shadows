@@ -55,7 +55,6 @@ class GameWindow(arcade.Window):
 
     def setup(self):
         """Sets up the game. Call to restart the game"""
-
         self.background_sprite_list = None
 
         self.music_player = musicplayer.MusicPlayer(self)

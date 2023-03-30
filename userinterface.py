@@ -20,17 +20,9 @@ class UserInterface():
 
 
 
-        # self.general_options.sound_options = main.GAME_MANAGER.UI_sound[
-        #     0
-        # ]  # Evil pointer hack
-
     def recive_key_down(self, key):
         # if escape iif pressed and options are openn sett all options to false
-        if key == arcade.key.ESCAPE:
-            # if self.window_class.pause == True:
-            #     self.window_class.pause = False
-            # elif self.window_class.pause == False:
-            #     self.window_class.pause = True  
+        if key == arcade.key.ESCAPE: 
             if main.GAME_MANAGER.open_options:
                 self.window_class.pause = False
                 main.GAME_MANAGER.open_options = False

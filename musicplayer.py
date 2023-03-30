@@ -23,11 +23,11 @@ class MusicPlayer:
 
     def start(self):
         self.active_music_player.play()
-        main.GAME_MANAGER.play_music = True
+        
 
     def stop(self):
         self.active_music_player.pause()
-        main.GAME_MANAGER.play_music = False
+
 
     def volume_up(self):
         if main.GAME_MANAGER.music_volume < 1:

@@ -1,5 +1,6 @@
 import arcade
 import os
+import main
 
 
 class SFXPlayer:
@@ -14,12 +15,12 @@ class SFXPlayer:
         moo_sfx_path = os.path.join("assets", "audio", "moo.wav")
         self.sfx_moo = arcade.load_sound(moo_sfx_path)
 
-        self.volume = 0.5
+        self.volume = main.GAME_MANAGER.sound_volume
         self.pan = 0.0
         self.loop = False
         self.speed = 1.0
         self.volume_change = 0.1
-        self.sound_on = True
+        self.sound_on = main.GAME_MANAGER.play_sound
 
         self.active_sfx_player = None
 
@@ -50,7 +51,9 @@ class SFXPlayer:
     def volume_up(self):
         if self.volume < 1:
             self.volume += self.volume_change
+            main.GAME_MANAGER.sound_volume += main.GAME_MANAGER.sound_volume
 
     def volume_down(self):
         if self.volume >= self.volume_change:
             self.volume -= self.volume_change
+            main.GAME_MANAGER.sound_volume -= main.GAME_MANAGER.sound_volume

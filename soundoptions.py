@@ -20,7 +20,7 @@ class SoundOptions:
 
 
     def volume_buttons(self):
-        if self.music_on:
+        if main.GAME_MANAGER.play_music:
             text = "Volume Off"
             click_funcntion = self.volume_off_click
         else:
@@ -89,14 +89,15 @@ class SoundOptions:
         self.music_player.start()
         self.music_on = True
         self.volume_buttons()
+        main.GAME_MANAGER.play_music = True
 
 
     def volume_off_click(self, event):
         self.music_player.stop()
         self.music_on = False
         self.volume_buttons()
+        main.GAME_MANAGER.play_music = False
 
-        # self.uimanager.remove(child=volume_off_button)
 
     def volume_up_click(self, event):
         self.music_player.volume_up()
