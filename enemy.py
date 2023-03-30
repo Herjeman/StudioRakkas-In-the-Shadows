@@ -37,10 +37,6 @@ class Enemy:
             enemy_manager: enemymanager.EnemyManager,
     ):
 
-        self.sprite.set_position(self.position.x, self.position.y)
-        self.sprite_list.update()
-        self.sprite_list.update_animation()
-
         move_vector = active_player.position - self.position
         distance_to_player = move_vector.get_magnitude()
 
@@ -65,6 +61,10 @@ class Enemy:
         self.move(delta_time)
 
         self.check_collision(active_player, move_vector * -1, enemy_manager, delta_time)
+
+        self.sprite.set_position(self.position.x, self.position.y)
+        self.sprite_list.update()
+        self.sprite_list.update_animation()
 
     def draw_self(self):
         self.sprite_list.draw()

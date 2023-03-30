@@ -1,5 +1,6 @@
 import pyglet.math
 
+import cow
 import enemy
 import gamemanager
 import main
@@ -14,6 +15,8 @@ class EnemyManager:
         self.spawn_interval = 5
         self.spawn_timer = self.spawn_interval
         self.active_enemies = []
+        self.active_cows = []
+        self.cow_spawn_chance_percent = 15
         self.minimum_spawn_distance = 300
         self.maximum_spawn_distance = 500
         self.following_enemies = 0
@@ -30,6 +33,9 @@ class EnemyManager:
         for instance in self.active_enemies:
             instance.update(delta_time, active_player, self)
 
+        for instance in self.active_cows:
+            instance.update(delta_time)
+
         # Update score
         main.GAME_MANAGER.update_score(self.following_enemies, delta_time)
 
@@ -37,8 +43,11 @@ class EnemyManager:
         for instance in self.active_enemies:
             instance.draw_self()
 
+        for instance in self.active_cows:
+            instance.draw_self()
+
     def spawn_new_enemy(self, active_player):
-        """Spawns a new guard"""
+        """Spawns a new enemy, on rare occasions a cow instead"""
 
         # find a spot at a reasonable distance from player
         offset = random.randint(
@@ -48,6 +57,11 @@ class EnemyManager:
         spawn_position = (
             active_player.position + vector.get_random_unit_vector() * offset
         )
+
+        if random.randint(1, 100) <= self.cow_spawn_chance_percent:
+            # Spawn a cow instead of a ghost
+            self.active_cows.append(cow.Cow(spawn_position.x, spawn_position.y, self))
+            return
 
         max_speed = random.randint(300, 495)
         acceleration = random.randint(20, 50)
