@@ -5,7 +5,7 @@ import time
 from arcade.experimental.lights import Light, LightLayer
 
 # Color of darkness
-AMBIENT_COLOR = (10, 10, 10)
+AMBIENT_COLOR = (0, 0, 0)
 
 
 class GameLight:
@@ -15,6 +15,8 @@ class GameLight:
 
         self.light_layer = LightLayer(width, height)
         self.player_light = None
+        self.flicker_timer = 3
+        self.flickering = False
 
     # def create_light_point(
     #     self, x_pos: int, y_pos: int, radius: int, color: arcade.csscolor, mode: str
@@ -36,13 +38,13 @@ class GameLight:
         """Creates the light point that follows the player around"""
         x = 0
         y = 0
-        r = random.randint(250, 275)
+        r = random.randint(350, 350)
         c = random.choice(
             [
                 # arcade.csscolor.DARK_GOLDENROD,
                 arcade.csscolor.PALE_GOLDENROD,
                 # arcade.csscolor.LIGHT_SLATE_GREY,
-                # arcade.csscolor.LIGHT_GOLDENROD_YELLOW,
+                arcade.csscolor.LIGHT_GOLDENROD_YELLOW,
                 # arcade.csscolor.GREENYELLOW,
                 # arcade.csscolor.MEDIUM_PURPLE,
                 # arcade.csscolor.GHOST_WHITE,
@@ -58,15 +60,20 @@ class GameLight:
         if self.player_light not in self.light_layer:
             self.light_layer.add(self.player_light)
 
-    def update(self, player: player.Player):
+    def update(self, player: player.Player, delta_time):
         """updates the light that follows player, centered to player"""
         if self.player_light not in self.light_layer:
             self.player_light = self.player_flashlight()
-            self.player_light.position = player.position.x, player.position.y
             self.light_layer.add(self.player_light)
-        else:
-            self.player_light.position = player.position.x, player.position.y
+        elif self.flicker_timer < 0:
             self.light_layer.remove(self.player_light)
+            if self.flickering:
+                self.flicker_timer = random.randint(2, 5) / 10
+            else:
+                self.flicker_timer = random.randint(2, 5)
+                self.flickering = True
+        self.flicker_timer -= 1 * delta_time
+        self.player_light.position = player.position.x, player.position.y
 
     def receive_key_down(self, key: int):
         if key == arcade.key.TAB:

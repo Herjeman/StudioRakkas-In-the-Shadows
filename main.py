@@ -47,7 +47,7 @@ class GameWindow(arcade.Window):
         self.sfx_player = None
         self.music_player = None
         self.enemy_manager = None
-        '''test'''
+        """test"""
         # self.music_volume = 0.5
         # self.sound_volume = 0.5
         # self.play_music = True
@@ -78,7 +78,7 @@ class GameWindow(arcade.Window):
         # Create Sprite Lists
         self.background_sprite_list = arcade.SpriteList()
 
-        self.game_over_view = game_ower_view.GameOverView(self.music_player,self)
+        self.game_over_view = game_ower_view.GameOverView(self.music_player, self)
 
         # Creates a bigger background from one sprite
         for x in range(-128, 2000, 128):
@@ -127,7 +127,7 @@ class GameWindow(arcade.Window):
         if self.pause == False and self.game_over == False:
             self.player.update(delta_time)
             self.enemy_manager.update(delta_time, self.player)
-            self.light.update(self.player)
+            self.light.update(self.player, delta_time)
             self.camera.follow_camera(self.player)
             self.ui.update_score()
 
