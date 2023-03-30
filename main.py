@@ -57,7 +57,6 @@ class GameWindow(arcade.Window):
         self.sfx_player = sfxplayer.SFXPlayer()
         self.enemy_manager = enemymanager.EnemyManager(self)
 
-
         self.player = player.Player(
             SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5, self.sfx_player, self
         )

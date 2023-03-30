@@ -50,10 +50,7 @@ class SFXPlayer:
     def volume_up(self):
         if self.volume < 1:
             self.volume += self.volume_change
-            self.song.set_volume(self.volume, self.active_sfx_player)
 
     def volume_down(self):
         if self.volume >= self.volume_change:
             self.volume -= self.volume_change
-            self.song.set_volume(self.volume, self.active_sfx_player)
-            print(self.song.get_volume(self.active_sfx_player))

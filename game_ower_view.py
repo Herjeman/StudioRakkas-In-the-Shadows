@@ -8,6 +8,7 @@ class GameOverView():
         self.uimanager = arcade.gui.UIManager()
         self.game_over_buttons()
         self.music_player = music_player
+        self.restart = False
 
 
     def on_show_view(self):
@@ -37,5 +38,7 @@ class GameOverView():
         restart_game_button.on_click = self.restart_game_click
 
     def restart_game_click(self, event):
-        self.window_class.setup()
-        self.music_player.stop()
+        if not self.restart:
+            self.window_class.setup()
+            self.music_player.stop()
+            self.restart = True
