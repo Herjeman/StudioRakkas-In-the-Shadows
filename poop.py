@@ -28,7 +28,7 @@ class Poop:
 
     def update(self, delta_time):
 
-        if arcade.are_polygons_intersecting(self.active_player.get_hit_box(), self.hit_box):
+        if self.active_player not in self.affected_objects and arcade.are_polygons_intersecting(self.active_player.get_hit_box(), self.hit_box):
             self.active_player.slow_down()
             self.affected_objects.append(self.active_player)
 

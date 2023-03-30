@@ -51,7 +51,6 @@ class SFXPlayer:
                 self.sfx_poop_walk, self.volume, self.pan, self.loop, self.speed
             )
 
-
     def start(self):
         if self.sound_on:
             self.sound_on = False

@@ -34,11 +34,12 @@ class Player:
         self.position = (
             self.position + self.move.get_normalized() * self.speed * delta_time
         )
+
+        self.process_collision(delta_time)
+
         self.sprite.set_position(self.position.x, self.position.y)
         self.sprite_list.update()
         self.sprite_list.update_animation()
-
-
 
     def draw_self(self):
 
@@ -87,6 +88,18 @@ class Player:
             self.move.x -= 1
             self.sprite.change_x -= 1
             self.right = False
+
+    def process_collision(self, delta_time):
+        cows = self.game_window.enemy_manager.active_cows
+
+        for cow in cows:
+            if self.sprite.collides_with_sprite(cow.sprite):
+                direction = self.position - cow.position
+                direction = direction.get_normalized()
+
+                self.position = (
+                        self.position + direction * self.speed * delta_time
+                )
 
     def take_damage(self, damage=5):
         self.hp -= damage
