@@ -17,6 +17,7 @@ class GameLight:
         self.player_light = None
         self.flicker_timer = 3
         self.flickering = False
+        self.disco_mode = False
 
     # def create_light_point(
     #     self, x_pos: int, y_pos: int, radius: int, color: arcade.csscolor, mode: str
@@ -41,17 +42,24 @@ class GameLight:
         r = random.randint(350, 350)
         c = random.choice(
             [
-                # arcade.csscolor.DARK_GOLDENROD,
                 arcade.csscolor.PALE_GOLDENROD,
-                # arcade.csscolor.LIGHT_SLATE_GREY,
                 arcade.csscolor.LIGHT_GOLDENROD_YELLOW,
-                # arcade.csscolor.GREENYELLOW,
-                # arcade.csscolor.MEDIUM_PURPLE,
-                # arcade.csscolor.GHOST_WHITE,
-                # arcade.csscolor.PALE_VIOLET_RED,
-                # arcade.csscolor.ORANGE_RED,
             ]
         )
+        if self.disco_mode:
+            c = random.choice(
+                [
+                    arcade.csscolor.PALE_GOLDENROD,
+                    arcade.csscolor.LIGHT_GOLDENROD_YELLOW,
+                    arcade.csscolor.DARK_GOLDENROD,
+                    arcade.csscolor.LIGHT_SLATE_GREY,
+                    arcade.csscolor.GREENYELLOW,
+                    arcade.csscolor.MEDIUM_PURPLE,
+                    arcade.csscolor.GHOST_WHITE,
+                    arcade.csscolor.PALE_VIOLET_RED,
+                    arcade.csscolor.ORANGE_RED,
+                ]
+            )
         player_light = Light(x, y, r, c, "soft")
         return player_light
 
