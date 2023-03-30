@@ -101,9 +101,17 @@ class Player:
                         self.position + direction * self.speed * delta_time
                 )
 
-    def take_damage(self, damage=5):
+    def take_damage(self, delta_time, enemy, damage=5):
         self.hp -= damage
         self.sfx_player.play_damage()
+
+        direction = self.position - enemy.position
+        direction = direction.get_normalized()
+
+        self.position = (
+                self.position + direction * self.speed * delta_time * 5
+        )
+
         if self.hp <= 0:
             self.game_window.game_over = True
 

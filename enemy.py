@@ -94,7 +94,7 @@ class Enemy:
         if self.sprite.collides_with_sprite(active_player.sprite):
             # Collided with player, undo Move
             self.position += move_vector * self.max_speed * delta_time
-            active_player.take_damage()
+            active_player.take_damage(delta_time, self)
 
         # Check for collision with other enemies
         for enemy in enemy_manager.active_enemies:
@@ -161,4 +161,4 @@ def get_random_enemy():
     elif rand < 8:
         return get_big_enemy()
     else:
-        return  get_elite_enemy()
+        return get_elite_enemy()
