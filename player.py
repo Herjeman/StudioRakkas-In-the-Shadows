@@ -1,12 +1,11 @@
 import arcade
 import os
 from HelperClasses import vector
+from GameObjectRework import sprite
 
 
 class Player:
     def __init__(self, spawn_x, spawn_y, sfx_player, game_window):
-        self.sprite = None
-        self.sprite_list = None
         self.up = False
         self.down = False
         self.right = False
@@ -15,70 +14,22 @@ class Player:
         self.move = vector.Vector2(0, 0)
         self.speed = 500
         self.hp = 100
+        self.slow = False
         self.game_window = game_window
 
-        self.set_up_sprite()
+        sprite_path = os.path.join("assets", "player", "player_sprite.png")
+        self.sprite, self.sprite_list = sprite.set_up_sprites(sprite_path)
 
         self.sfx_player = sfx_player
 
-    def set_up_sprite(self):
-        player_sprite = os.path.join("assets", "player", "player_sprite.png")
-
-        self.sprite_list = arcade.SpriteList()
-        self.sprite = arcade.AnimatedWalkingSprite()
-
-        self.sprite.stand_right_textures = [
-            arcade.load_texture(player_sprite, x=0, y=0, width=16, height=16)
-        ]
-        self.sprite.stand_left_textures = [
-            arcade.load_texture(player_sprite, x=0, y=0, width=16, height=16)
-        ]
-
-        self.sprite.walk_down_textures = []
-        self.sprite.walk_up_textures = []
-        self.sprite.walk_right_textures = []
-        self.sprite.walk_left_textures = []
-        for i in range(4):
-            self.sprite.walk_down_textures.append(
-                arcade.load_texture(
-                    player_sprite,
-                    x=i * 16,
-                    y=0,
-                    width=16,
-                    height=16,
-                )
-            )
-            self.sprite.walk_up_textures.append(
-                arcade.load_texture(
-                    player_sprite,
-                    x=i * 16,
-                    y=16,
-                    width=16,
-                    height=16,
-                )
-            )
-            self.sprite.walk_right_textures.append(
-                arcade.load_texture(
-                    player_sprite,
-                    x=i * 16,
-                    y=32,
-                    width=16,
-                    height=16,
-                )
-            )
-            self.sprite.walk_left_textures.append(
-                arcade.load_texture(
-                    player_sprite,
-                    x=i * 16,
-                    y=48,
-                    width=16,
-                    height=16,
-                )
-            )
-        self.sprite.scale = 2.5
-        self.sprite_list.append(self.sprite)
-
     def update(self, delta_time):
+
+        if self.hp < 100:
+            # Five seconds to regen from 1 hp
+            self.hp += int(20 * delta_time)
+
+        if self.slow:
+            delta_time = delta_time * 0.5
 
         self.position = (
             self.position + self.move.get_normalized() * self.speed * delta_time
@@ -87,9 +38,7 @@ class Player:
         self.sprite_list.update()
         self.sprite_list.update_animation()
 
-        if self.hp < 100:
-            # Five seconds to regen from 1 hp
-            self.hp += int(20 * delta_time)
+
 
     def draw_self(self):
 
@@ -145,4 +94,11 @@ class Player:
         if self.hp <= 0:
             self.game_window.game_over = True
 
-            
+    def slow_down(self):
+        self.slow = True
+
+    def remove_slow_down(self):
+        self.slow = False
+
+    def get_hit_box(self):
+        return arcade.get_rectangle_points(self.position.x, self.position.y, 16, 16)
