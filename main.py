@@ -127,7 +127,7 @@ class GameWindow(arcade.Window):
         if self.pause == False and self.game_over == False:
             self.player.update(delta_time)
             self.enemy_manager.update(delta_time, self.player)
-            self.light.update(self.player, delta_time)
+            self.light.update_flicker(self.player, delta_time)
             self.camera.follow_camera(self.player)
             self.ui.update_score()
 

@@ -60,7 +60,7 @@ class GameLight:
         if self.player_light not in self.light_layer:
             self.light_layer.add(self.player_light)
 
-    def update(self, player: player.Player, delta_time):
+    def update_flicker(self, player: player.Player, delta_time):
         """updates the light that follows player, centered to player"""
         if self.player_light not in self.light_layer:
             self.player_light = self.player_flashlight()
