@@ -16,15 +16,15 @@ class SfxOptions:
         self.music_player = music_player
         print(self.music_player)
         self.window_class = window_class
-        self.sfx_player = self.sfx_player
+        self.sfx_player = sfx_player
 
 
     def volume_buttons(self):
         if self.sound_on:
-            text = "Sound Off"
+            text = "Sound OFF"
             click_funcntion = self.volume_off_click
         else:
-            text = "sound On"
+            text = "Sound ON"
             click_funcntion = self.volume_on_click
         
         volume_off_button = arcade.gui.UIFlatButton(text=text, width=200)
@@ -86,23 +86,23 @@ class SfxOptions:
 
     # different buttons
     def volume_on_click(self, event):
-        self.music_player.start()
+        self.sfx_player.sound_on = True
         self.sound_on = True
         self.volume_buttons()
 
 
     def volume_off_click(self, event):
-        self.music_player.stop()
+        self.sfx_player.sound_on = False
         self.sound_on = False
         self.volume_buttons()
 
         # self.uimanager.remove(child=volume_off_button)
 
     def volume_up_click(self, event):
-        self.music_player.volume_up()
+        self.sfx_player.volume_up()
 
     def volume_down_click(self, event):
-        self.music_player.volume_down()
+        self.sfx_player.volume_down()
 
     # disables uimannager for sound options
     def options_click(self, event):

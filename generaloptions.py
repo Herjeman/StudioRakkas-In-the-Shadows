@@ -3,6 +3,7 @@ import arcade.gui
 import main
 import userinterface
 import soundoptions
+import sfxoptions
 
 
 class GeneralOptions:
@@ -44,7 +45,10 @@ class GeneralOptions:
         music_button = arcade.gui.UIFlatButton(text="Music", width=200)
         self.uimanager.add(
             arcade.gui.UIAnchorWidget(
-                anchor_x="center_x", anchor_y="center_y", align_y=0, child=music_button
+                anchor_x="center_x", 
+                anchor_y="center_y", 
+                align_y=0, 
+                child=music_button
             )
         )
         music_button.on_click = self.music_button_click
@@ -52,7 +56,10 @@ class GeneralOptions:
         sound_button = arcade.gui.UIFlatButton(text="Sound", width=200)
         self.uimanager.add(
             arcade.gui.UIAnchorWidget(
-                anchor_x="center_x", anchor_y="center_y", align_y=0, child=sound_button
+                anchor_x="center_x", 
+                anchor_y="center_y", 
+                align_y=-100, 
+                child=sound_button
             )
         )
         sound_button.on_click = self.sound_button_click
@@ -62,7 +69,7 @@ class GeneralOptions:
             arcade.gui.UIAnchorWidget(
                 anchor_x="center_x",
                 anchor_y="center_y",
-                align_y=-100,
+                align_y=-200,
                 child=quit_button,
             )
         )
@@ -95,7 +102,7 @@ class GeneralOptions:
         self.uimanager.disable()
 
     def sound_button_click(self, event):
-        main.GAME_MANAGER.current_options = self.window_class.sfx_player(self.sfx_player, self.music_player, self.window_class)
+        main.GAME_MANAGER.current_options = sfxoptions.SfxOptions(self.sfx_player, self.music_player, self.window_class)
         self.uimanager.disable()
 
     def quit_game_button_click(self, event):
