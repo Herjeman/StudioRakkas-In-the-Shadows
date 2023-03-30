@@ -96,6 +96,7 @@ class Player:
 
     def slow_down(self):
         self.slow = True
+        self.sfx_player.play_poop_walk()
 
     def remove_slow_down(self):
         self.slow = False

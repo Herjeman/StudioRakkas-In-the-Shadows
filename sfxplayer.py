@@ -12,6 +12,9 @@ class SFXPlayer:
         poop_sfx_path = os.path.join("assets", "audio", "poop.wav")
         self.sfx_poop = arcade.load_sound(poop_sfx_path)
 
+        poop_walk_sfx_path = os.path.join("assets", "audio", "poop_walk.wav")
+        self.sfx_poop_walk = arcade.load_sound(poop_walk_sfx_path)
+
         moo_sfx_path = os.path.join("assets", "audio", "moo.wav")
         self.sfx_moo = arcade.load_sound(moo_sfx_path)
 
@@ -33,14 +36,21 @@ class SFXPlayer:
     def play_poop(self):
         if self.sound_on:
             self.active_sfx_player = arcade.play_sound(
-                self.sfx_poop, self.volume * 0.7, self.pan, self.loop, self.speed
+                self.sfx_poop, self.volume, self.pan, self.loop, self.speed
             )
 
     def play_moo(self):
         if self.sound_on:
             self.active_sfx_player = arcade.play_sound(
-                self.sfx_moo, self.volume * 0.7, self.pan, self.loop, self.speed
+                self.sfx_moo, self.volume, self.pan, self.loop, self.speed
             )
+
+    def play_poop_walk(self):
+        if self.sound_on:
+            self.active_sfx_player = arcade.play_sound(
+                self.sfx_poop_walk, self.volume, self.pan, self.loop, self.speed
+            )
+
 
     def start(self):
         if self.sound_on:

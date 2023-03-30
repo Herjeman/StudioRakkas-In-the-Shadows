@@ -41,4 +41,5 @@ class GameOverView():
         if not self.restart:
             self.window_class.setup()
             self.music_player.stop()
+            main.GAME_MANAGER.score = 0
             self.restart = True
