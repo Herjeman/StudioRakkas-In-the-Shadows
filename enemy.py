@@ -18,9 +18,6 @@ from HelperClasses import vector
 class Enemy:
     def __init__(self, spawn_x, spawn_y, max_speed=400, acceleration=20, scale=4.5):
 
-        self.sprite = max_speed
-        self.sprite_list = acceleration
-
         self.max_speed = max_speed
         self.acceleration = acceleration
         self.position = vector.Vector2(spawn_x, spawn_y)
@@ -30,8 +27,8 @@ class Enemy:
         self.stop_follow_distance = 100000
         self.following = False
 
-        self.sprite, self.sprite_list = sprite.set_up_sprites(
-            os.path.join("assets", "enemy_sprites", "enemy1_sprite.png"), scale)
+        sprite_path = os.path.join("assets", "enemy_sprites", "enemy1_sprite.png")
+        self.sprite, self.sprite_list = sprite.set_up_sprites(sprite_path, scale)
 
     def update(
             self,
@@ -59,6 +56,11 @@ class Enemy:
 
         elif self.velocity.get_magnitude() != 0:
             self.velocity = self.velocity * 0.5
+
+        face_vector = self.velocity.get_snapped()
+
+        self.sprite.change_x = face_vector.x
+        self.sprite.change_y = face_vector.y
 
         self.move(delta_time)
 

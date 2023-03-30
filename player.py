@@ -18,6 +18,7 @@ class Player:
         self.game_window = game_window
 
         self.set_up_sprite()
+
         self.sfx_player = sfx_player
 
     def set_up_sprite(self):
