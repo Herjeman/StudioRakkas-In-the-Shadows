@@ -29,7 +29,7 @@ class Player:
             self.hp += int(20 * delta_time)
 
         if self.slow:
-            delta_time = delta_time * 0.5
+            delta_time = delta_time * 0.2
 
         self.position = (
             self.position + self.move.get_normalized() * self.speed * delta_time
