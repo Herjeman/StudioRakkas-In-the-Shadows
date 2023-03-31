@@ -23,12 +23,13 @@ class SFXPlayer:
         self.loop = False
         self.speed = 1.0
         self.volume_change = 0.1
-        self.sound_on = main.GAME_MANAGER.play_sound
+        self.sound_on = main.GAME_MANAGER.play_sound # True at setup
 
         self.active_sfx_player = None
 
     def play_damage(self):
         if self.sound_on:
+            print(main.GAME_MANAGER.play_sound)
             self.active_sfx_player = arcade.play_sound(
                 self.sfx_damage, self.volume, self.pan, self.loop, self.speed
             )
@@ -51,11 +52,18 @@ class SFXPlayer:
                 self.sfx_poop_walk, self.volume, self.pan, self.loop, self.speed
             )
 
-    def start(self):
-        if self.sound_on:
-            self.sound_on = False
-        else:
-            self.sound_on = True
+    # def start(self):
+    #     if self.sound_on:
+    #         self.sound_on = False
+    #     else:
+    #         self.sound_on = True
+
+    def sound_enabled(self):
+        self.sound_on = True
+
+    def sound_disabled(self):
+        self.sound_on = False
+
 
     def volume_up(self):
         if self.volume < 1:

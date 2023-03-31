@@ -9,7 +9,7 @@ class SfxOptions:
     '''Class for option mennue accessed by "SPACE"'''
 
     def __init__(self, sfx_player, music_player, window_class):
-        self.sound_on = True
+        self.sound_on = main.GAME_MANAGER.play_sound
         self.open_sound = False
         self.uimanager = arcade.gui.UIManager()
         self.volume_buttons()
@@ -85,14 +85,14 @@ class SfxOptions:
 
     # different buttons
     def volume_on_click(self, event):
-        self.sfx_player.sound_on = True
+        self.sfx_player.sound_enabled()
         self.sound_on = True
         self.volume_buttons()
         main.GAME_MANAGER.play_sound = True
 
 
     def volume_off_click(self, event):
-        self.sfx_player.sound_on = False
+        self.sfx_player.sound_disabled()
         self.sound_on = False
         self.volume_buttons()
         main.GAME_MANAGER.play_sound = False
