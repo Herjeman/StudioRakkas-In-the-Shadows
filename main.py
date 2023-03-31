@@ -96,9 +96,7 @@ class GameWindow(arcade.Window):
             SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5, self.sfx_player, self
         )
 
-        #self.physics_engine = arcade.PhysicsEngineSimple(self.player.sprite,walls =self.border_layer)#.update()
-        # if self.sprite.collides_with_sprite(self.game_window.border_layer):
-        #         print("colide")
+
 
 
         self.game_over_view = game_ower_view.GameOverView(self.music_player, self)
@@ -170,7 +168,7 @@ class GameWindow(arcade.Window):
 
         self.player.receive_key_up(key)
 
-    def on_mouse_motion(self, x, y, delta_x, delta_y):
+    def on_mouse_motion(self, a, y, delta_x, delta_y):
         """Called when the mouse is moved"""
 
         pass

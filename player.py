@@ -20,7 +20,6 @@ class Player:
         sprite_path = os.path.join("assets", "player", "player_sprite.png")
         # sprite_path = os.path.join("assets", "enemy_sprites", "slime_red2.png")
         self.sprite, self.sprite_list = sprite.set_up_sprites(sprite_path)
-        self.sprite.set_hit_box(2)
         self.sfx_player = sfx_player
 
     def update(self, delta_time):
@@ -99,16 +98,23 @@ class Player:
                 direction = direction.get_normalized()
 
                 self.position = self.position + direction * self.speed * delta_time
-        #if self.sprite.collides_with_sprite(cow.sprite):
-        # border collision
-        # fence_list = [
-        # self.game_window.border_layer,
-        # ]
-        # self.physics_engine = arcade.PhysicsEngineSimple(self.sprite, fence_list).update()
+        # self.sprite.set_hit_box(self.get_hit_box())
+        # print(self.get_hit_box())
+        self.sprite.set_hit_box([
+            (-20, -40),
+            (-20, 40),
+            (20, 40),
+            (20, -40),
+        ])
         # if self.sprite.collides_with_sprite(self.game_window.border_layer):
-        #     print("colide")
-        # if arcade.check_for_collision_with_list(self.sprite, self.game_window.border_layer):
-        #     print("colide")
+        #     print("yessssssssss")
+        collisions = arcade.check_for_collision_with_list(self.sprite, self.game_window.border_layer)
+        if collisions != []:
+            direction = self.position
+            direction = direction.get_normalized()
+            self.position = self.position + direction * self.speed * delta_time
+        #print(self.game_window.border_layer.position)
+
 
 
     def take_damage(self, delta_time, enemy, damage=5):
