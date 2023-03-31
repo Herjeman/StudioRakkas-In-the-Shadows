@@ -6,12 +6,12 @@ from HelperClasses import vector
 
 
 class Poop:
-    def __init__(self, spawn_x, spawn_y, active_player, decay_time: float):
+    def __init__(self, spawn_x, spawn_y, active_player, decay_time: float, scale: float = 2.5):
 
         self.position = vector.Vector2(spawn_x, spawn_y)
 
-        self.active_width = 100
-        self.active_height = 100
+        self.active_width = 16 * scale
+        self.active_height = 16 * scale
         self.hit_box = arcade.get_rectangle_points(self.position.x, self.position.y, self.active_width, self.active_height)
         self.affected_objects = []
 
@@ -23,8 +23,8 @@ class Poop:
             self.decay_time = decay_time
             self.will_ever_decay = True
 
-        # sprite_path = os.path.join()
-        # self.sprite, self.sprite_list = sprite.set_up_sprites(sprite_path)
+        sprite_path = os.path.join("assets", "enemy_sprites", "poop_sprite.png")
+        self.sprite, self.sprite_list = sprite.set_up_single_sprite(sprite_path, scale)
 
     def update(self, delta_time):
 
@@ -37,6 +37,10 @@ class Poop:
                 self.affected_objects.remove(instance)
                 instance.remove_slow_down()
 
+        self.sprite.set_position(self.position.x, self.position.y)
+        self.sprite_list.update()
+        self.sprite_list.update_animation()
+
         if self.will_ever_decay:
             self.decay_time -= delta_time
             if self.decay_time < 0:
@@ -45,11 +49,6 @@ class Poop:
 
     def draw_self(self):
 
-        arcade.draw_rectangle_filled(
-            self.position.x,
-            self.position.y,
-            self.active_width,
-            self.active_height,
-            arcade.color.BROWN)
+        self.sprite.draw()
 
 

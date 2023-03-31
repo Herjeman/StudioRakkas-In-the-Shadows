@@ -51,7 +51,7 @@ class Cow:
 
     def poop(self):
         if random.randint(0, 4) == 0:
-            self.enemy_manager.active_poops.append(poop.Poop(self.position.x, self.position.y, self.active_player, 10))
+            self.enemy_manager.active_poops.append(poop.Poop(self.position.x, self.position.y, self.active_player, -1))
             self.sfx_player.play_poop()
 
     def change_direction(self, delta_time):

@@ -5,6 +5,36 @@ class SpriteContainer:
         self.sprite, self.sprite_list = set_up_sprites(path, scale)
 
 
+def set_up_single_sprite(path, scale: float = 2.5):
+    sprite_list = arcade.SpriteList()
+    sprite = arcade.AnimatedWalkingSprite()
+
+    sprite.stand_right_textures = [
+        arcade.load_texture(path, x=0, y=0, width=16, height=16)
+    ]
+    sprite.stand_left_textures = [
+        arcade.load_texture(path, x=0, y=0, width=16, height=16)
+    ]
+
+    sprite.walk_down_textures = []
+    sprite.walk_up_textures = []
+    sprite.walk_right_textures = []
+    sprite.walk_left_textures = []
+
+    sprite.walk_down_textures.append(
+        arcade.load_texture(
+            path,
+            0,
+            y=0,
+            width=16,
+            height=16,
+        )
+    )
+
+    sprite.scale = scale
+    sprite_list.append(sprite)
+    return sprite, sprite_list
+
 def set_up_sprites(path, scale: float = 2.5):
     sprite_list = arcade.SpriteList()
     sprite = arcade.AnimatedWalkingSprite()
