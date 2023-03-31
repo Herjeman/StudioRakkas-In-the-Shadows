@@ -29,7 +29,6 @@ class SFXPlayer:
 
     def play_damage(self):
         if self.sound_on:
-            print(main.GAME_MANAGER.play_sound)
             self.active_sfx_player = arcade.play_sound(
                 self.sfx_damage, self.volume, self.pan, self.loop, self.speed
             )
