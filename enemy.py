@@ -133,7 +133,7 @@ def get_basic_enemy():
 def get_small_fast_enemy():
     max_speed = 600
     acceleration = 10
-    scale = 2.5
+    scale = 3
     kind_sprite = "enemy1_sprite.png"
 
     return max_speed, acceleration, scale, kind_sprite

@@ -5,7 +5,7 @@ import main
 class MusicPlayer:
     def __init__(self, window_class):
         song_path = os.path.join("assets", "audio", "in_the_shadows_2.wav")
-        disco_song_path = os.path.join("assets", "audio", "in_the_shadows_2.wav")
+        disco_song_path = os.path.join("assets", "audio", "Disco Mode.wav")
         self.normal_song = arcade.load_sound(song_path)
         self.disco_song = arcade.load_sound(disco_song_path)
         self.pan = 0.0
