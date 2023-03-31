@@ -16,7 +16,7 @@ from HelperClasses import vector
 
 
 class Enemy:
-    def __init__(self, spawn_x, spawn_y, max_speed=400, acceleration=20, scale=4.5):
+    def __init__(self, spawn_x, spawn_y, kind_sprite, max_speed=400, acceleration=20, scale=4.5):
 
         self.max_speed = max_speed
         self.acceleration = acceleration
@@ -26,13 +26,8 @@ class Enemy:
         self.follow_distance = 250
         self.stop_follow_distance = 100000
         self.following = False
-        enemy_list = [
-            "enemy1_sprite.png",
-            "enemy2_sprite.png",
-            "enemy3_sprite.png",
-            "slime_red2.png",
-        ]
-        sprite_path = os.path.join("assets", "enemy_sprites", random.choice(enemy_list))
+
+        sprite_path = os.path.join("assets", "enemy_sprites", kind_sprite)
         self.sprite, self.sprite_list = sprite.set_up_sprites(sprite_path, scale)
 
     def update(
@@ -130,32 +125,36 @@ def get_basic_enemy():
     max_speed = 350
     acceleration = 25
     scale = 4.5
+    kind_sprite = "slime_red2.png"
 
-    return max_speed, acceleration, scale
+    return max_speed, acceleration, scale, kind_sprite
 
 
 def get_small_fast_enemy():
     max_speed = 600
     acceleration = 10
     scale = 2.5
+    kind_sprite = "enemy1_sprite.png"
 
-    return max_speed, acceleration, scale
+    return max_speed, acceleration, scale, kind_sprite
 
 
 def get_big_enemy():
     max_speed = 250
     acceleration = 18
-    scale = 7.5
+    scale = 6.5
+    kind_sprite = "enemy3_sprite.png"
 
-    return max_speed, acceleration, scale
+    return max_speed, acceleration, scale, kind_sprite
 
 
 def get_elite_enemy():
     max_speed = 400
     acceleration = 30
-    scale = 5.5
+    scale = 8.5
+    kind_sprite = "enemy2_sprite.png"
 
-    return max_speed, acceleration, scale
+    return max_speed, acceleration, scale, kind_sprite
 
 
 def get_random_enemy():

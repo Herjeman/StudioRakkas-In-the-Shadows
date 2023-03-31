@@ -92,10 +92,10 @@ class EnemyManager:
             self.sfx_player.play_moo()
             return
 
-        max_speed, acceleration, scale = enemy.get_random_enemy()
+        max_speed, acceleration, scale, kind_sprite = enemy.get_random_enemy()
         self.active_enemies.append(
             enemy.Enemy(
-                spawn_position.x, spawn_position.y, max_speed, acceleration, scale
+                spawn_position.x, spawn_position.y, kind_sprite, max_speed, acceleration, scale
             )
         )
 
