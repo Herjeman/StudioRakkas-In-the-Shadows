@@ -25,7 +25,7 @@ class GeneralOptions:
             arcade.gui.UIAnchorWidget(
                 anchor_x="center_x",
                 anchor_y="center_y",
-                align_y=+200,
+                align_y=+250,
                 child=resume_game_button,
             )
         )
@@ -36,7 +36,7 @@ class GeneralOptions:
             arcade.gui.UIAnchorWidget(
                 anchor_x="center_x",
                 anchor_y="center_y",
-                align_y=+100,
+                align_y=+150,
                 child=new_game_button,
             )
         )
@@ -47,7 +47,7 @@ class GeneralOptions:
             arcade.gui.UIAnchorWidget(
                 anchor_x="center_x", 
                 anchor_y="center_y", 
-                align_y=0, 
+                align_y=50, 
                 child=music_button
             )
         )
@@ -58,7 +58,7 @@ class GeneralOptions:
             arcade.gui.UIAnchorWidget(
                 anchor_x="center_x", 
                 anchor_y="center_y", 
-                align_y=-100, 
+                align_y=-50, 
                 child=sound_button
             )
         )
@@ -69,7 +69,7 @@ class GeneralOptions:
             arcade.gui.UIAnchorWidget(
                 anchor_x="center_x", 
                 anchor_y="center_y", 
-                align_y=-200, 
+                align_y=-150, 
                 child=disco_button
             )
         )
@@ -80,7 +80,7 @@ class GeneralOptions:
             arcade.gui.UIAnchorWidget(
                 anchor_x="center_x",
                 anchor_y="center_y",
-                align_y=-300,
+                align_y=-250,
                 child=quit_button,
             )
         )
