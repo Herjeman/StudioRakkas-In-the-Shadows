@@ -38,3 +38,6 @@ class MusicPlayer:
         if main.GAME_MANAGER.music_volume >= self.volume_change:
             main.GAME_MANAGER.music_volume -= self.volume_change
             self.song.set_volume(main.GAME_MANAGER.music_volume, self.active_music_player)
+
+    # def disco_mode(self):
+    #     if main.GAME_MANAGER.disco_mode:

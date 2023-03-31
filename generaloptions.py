@@ -122,6 +122,7 @@ class GeneralOptions:
         else:
             main.GAME_MANAGER.disco_mode = True
         print(main.GAME_MANAGER.disco_mode)
+        # self.music_player.play()
 
 
     def quit_game_button_click(self, event):
