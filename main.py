@@ -136,7 +136,7 @@ class GameWindow(arcade.Window):
 
         self.player.receive_key_down(key)
         self.ui.recive_key_down(key)
-        self.light.receive_key_down(key)
+        # self.light.receive_key_down(key)
 
     def on_key_release(self, key, key_modifiers):
         """Called whenever a key on the keyboard is released"""

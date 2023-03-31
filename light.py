@@ -3,6 +3,7 @@ import player
 import random
 import time
 from arcade.experimental.lights import Light, LightLayer
+import main
 
 # Color of darkness
 AMBIENT_COLOR = (0, 0, 0)
@@ -21,7 +22,7 @@ class GameLight:
         self.player_light = None
         self.flicker_timer = 3
         self.flickering = True
-        self.disco_mode = False
+        #self.disco_mode = main.GAME_MANAGER.disco_mode
 
     # def create_light_point(
     #     self, x_pos: int, y_pos: int, radius: int, color: arcade.csscolor, mode: str
@@ -51,7 +52,7 @@ class GameLight:
             ]
         )
         mode = "soft"
-        if self.disco_mode:
+        if main.GAME_MANAGER.disco_mode:
             r = random.randint(150, 750)
             c = random.choice(
                 [
@@ -83,7 +84,7 @@ class GameLight:
             self.light_layer.add(self.player_light)
         elif self.flicker_timer < 0:
             self.light_layer.remove(self.player_light)
-            if not self.disco_mode:
+            if not main.GAME_MANAGER.disco_mode:
                 if self.flickering:
                     self.flicker_timer = random.randint(2, 15) / 20
                     self.flickering = False
@@ -93,9 +94,9 @@ class GameLight:
         self.flicker_timer -= 1 * delta_time
         self.player_light.position = player.position.x, player.position.y
 
-    def receive_key_down(self, key: int):
-        if key == arcade.key.TAB:
-            if not self.disco_mode:
-                self.disco_mode = True
-            else:
-                self.disco_mode = False
+    # def receive_key_down(self, key: int):
+    #     if key == arcade.key.TAB:
+    #         if not self.disco_mode:
+    #             self.disco_mode = True
+    #         else:
+    #             self.disco_mode = False

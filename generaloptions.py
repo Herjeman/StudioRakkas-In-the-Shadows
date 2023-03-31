@@ -64,12 +64,23 @@ class GeneralOptions:
         )
         sound_button.on_click = self.sound_button_click
 
+        disco_button = arcade.gui.UIFlatButton(text="Disco Mode", width=200)
+        self.uimanager.add(
+            arcade.gui.UIAnchorWidget(
+                anchor_x="center_x", 
+                anchor_y="center_y", 
+                align_y=-200, 
+                child=disco_button
+            )
+        )
+        disco_button.on_click = self.disco_button_click
+
         quit_button = arcade.gui.UIFlatButton(text="Quit", width=200)
         self.uimanager.add(
             arcade.gui.UIAnchorWidget(
                 anchor_x="center_x",
                 anchor_y="center_y",
-                align_y=-200,
+                align_y=-300,
                 child=quit_button,
             )
         )
@@ -104,6 +115,14 @@ class GeneralOptions:
     def sound_button_click(self, event):
         main.GAME_MANAGER.current_options = sfxoptions.SfxOptions(self.sfx_player, self.music_player, self.window_class)
         self.uimanager.disable()
+
+    def disco_button_click(self, event):
+        if main.GAME_MANAGER.disco_mode:
+            main.GAME_MANAGER.disco_mode = False
+        else:
+            main.GAME_MANAGER.disco_mode = True
+        print(main.GAME_MANAGER.disco_mode)
+
 
     def quit_game_button_click(self, event):
         arcade.exit()

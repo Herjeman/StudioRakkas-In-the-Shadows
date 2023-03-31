@@ -11,6 +11,7 @@ class GameManager:
         self.sound_volume = 0.5
         self.play_music = True
         self.play_sound = True
+        self.disco_mode = False
 
     def update_score(self, following_enemies: int, delta_time):
         self.score += (following_enemies**3) * delta_time
