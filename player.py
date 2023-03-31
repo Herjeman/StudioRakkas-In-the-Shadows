@@ -117,7 +117,7 @@ class Player:
         if collisions:
             direction = self.position - vector.Vector2(collisions[0].center_x, collisions[0].center_y)
             direction = direction.get_normalized()
-            self.position = self.position + direction * self.speed * delta_time * 2
+            self.position = self.position + direction * self.speed * delta_time * 1.5
         #print(self.game_window.border_layer.position)
 
 
