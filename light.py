@@ -23,7 +23,8 @@ class GameLight:
         self.flicker_timer = 3
         self.flickering = True
         self.disco_lights = None
-        # self.disco_mode = main.GAME_MANAGER.disco_mode
+        self.lightning_lights = None
+        self.flash_lightning = False
 
     def create_light_point(
         self, x_pos: int, y_pos: int, radius: int, color: arcade.csscolor, mode: str
@@ -130,3 +131,31 @@ class GameLight:
             elif self.flicker_timer < 0:
                 self.light_layer.remove(self.disco_lights)
             self.flicker_timer -= 1 * delta_time**2
+
+    # ------------------ Lightning -------------------------
+    def receive_key_down(self, key: int):
+        if key == arcade.key.L:
+            if not self.flash_lightning:
+                self.flash_lightning = True
+            else:
+                self.flash_lightning = False
+
+    def create_lightning(self):
+        """Create a lightning point"""
+        l = self.create_light_point(0, 0, 10000, arcade.csscolor.LEMON_CHIFFON, "hard")
+        return l
+
+    def call_lightning(self, player: player.Player):
+        """lightning event"""
+        if self.flash_lightning:
+            if self.lightning_lights not in self.light_layer:
+                self.lightning_lights = self.create_lightning()
+                self.light_layer.add(self.lightning_lights)
+            else:
+                self.light_layer.remove(self.lightning_lights)
+                self.light_layer.clear()
+                self.flash_lightning = False
+            self.lightning_lights.position = (
+                player.position.x,
+                player.position.y,
+            )

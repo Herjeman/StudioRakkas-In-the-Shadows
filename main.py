@@ -153,6 +153,7 @@ class GameWindow(arcade.Window):
             self.enemy_manager.update(delta_time, self.player)
             self.light.update_flicker(self.player, delta_time)
             self.light.disco_mode(delta_time)
+            self.light.call_lightning(self.player)
             self.camera.follow_camera(self.player)
             self.ui.update_score()
 
@@ -161,7 +162,7 @@ class GameWindow(arcade.Window):
 
         self.player.receive_key_down(key)
         self.ui.recive_key_down(key)
-        # self.light.receive_key_down(key)
+        self.light.receive_key_down(key)
 
     def on_key_release(self, key, key_modifiers):
         """Called whenever a key on the keyboard is released"""
