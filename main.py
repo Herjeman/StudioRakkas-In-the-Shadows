@@ -128,6 +128,7 @@ class GameWindow(arcade.Window):
             self.player.update(delta_time)
             self.enemy_manager.update(delta_time, self.player)
             self.light.update_flicker(self.player, delta_time)
+            self.light.disco_mode(delta_time)
             self.camera.follow_camera(self.player)
             self.ui.update_score()
 

@@ -22,54 +22,60 @@ class GameLight:
         self.player_light = None
         self.flicker_timer = 3
         self.flickering = True
-        #self.disco_mode = main.GAME_MANAGER.disco_mode
+        self.disco_lights = None
+        # self.disco_mode = main.GAME_MANAGER.disco_mode
 
-    # def create_light_point(
-    #     self, x_pos: int, y_pos: int, radius: int, color: arcade.csscolor, mode: str
-    # ):
-    #     """Create a static light point
-    #     Example:
-    #     Create a small white light
-    #     x_pos = 100,
-    #     y_pos = 200,
-    #     radius = 100,
-    #     mode = "soft",
-    #     color = arcade.csscolor.WHITE"""
-    #     # Create a small white light
-    #     light = Light(x_pos, y_pos, radius, color, mode)
-    #     # self.light_layer.add(light)
-    #     return light
+    def create_light_point(
+        self, x_pos: int, y_pos: int, radius: int, color: arcade.csscolor, mode: str
+    ):
+        """Create a static light point
+        Example:
+        Create a small white light
+        x_pos = 100,
+        y_pos = 200,
+        radius = 100,
+        mode = "soft",
+        color = arcade.csscolor.WHITE"""
+
+        light = Light(x_pos, y_pos, radius, color, mode)
+        return light
 
     def player_flashlight(self):
         """Creates the light point that follows the player around"""
-        x = 0
-        y = 0
-        r = random.randint(350, 350)
-        c = random.choice(
-            [
-                arcade.csscolor.PALE_GOLDENROD,
-                arcade.csscolor.LIGHT_GOLDENROD_YELLOW,
-            ]
-        )
-        mode = "soft"
         if main.GAME_MANAGER.disco_mode:
-            r = random.randint(150, 750)
-            c = random.choice(
-                [
-                    arcade.csscolor.WHITE,
-                    arcade.csscolor.PURPLE,
-                    arcade.csscolor.GHOST_WHITE,
-                    arcade.csscolor.PALE_VIOLET_RED,
-                    arcade.csscolor.ORANGE_RED,
-                    arcade.csscolor.BLUE_VIOLET,
-                    arcade.csscolor.TURQUOISE,
-                    arcade.csscolor.GREEN,
-                    arcade.csscolor.MISTY_ROSE,
-                    arcade.csscolor.LIGHT_YELLOW,
-                ]
+            player_light = self.create_light_point(
+                0,
+                0,
+                random.randint(150, 750),
+                random.choice(
+                    [
+                        arcade.csscolor.WHITE,
+                        arcade.csscolor.PURPLE,
+                        arcade.csscolor.GHOST_WHITE,
+                        arcade.csscolor.PALE_VIOLET_RED,
+                        arcade.csscolor.ORANGE_RED,
+                        arcade.csscolor.BLUE_VIOLET,
+                        arcade.csscolor.TURQUOISE,
+                        arcade.csscolor.GREEN,
+                        arcade.csscolor.MISTY_ROSE,
+                        arcade.csscolor.LIGHT_YELLOW,
+                    ]
+                ),
+                mode=random.choice(["soft", "hard"]),
             )
-            mode = random.choice(["soft", "hard"])
-        player_light = Light(x, y, r, c, mode)
+        else:
+            player_light = Light(
+                0,
+                0,
+                random.randint(350, 350),
+                random.choice(
+                    [
+                        arcade.csscolor.PALE_GOLDENROD,
+                        arcade.csscolor.LIGHT_GOLDENROD_YELLOW,
+                    ]
+                ),
+                "soft",
+            )
         return player_light
 
     def light_on(self):
@@ -94,9 +100,33 @@ class GameLight:
         self.flicker_timer -= 1 * delta_time
         self.player_light.position = player.position.x, player.position.y
 
-    # def receive_key_down(self, key: int):
-    #     if key == arcade.key.TAB:
-    #         if not self.disco_mode:
-    #             self.disco_mode = True
-    #         else:
-    #             self.disco_mode = False
+    # ------------------ Disco Mode -------------------------
+    def create_disco_light_points(self):
+        """Create a disco light point random somewhere on the screen"""
+        disco_lights = self.create_light_point(
+            random.randint(-500, 2000),
+            random.randint(-500, 2000),
+            random.randint(30, 70),
+            random.choice(
+                [
+                    arcade.csscolor.WHITE,
+                    arcade.csscolor.RED,
+                    arcade.csscolor.BLUE,
+                    arcade.csscolor.GREEN,
+                    arcade.csscolor.PURPLE,
+                    arcade.csscolor.YELLOW,
+                ]
+            ),
+            "hard",
+        )
+        return disco_lights
+
+    def disco_mode(self, delta_time):
+        """disco mode on/off"""
+        if main.GAME_MANAGER.disco_mode:
+            if self.disco_lights not in self.light_layer:
+                self.disco_lights = self.create_disco_light_points()
+                self.light_layer.add(self.disco_lights)
+            elif self.flicker_timer < 0:
+                self.light_layer.remove(self.disco_lights)
+            self.flicker_timer -= 1 * delta_time**2
