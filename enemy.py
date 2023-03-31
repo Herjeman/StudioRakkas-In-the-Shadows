@@ -26,15 +26,20 @@ class Enemy:
         self.follow_distance = 250
         self.stop_follow_distance = 100000
         self.following = False
-
-        sprite_path = os.path.join("assets", "enemy_sprites", "enemy1_sprite.png")
+        enemy_list = [
+            "enemy1_sprite.png",
+            "enemy2_sprite.png",
+            "enemy3_sprite.png",
+            "slime_red2.png",
+        ]
+        sprite_path = os.path.join("assets", "enemy_sprites", random.choice(enemy_list))
         self.sprite, self.sprite_list = sprite.set_up_sprites(sprite_path, scale)
 
     def update(
-            self,
-            delta_time,
-            active_player: player.Player,
-            enemy_manager: enemymanager.EnemyManager,
+        self,
+        delta_time,
+        active_player: player.Player,
+        enemy_manager: enemymanager.EnemyManager,
     ):
 
         move_vector = active_player.position - self.position
@@ -111,12 +116,14 @@ class Enemy:
                         self.move(delta_time * -1)
 
                         # Make enemy bounce off
-                        self.velocity = collision_direction * self.velocity.get_magnitude()
+                        self.velocity = (
+                            collision_direction * self.velocity.get_magnitude()
+                        )
                         self.move(delta_time * 0.6)
 
                         break
             except ValueError:
-                print(f'WARNING!!! Missing hitbox on {enemy}.')
+                print(f"WARNING!!! Missing hitbox on {enemy}.")
 
 
 def get_basic_enemy():
@@ -127,7 +134,7 @@ def get_basic_enemy():
     return max_speed, acceleration, scale
 
 
-def  get_small_fast_enemy():
+def get_small_fast_enemy():
     max_speed = 600
     acceleration = 10
     scale = 2.5

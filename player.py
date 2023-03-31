@@ -18,6 +18,7 @@ class Player:
         self.game_window = game_window
 
         sprite_path = os.path.join("assets", "player", "player_sprite.png")
+        # sprite_path = os.path.join("assets", "enemy_sprites", "slime_red2.png")
         self.sprite, self.sprite_list = sprite.set_up_sprites(sprite_path)
 
         self.sfx_player = sfx_player
@@ -97,9 +98,7 @@ class Player:
                 direction = self.position - cow.position
                 direction = direction.get_normalized()
 
-                self.position = (
-                        self.position + direction * self.speed * delta_time
-                )
+                self.position = self.position + direction * self.speed * delta_time
 
     def take_damage(self, delta_time, enemy, damage=5):
         self.hp -= damage
@@ -108,9 +107,7 @@ class Player:
         direction = self.position - enemy.position
         direction = direction.get_normalized()
 
-        self.position = (
-                self.position + direction * self.speed * delta_time * 5
-        )
+        self.position = self.position + direction * self.speed * delta_time * 5
 
         if self.hp <= 0:
             self.game_window.game_over = True

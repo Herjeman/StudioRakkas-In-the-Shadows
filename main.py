@@ -47,6 +47,7 @@ class GameWindow(arcade.Window):
         self.sfx_player = None
         self.music_player = None
         self.enemy_manager = None
+        self.game_map = None
         """test"""
         # self.music_volume = 0.5
         # self.sound_volume = 0.5
@@ -76,16 +77,37 @@ class GameWindow(arcade.Window):
         self.game_over = False
 
         # Create Sprite Lists
-        self.background_sprite_list = arcade.SpriteList()
+
+        # MAP
+        map_1 = os.path.join("assets", "map", "150x150.json")
+        layer_options = {
+            "ground": {
+                "use_spatial_hash": True,
+            },
+            "border": {
+                "use_spatial_hash": True,
+            },
+        }
+        self.game_map = arcade.load_tilemap(map_1, 2, layer_options)
+        self.end_of_map = self.game_map.width
+
+        self.ground_layer = self.game_map.sprite_lists["ground"]
+        self.border_layer = self.game_map.sprite_lists["border"]
+
+        # fence_list = [
+        #     self.border_layer,
+        # ]
+        # self.physics_engine = arcade.PhysicsEngineSimple(self.player, fence_list)
 
         self.game_over_view = game_ower_view.GameOverView(self.music_player, self)
 
         # Creates a bigger background from one sprite
-        for x in range(-128, 2000, 128):
-            for y in range(-128, 1000, 128):
-                sprite = arcade.Sprite(os.path.join("assets", "tile", "grass_400.png"))
-                sprite.position = x, y
-                self.background_sprite_list.append(sprite)
+        # self.background_sprite_list = arcade.SpriteList()
+        # for x in range(-128, 2000, 128):
+        #     for y in range(-128, 1000, 128):
+        #         sprite = arcade.Sprite(os.path.join("assets", "tile", "grass_400.png"))
+        #         sprite.position = x, y
+        #         self.background_sprite_list.append(sprite)
 
         self.light_layer.set_background_color(arcade.color.BLACK)
         self.player_light = self.light.player_light
@@ -106,7 +128,9 @@ class GameWindow(arcade.Window):
 
         # Rendered inside light layer
         with self.light_layer:
-            self.background_sprite_list.draw()
+            self.ground_layer.draw()
+            self.border_layer.draw()
+            # self.background_sprite_list.draw()
             self.enemy_manager.draw_enemies()
             self.player.draw_self()
 

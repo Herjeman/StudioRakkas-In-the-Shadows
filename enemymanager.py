@@ -18,16 +18,15 @@ class EnemyManager:
         self.active_enemies = []
         self.active_cows = []
         self.active_poops = []
-        self.cow_spawn_chance_percent = 100
+        self.cow_spawn_chance_percent = 10
         self.minimum_spawn_distance = 300
         self.maximum_spawn_distance = 500
         self.following_enemies = 0
         self.sfx_player = game_window.sfx_player
 
-        self.spawn_bounding_box = arcade.get_rectangle_points(main.SCREEN_WIDTH * 0.5,
-                                                              main.SCREEN_HEIGHT * 0.5,
-                                                              2000,
-                                                              1000)
+        self.spawn_bounding_box = arcade.get_rectangle_points(
+            main.SCREEN_WIDTH * 0.5, main.SCREEN_HEIGHT * 0.5, 2000, 1000
+        )
 
     def update(self, delta_time, active_player: player.Player):
 
@@ -75,21 +74,34 @@ class EnemyManager:
             active_player.position + vector.get_random_unit_vector() * offset
         )
         tries = 0
-        while not arcade.is_point_in_polygon(spawn_position.x, spawn_position.y, self.spawn_bounding_box) and tries < 6:
+        while (
+            not arcade.is_point_in_polygon(
+                spawn_position.x, spawn_position.y, self.spawn_bounding_box
+            )
+            and tries < 6
+        ):
             spawn_position = spawn_position.get_rotated(45)
             tries += 1
 
         if random.randint(1, 100) <= self.cow_spawn_chance_percent:
             # Spawn a cow instead of a ghost
             self.cow_spawn_chance_percent -= 1
-            self.active_cows.append(cow.Cow(spawn_position.x, spawn_position.y, self, active_player))
+            self.active_cows.append(
+                cow.Cow(spawn_position.x, spawn_position.y, self, active_player)
+            )
             self.sfx_player.play_moo()
             return
 
         max_speed, acceleration, scale = enemy.get_random_enemy()
-        self.active_enemies.append(enemy.Enemy(spawn_position.x, spawn_position.y, max_speed, acceleration, scale))
+        self.active_enemies.append(
+            enemy.Enemy(
+                spawn_position.x, spawn_position.y, max_speed, acceleration, scale
+            )
+        )
 
-    def is_point_colliding_with_enemy(self, point: pyglet.math.Vec2, exclude: enemy = None):
+    def is_point_colliding_with_enemy(
+        self, point: pyglet.math.Vec2, exclude: enemy = None
+    ):
         """Returns true if the point is colliding with an enemy. An object can be passed to exclude, intended to skip
         self"""
 
