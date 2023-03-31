@@ -14,6 +14,7 @@ import camera
 import light
 from pyglet.math import Vec2
 import game_ower_view
+from GameObjectRework import sprite
 
 # 1280x720 = HD
 # 1920x1080 = FullHDd

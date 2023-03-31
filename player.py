@@ -99,6 +99,8 @@ class Player:
                 direction = direction.get_normalized()
 
                 self.position = self.position + direction * self.speed * delta_time
+        #if self.sprite.collides_with_sprite(cow.sprite):
+
 
     def take_damage(self, delta_time, enemy, damage=5):
         self.hp -= damage
