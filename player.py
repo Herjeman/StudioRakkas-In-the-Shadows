@@ -100,19 +100,24 @@ class Player:
                 self.position = self.position + direction * self.speed * delta_time
         # self.sprite.set_hit_box(self.get_hit_box())
         # print(self.get_hit_box())
-        self.sprite.set_hit_box([
-            (-20, -40),
-            (-20, 40),
-            (20, 40),
-            (20, -40),
-        ])
+        # self.sprite.set_hit_box([
+        #    (-20, -40),
+        #    (-20, 40),
+        #    (20, 40),
+        #    (20, -40),
+        # ])
         # if self.sprite.collides_with_sprite(self.game_window.border_layer):
         #     print("yessssssssss")
-        collisions = arcade.check_for_collision_with_list(self.sprite, self.game_window.border_layer)
-        if collisions != []:
-            direction = self.position
+        try:
+            collisions = arcade.check_for_collision_with_list(self.sprite, self.game_window.border_layer)
+        except ValueError:
+            print('WARNING, tried to access player hitbox before it was set')
+            return
+
+        if collisions:
+            direction = self.position - vector.Vector2(collisions[0].center_x, collisions[0].center_y)
             direction = direction.get_normalized()
-            self.position = self.position + direction * self.speed * delta_time
+            self.position = self.position + direction * self.speed * delta_time * 2
         #print(self.game_window.border_layer.position)
 
 
