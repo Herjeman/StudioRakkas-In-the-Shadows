@@ -63,9 +63,6 @@ class GameWindow(arcade.Window):
         self.sfx_player = sfxplayer.SFXPlayer(self)
         self.enemy_manager = enemymanager.EnemyManager(self)
 
-        self.player = player.Player(
-            SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5, self.sfx_player, self
-        )
 
         self.ui = userinterface.UserInterface(self.sfx_player, self.music_player, self)
 
@@ -95,10 +92,14 @@ class GameWindow(arcade.Window):
         self.ground_layer = self.game_map.sprite_lists["ground"]
         self.border_layer = self.game_map.sprite_lists["border"]
 
-        # fence_list = [
-        #     self.border_layer,
-        # ]
-        # self.physics_engine = arcade.PhysicsEngineSimple(self.player, fence_list)
+        self.player = player.Player(
+            SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5, self.sfx_player, self
+        )
+
+        #self.physics_engine = arcade.PhysicsEngineSimple(self.player.sprite,walls =self.border_layer)#.update()
+        # if self.sprite.collides_with_sprite(self.game_window.border_layer):
+        #         print("colide")
+
 
         self.game_over_view = game_ower_view.GameOverView(self.music_player, self)
 
