@@ -121,7 +121,6 @@ class GeneralOptions:
             main.GAME_MANAGER.disco_mode = False
         else:
             main.GAME_MANAGER.disco_mode = True
-        print(main.GAME_MANAGER.disco_mode)
         self.music_player.disco_mode_song()
 
 

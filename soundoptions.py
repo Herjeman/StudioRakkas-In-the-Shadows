@@ -87,15 +87,17 @@ class SoundOptions:
     def volume_on_click(self, event):
         self.music_player.start()
         self.music_on = True
-        self.volume_buttons()
         main.GAME_MANAGER.play_music = True
+        self.volume_buttons()
+        
 
 
     def volume_off_click(self, event):
         self.music_player.stop()
         self.music_on = False
-        self.volume_buttons()
         main.GAME_MANAGER.play_music = False
+        self.volume_buttons()
+        
 
 
     def volume_up_click(self, event):
