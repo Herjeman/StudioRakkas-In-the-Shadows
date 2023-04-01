@@ -23,7 +23,7 @@ SCREEN_HEIGHT = 1000
 SCREEN_TITLE = "Unknown Game"
 
 MAP_SIZE = 2400
-SCALING = 2  # TODO - implement globaly where needed
+SCALING = 2  # TODO - implement globally where needed
 MAP_BOUNDARY = MAP_SIZE * SCALING
 # Color of darkness
 AMBIENT_COLOR = light.AMBIENT_COLOR
@@ -37,6 +37,7 @@ class GameWindow(arcade.Window):
 
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
+        self.current_thunder_cooldown = 0
         self.thunder_timer = 0
         self.background_sprite_list = None
         self.border_layer = None
@@ -184,14 +185,20 @@ class GameWindow(arcade.Window):
         pass
 
     def evaluate_thunder(self, delta_time):
+
+        if self.thunder_timer < self.current_thunder_cooldown * 0.35:
+            self.sfx_player.play_rain()
+        elif self.thunder_timer < self.current_thunder_cooldown - 5:
+            self.sfx_player.stop_rain()
+
         if self.thunder_timer < 0:
             self.light.do_lightning()
             self.sfx_player.play_thunder()
             self.thunder_timer = random.randint(15, 45)
+            self.current_thunder_cooldown = self.thunder_timer
 
         else:
             self.thunder_timer -= delta_time
-
 
 
 def main():

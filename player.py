@@ -19,6 +19,8 @@ class Player:
         self.slow = False
         self.game_window = game_window
 
+        self.last_texture_index = 0
+
         self.top_right_boundary = main.MAP_BOUNDARY - 50
         self.bottom_left_boundary = 0 + 50
 
@@ -45,6 +47,9 @@ class Player:
         self.sprite.set_position(self.position.x, self.position.y)
         self.sprite_list.update()
         self.sprite_list.update_animation()
+
+        if not self.move.get_magnitude() < 0.5 and self.last_texture_index != self.sprite.cur_texture_index:
+            self.sfx_player.play_footstep()
 
     def draw_self(self):
 

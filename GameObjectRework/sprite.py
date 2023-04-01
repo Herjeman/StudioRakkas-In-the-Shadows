@@ -35,6 +35,7 @@ def set_up_single_sprite(path, scale: float = 2.5):
     sprite_list.append(sprite)
     return sprite, sprite_list
 
+
 def set_up_sprites(path, scale: float = 2.5):
     sprite_list = arcade.SpriteList()
     sprite = arcade.AnimatedWalkingSprite()

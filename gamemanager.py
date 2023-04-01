@@ -7,7 +7,7 @@ class GameManager:
         self.current_options = None
         self.open_options = False
         # self.music = musicplayer.MusicPlayer()
-        self.music_volume = 0.5
+        self.music_volume = 0.4
         self.sound_volume = 0.5
         self.play_music = True
         self.play_sound = True
