@@ -194,7 +194,7 @@ class GameWindow(arcade.Window):
         if self.thunder_timer < 0:
             self.light.do_lightning()
             self.sfx_player.play_thunder()
-            self.thunder_timer = random.randint(15, 45)
+            self.thunder_timer = random.randint(20, 60)
             self.current_thunder_cooldown = self.thunder_timer
 
         else:

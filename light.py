@@ -146,7 +146,7 @@ class GameLight:
 
     def do_lightning(self):
         """Make lightning event happen a few times in succession"""
-        self.lightning_counter = random.randint(2, 4)
+        self.lightning_counter = random.randint(3, 6)
 
 
     def create_lightning(self):

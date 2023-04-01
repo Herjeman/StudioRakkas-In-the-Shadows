@@ -8,8 +8,11 @@ import main
 class SFXPlayer:
     def __init__(self, window_class):
 
-        damage_sfx_path = os.path.join("assets", "audio", "oof.wav")
+        damage_sfx_path = os.path.join("assets", "audio", "Death.wav")
         self.sfx_damage = arcade.load_sound(damage_sfx_path)
+
+        death_sfx_path = os.path.join("assets", "audio", "Game over Music.wav")
+        self.sfx_death = arcade.load_sound(death_sfx_path)
 
         poop_sfx_path = os.path.join("assets", "audio", "poop.wav")
         self.sfx_poop = arcade.load_sound(poop_sfx_path)
@@ -54,14 +57,13 @@ class SFXPlayer:
         footstep_path = os.path.join("assets", "audio", "Grass4.wav")
         self.footstep_sounds.append(arcade.load_sound(footstep_path))
 
-
-
         self.volume = main.GAME_MANAGER.sound_volume
         self.pan = 0.0
         self.loop = False
         self.speed = 1.0
         self.volume_change = 0.1
         self.sound_on = main.GAME_MANAGER.play_sound # True at setup
+        self.rain_volume = self.volume * 0.6
 
         self.rain: bool = False
 
@@ -69,11 +71,31 @@ class SFXPlayer:
         self.active_thunder_player = None
         self.active_rain_player = None
         self.active_footstep_player = None
+        self.active_player_sfx_player = None
+
+    def stop_all_sfx(self):
+
+        if self.active_sfx_player is not None:
+            arcade.stop_sound(self.active_sfx_player)
+        if self.active_thunder_player is not None:
+            arcade.stop_sound(self.active_thunder_player)
+        if self.active_rain_player is not None:
+            arcade.stop_sound(self.active_rain_player)
+        if self.active_footstep_player is not None:
+            arcade.stop_sound(self.active_footstep_player)
+        if self.active_player_sfx_player is not None:
+            arcade.stop_sound(self.active_player_sfx_player)
 
     def play_damage(self):
         if self.sound_on:
-            self.active_sfx_player = arcade.play_sound(
+            self.active_player_sfx_player = arcade.play_sound(
                 self.sfx_damage, self.volume, self.pan, self.loop, self.speed
+            )
+
+    def play_death(self):
+        if self.sound_on:
+            self.active_player_sfx_player = arcade.play_sound(
+                self.sfx_death, self.volume, self.pan, self.loop, self.speed
             )
 
     def play_poop(self):
@@ -109,16 +131,24 @@ class SFXPlayer:
 
     def play_rain(self):
         if self.sound_on and not self.rain:
+            self.rain_volume = self.volume * 0.6
             self.active_rain_player = arcade.play_sound(
-                self.sfx_rain, self.volume * 0.6, self.pan, True, self.speed
+                self.sfx_rain, self.rain_volume, self.pan, True, self.speed
             )
             self.rain = True
 
     def stop_rain(self):
         if self.rain:
             if self.active_rain_player is not None:
-                arcade.stop_sound(self.active_rain_player)
+                arcade.schedule(self.decrease_rain_volume, 0.2)
             self.rain = False
+
+    def decrease_rain_volume(self, delta_time):
+        if self.active_rain_player.volume <= 0.1:
+            arcade.stop_sound(self.active_rain_player)
+            arcade.unschedule(self.decrease_rain_volume)
+        else:
+            self.active_rain_player.volume -= 0.1
 
     def play_footstep(self):
         if self.sound_on:

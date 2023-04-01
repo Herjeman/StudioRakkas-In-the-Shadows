@@ -148,6 +148,8 @@ class Player:
         self.position = self.position + direction * self.speed * delta_time * 5
 
         if self.hp <= 0:
+            self.sfx_player.play_death()
+            self.game_window.music_player.stop()
             self.game_window.game_over = True
 
     def slow_down(self):

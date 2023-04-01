@@ -108,6 +108,7 @@ class GeneralOptions:
             main.GAME_MANAGER.open_options = False
             main.GAME_MANAGER.score = 0
             self.music_player.stop()
+            self.window_class.sfx_player.stop_all_sfx()
             self.window_class.setup()
 
     def music_button_click(self, event):

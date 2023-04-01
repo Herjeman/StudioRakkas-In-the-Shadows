@@ -39,6 +39,7 @@ class GameOverView():
 
     def restart_game_click(self, event):
         if not self.restart:
+            self.window_class.sfx_player.stop_all_sfx()
             self.window_class.setup()
             self.music_player.stop()
             main.GAME_MANAGER.score = 0
