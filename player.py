@@ -124,23 +124,10 @@ class Player:
         elif self.position.y < self.bottom_left_boundary:
             self.position.y = self.bottom_left_boundary
 
-
-        # try:
-        #     collisions = arcade.check_for_collision_with_list(self.sprite, self.game_window.border_layer)
-        # except ValueError:
-        #     print('WARNING, tried to access player hitbox before it was set')
-        #     return
-        #
-        # if collisions:
-        #     direction = self.position - vector.Vector2(collisions[0].center_x, collisions[0].center_y)
-        #     direction = direction.get_normalized()
-        #     self.position = self.position + direction * self.speed * delta_time * 2
-
-
-
-    def take_damage(self, delta_time, enemy, damage=5):
+    def take_damage(self, delta_time, enemy, damage=10):
         self.hp -= damage
         self.sfx_player.play_damage()
+        self.game_window.camera.do_screen_shake()
 
         direction = self.position - enemy.position
         direction = direction.get_normalized()

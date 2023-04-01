@@ -1,3 +1,4 @@
+import math
 import random
 
 import arcade
@@ -186,7 +187,7 @@ class GameWindow(arcade.Window):
 
     def evaluate_thunder(self, delta_time):
 
-        if self.thunder_timer < self.current_thunder_cooldown * 0.35:
+        if self.thunder_timer < self.current_thunder_cooldown * 0.20:
             self.sfx_player.play_rain()
         elif self.thunder_timer < self.current_thunder_cooldown - 5:
             self.sfx_player.stop_rain()
@@ -194,7 +195,8 @@ class GameWindow(arcade.Window):
         if self.thunder_timer < 0:
             self.light.do_lightning()
             self.sfx_player.play_thunder()
-            self.thunder_timer = random.randint(20, 60)
+            self.camera.do_screen_shake()
+            self.thunder_timer = random.randint(15, 45)
             self.current_thunder_cooldown = self.thunder_timer
 
         else:

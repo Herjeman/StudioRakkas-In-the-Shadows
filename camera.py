@@ -2,6 +2,8 @@ import arcade
 import player
 import main
 import os
+import random
+import math
 from pyglet.math import Vec2
 
 CAMERA_SPEED = 0.08
@@ -76,3 +78,17 @@ class GameCamera:
 
         player_centered = screen_center_x, screen_center_y
         self.camera_sprites.move_to(player_centered, self.camera_scroll_speed)
+
+    def do_screen_shake(self):
+        shake_direction = random.random() * 2 * math.pi
+        shake_amplitude = 13
+        shake_vector = Vec2(
+            math.cos(shake_direction) * shake_amplitude,
+            math.sin(shake_direction) * shake_amplitude
+        )
+        shake_speed = 7.5
+        shake_damping = 0.9
+        self.camera_sprites.shake(shake_vector,
+                                  speed=shake_speed,
+                                  damping=shake_damping
+                                  )
