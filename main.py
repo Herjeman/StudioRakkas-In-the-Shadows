@@ -16,12 +16,13 @@ from pyglet.math import Vec2
 import game_ower_view
 from GameObjectRework import sprite
 
-# 1280x720 = HD
-# 1920x1080 = FullHDd
-SCREEN_WIDTH = 1640
+SCREEN_WIDTH = 1600
 SCREEN_HEIGHT = 1000
 SCREEN_TITLE = "Unknown Game"
 
+MAP_SIZE = 2400
+SCALING = 2  # TODO  -implement globaly
+MAP_BOUNDARY = MAP_SIZE * SCALING
 # Color of darkness
 AMBIENT_COLOR = light.AMBIENT_COLOR
 GAME_MANAGER = gamemanager.GameManager()
@@ -63,7 +64,6 @@ class GameWindow(arcade.Window):
         self.sfx_player = sfxplayer.SFXPlayer(self)
         self.enemy_manager = enemymanager.EnemyManager(self)
 
-
         self.ui = userinterface.UserInterface(self.sfx_player, self.music_player, self)
 
         self.camera = camera.GameCamera(SCREEN_WIDTH, SCREEN_HEIGHT)
@@ -95,9 +95,6 @@ class GameWindow(arcade.Window):
         self.player = player.Player(
             SCREEN_WIDTH * 0.5, SCREEN_HEIGHT * 0.5, self.sfx_player, self
         )
-
-
-
 
         self.game_over_view = game_ower_view.GameOverView(self.music_player, self)
 
@@ -135,12 +132,13 @@ class GameWindow(arcade.Window):
             self.player.draw_self()
 
         self.light_layer.draw(ambient_color=AMBIENT_COLOR)
-        # self.light.light_on()
+        # self.light.light_on()d
+        self.camera.draw_test_box()
 
         self.camera.camera_gui.use()
 
         # use this if u want a border
-        # self.camera.draw_border()
+        self.camera.draw_border()
 
         self.ui.draw_self()
         if self.game_over:

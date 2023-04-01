@@ -25,7 +25,10 @@ class EnemyManager:
         self.sfx_player = game_window.sfx_player
 
         self.spawn_bounding_box = arcade.get_rectangle_points(
-            main.SCREEN_WIDTH * 0.5, main.SCREEN_HEIGHT * 0.5, 2000, 1000
+            main.SCREEN_WIDTH / 3,
+            main.SCREEN_HEIGHT / 4,
+            main.MAP_SIZE * 2,
+            main.MAP_SIZE * 2,
         )
 
     def update(self, delta_time, active_player: player.Player):
@@ -95,7 +98,12 @@ class EnemyManager:
         max_speed, acceleration, scale, sprite = enemy.get_random_enemy()
         self.active_enemies.append(
             enemy.Enemy(
-                spawn_position.x, spawn_position.y, sprite, max_speed, acceleration, scale
+                spawn_position.x,
+                spawn_position.y,
+                sprite,
+                max_speed,
+                acceleration,
+                scale,
             )
         )
 
