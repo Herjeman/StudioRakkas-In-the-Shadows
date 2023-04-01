@@ -25,10 +25,10 @@ class EnemyManager:
         self.sfx_player = game_window.sfx_player
 
         self.spawn_bounding_box = arcade.get_rectangle_points(
-            main.SCREEN_WIDTH / 3,
-            main.SCREEN_HEIGHT / 4,
-            main.MAP_SIZE * 2,
-            main.MAP_SIZE * 2,
+            main.MAP_SIZE,
+            main.MAP_SIZE,
+            main.MAP_BOUNDARY,
+            main.MAP_BOUNDARY,
         )
 
     def update(self, delta_time, active_player: player.Player):
