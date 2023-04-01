@@ -1,5 +1,7 @@
 import arcade
 import os
+
+import main
 from HelperClasses import vector
 from GameObjectRework import sprite
 
@@ -16,6 +18,9 @@ class Player:
         self.hp = 100
         self.slow = False
         self.game_window = game_window
+
+        self.top_right_boundary = main.MAP_BOUNDARY - 50
+        self.bottom_left_boundary = 0 + 50
 
         sprite_path = os.path.join("assets", "player", "player_sprite.png")
         # sprite_path = os.path.join("assets", "enemy_sprites", "slime_red2.png")
@@ -92,33 +97,39 @@ class Player:
     def process_collision(self, delta_time):
         cows = self.game_window.enemy_manager.active_cows
 
+        # Check for collision with cows
         for cow in cows:
             if self.sprite.collides_with_sprite(cow.sprite):
                 direction = self.position - cow.position
                 direction = direction.get_normalized()
 
                 self.position = self.position + direction * self.speed * delta_time
-        # self.sprite.set_hit_box(self.get_hit_box())
-        # print(self.get_hit_box())
-        # self.sprite.set_hit_box([
-        #    (-20, -40),
-        #    (-20, 40),
-        #    (20, 40),
-        #    (20, -40),
-        # ])
-        # if self.sprite.collides_with_sprite(self.game_window.border_layer):
-        #     print("yessssssssss")
-        try:
-            collisions = arcade.check_for_collision_with_list(self.sprite, self.game_window.border_layer)
-        except ValueError:
-            print('WARNING, tried to access player hitbox before it was set')
-            return
 
-        if collisions:
-            direction = self.position - vector.Vector2(collisions[0].center_x, collisions[0].center_y)
-            direction = direction.get_normalized()
-            self.position = self.position + direction * self.speed * delta_time * 2
-        #print(self.game_window.border_layer.position)
+        # Make sure player stays within bounds
+
+        if self.position.x > self.top_right_boundary:
+            self.position.x = self.top_right_boundary
+
+        elif self.position.x < self.bottom_left_boundary:
+            self.position.x = self.bottom_left_boundary
+
+        if self.position.y > self.top_right_boundary:
+            self.position.y = self.top_right_boundary
+
+        elif self.position.y < self.bottom_left_boundary:
+            self.position.y = self.bottom_left_boundary
+
+
+        # try:
+        #     collisions = arcade.check_for_collision_with_list(self.sprite, self.game_window.border_layer)
+        # except ValueError:
+        #     print('WARNING, tried to access player hitbox before it was set')
+        #     return
+        #
+        # if collisions:
+        #     direction = self.position - vector.Vector2(collisions[0].center_x, collisions[0].center_y)
+        #     direction = direction.get_normalized()
+        #     self.position = self.position + direction * self.speed * delta_time * 2
 
 
 

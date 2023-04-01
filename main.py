@@ -35,6 +35,9 @@ class GameWindow(arcade.Window):
 
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
+        self.background_sprite_list = None
+        self.border_layer = None
+        self.ground_layer = None
         self.game_over_view = None
         self.game_over = None
         self.player_light = None
@@ -124,7 +127,7 @@ class GameWindow(arcade.Window):
             self.player.draw_self()
 
         self.light_layer.draw(ambient_color=AMBIENT_COLOR)
-        self.camera.draw_test_box()
+        # self.camera.draw_test_box()
         # score is shown on ths layer
         self.camera.camera_gui.use()
 

@@ -53,7 +53,7 @@ class GameCamera:
             2,
         )
 
-    def follow_camera(self, player: player.Player):
+    def follow_camera(self, player):
         """Camera that follows player, centered screen"""
         left_boundary = self.view_left
         right_boundary = self.view_left + main.MAP_BOUNDARY - main.SCREEN_WIDTH

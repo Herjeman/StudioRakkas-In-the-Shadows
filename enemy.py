@@ -33,7 +33,7 @@ class Enemy:
     def update(
         self,
         delta_time,
-        active_player: player.Player,
+        active_player,
         enemy_manager: enemymanager.EnemyManager,
     ):
 

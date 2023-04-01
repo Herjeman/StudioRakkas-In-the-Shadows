@@ -80,7 +80,7 @@ class GameLight:
         if self.player_light not in self.light_layer:
             self.light_layer.add(self.player_light)
 
-    def update_flicker(self, player: player.Player, delta_time):
+    def update_flicker(self, player, delta_time):
         """updates the light that follows player, centered to player"""
         if self.player_light not in self.light_layer:
             self.player_light = self.player_flashlight()
@@ -141,7 +141,7 @@ class GameLight:
         l = self.create_light_point(0, 0, 5000, arcade.csscolor.LEMON_CHIFFON, "hard")
         return l
 
-    def call_lightning(self, player: player.Player):
+    def call_lightning(self, player):
         """lightning event"""
         if self.flash_lightning:
             if self.lightning_lights not in self.light_layer:

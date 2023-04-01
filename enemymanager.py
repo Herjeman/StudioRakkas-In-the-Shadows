@@ -31,7 +31,7 @@ class EnemyManager:
             main.MAP_BOUNDARY,
         )
 
-    def update(self, delta_time, active_player: player.Player):
+    def update(self, delta_time, active_player):
 
         # Check spawn timer and spawn enemy if time
         self.spawn_timer -= delta_time
