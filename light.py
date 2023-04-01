@@ -14,6 +14,7 @@ class GameLight:
 
     def __init__(self, width, height) -> None:
 
+        self.lightning_counter = 0
         self.light_layer = LightLayer(width, height)
         self.player_light = None
         self.flicker_timer = 3
@@ -97,6 +98,11 @@ class GameLight:
         self.flicker_timer -= 1 * delta_time
         self.player_light.position = player.position.x, player.position.y
 
+    def update_thunder(self):
+        if self.lightning_counter > 0 and not self.flash_lightning:
+            self.flash_lightning = True
+            self.lightning_counter -= 1
+
     # ------------------ Disco Mode -------------------------
     def create_disco_light_points(self):
         """Create a disco light point random somewhere on the screen"""
@@ -131,10 +137,17 @@ class GameLight:
     # ------------------ Lightning -------------------------
     def receive_key_down(self, key: int):
         if key == arcade.key.L:
-            if not self.flash_lightning:
-                self.flash_lightning = True
-            else:
-                self.flash_lightning = False
+            self.do_lightning()
+
+            # if not self.flash_lightning:
+            #     self.flash_lightning = True
+            # else:
+            #     self.flash_lightning = False
+
+    def do_lightning(self):
+        """Make lightning event happen a few times in succession"""
+        self.lightning_counter = random.randint(2, 4)
+
 
     def create_lightning(self):
         """Create a lightning point"""
@@ -155,3 +168,4 @@ class GameLight:
                 player.position.x,
                 player.position.y,
             )
+

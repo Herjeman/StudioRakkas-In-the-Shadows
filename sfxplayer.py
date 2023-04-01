@@ -1,3 +1,5 @@
+import random
+
 import arcade
 import os
 import main
@@ -21,6 +23,19 @@ class SFXPlayer:
         button_sfx_path = os.path.join("assets", "audio", "Press Button.wav")
         self.sfx_button = arcade.load_sound(button_sfx_path)
 
+        self.thunder_sounds = []
+
+        thunder_path = os.path.join("assets", "audio", "Thunder1.wav")
+        self.thunder_sounds.append(arcade.load_sound(thunder_path))
+
+        thunder_path = os.path.join("assets", "audio", "Thunder2.wav")
+        self.thunder_sounds.append(arcade.load_sound(thunder_path))
+
+        thunder_path = os.path.join("assets", "audio", "Thunder3.wav")
+        self.thunder_sounds.append(arcade.load_sound(thunder_path))
+
+
+
         self.volume = main.GAME_MANAGER.sound_volume
         self.pan = 0.0
         self.loop = False
@@ -29,6 +44,7 @@ class SFXPlayer:
         self.sound_on = main.GAME_MANAGER.play_sound # True at setup
 
         self.active_sfx_player = None
+        self.active_thunder_player = None
 
     def play_damage(self):
         if self.sound_on:
@@ -53,11 +69,20 @@ class SFXPlayer:
             self.active_sfx_player = arcade.play_sound(
                 self.sfx_poop_walk, self.volume, self.pan, self.loop, self.speed
             )
+
     def play_button_sound(self):
         if self.sound_on:
             self.active_sfx_player = arcade.play_sound(
                 self.sfx_button, self.volume/2, self.pan, self.loop, self.speed
             )
+
+    def play_thunder(self):
+        if self.sound_on:
+            sound = random.choice(self.thunder_sounds)
+            self.active_thunder_player = arcade.play_sound(
+                sound, self.volume / 2, self.pan, self.loop, self.speed
+            )
+
 
     def sound_enabled(self):
         self.sound_on = True

@@ -1,3 +1,5 @@
+import random
+
 import arcade
 import pyglet.math
 import player
@@ -35,6 +37,7 @@ class GameWindow(arcade.Window):
 
     def __init__(self, width, height, title):
         super().__init__(width, height, title)
+        self.thunder_timer = 0
         self.background_sprite_list = None
         self.border_layer = None
         self.ground_layer = None
@@ -132,7 +135,7 @@ class GameWindow(arcade.Window):
         self.camera.camera_gui.use()
 
         # use this if u want a border
-        self.camera.draw_border()
+        # self.camera.draw_border()
 
         self.ui.draw_self()
         if self.game_over:
@@ -145,6 +148,8 @@ class GameWindow(arcade.Window):
             self.enemy_manager.update(delta_time, self.player)
             self.light.update_flicker(self.player, delta_time)
             self.light.disco_mode(delta_time)
+            self.evaluate_thunder(delta_time)
+            self.light.update_thunder()
             self.light.call_lightning(self.player)
             self.camera.follow_camera(self.player)
             self.ui.update_score()
@@ -154,7 +159,7 @@ class GameWindow(arcade.Window):
 
         self.player.receive_key_down(key)
         self.ui.recive_key_down(key)
-        self.light.receive_key_down(key)
+        # self.light.receive_key_down(key)
 
     def on_key_release(self, key, key_modifiers):
         """Called whenever a key on the keyboard is released"""
@@ -177,6 +182,16 @@ class GameWindow(arcade.Window):
         Called when a user releases a mouse button.
         """
         pass
+
+    def evaluate_thunder(self, delta_time):
+        if self.thunder_timer < 0:
+            self.light.do_lightning()
+            self.sfx_player.play_thunder()
+            self.thunder_timer = random.randint(15, 45)
+
+        else:
+            self.thunder_timer -= delta_time
+
 
 
 def main():

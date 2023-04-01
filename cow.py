@@ -18,7 +18,7 @@ class Cow:
             active_player,
             ):
 
-        self.speed = 10
+        self.speed = 20
         self.move_direction = vector.zero()
         self.time_until_next_change = float(random.randint(0, 5))
         self.position = vector.Vector2(spawn_x, spawn_y)
@@ -71,7 +71,7 @@ class Cow:
                     break
 
             self.move_direction = random.choice(directions)
-            self.time_until_next_change = float(random.randint(1, 6))
+            self.time_until_next_change = float(random.randint(2, 8))
 
             self.poop()
 

@@ -17,6 +17,7 @@ class GameCamera:
         self.camera_gui = arcade.Camera(width, height)
         self.view_bottom = 0
         self.view_left = 0
+        self.camera_scroll_speed = 0.1
 
     def draw_border(self):
         # border_sprite = os.path.join("assets", "HUD", "switch_border_1640x1000.png")
@@ -74,4 +75,4 @@ class GameCamera:
             screen_center_y = self.view_bottom + main.MAP_BOUNDARY - main.SCREEN_HEIGHT
 
         player_centered = screen_center_x, screen_center_y
-        self.camera_sprites.move_to(player_centered)
+        self.camera_sprites.move_to(player_centered, self.camera_scroll_speed)
