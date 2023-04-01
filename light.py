@@ -5,12 +5,8 @@ import time
 from arcade.experimental.lights import Light, LightLayer
 import main
 
-# Color of darkness
+# Color of darkness - pitch black
 AMBIENT_COLOR = (0, 0, 0)
-
-# TODO
-# Make light_point class
-# Make lightning effect
 
 
 class GameLight:
@@ -105,8 +101,8 @@ class GameLight:
     def create_disco_light_points(self):
         """Create a disco light point random somewhere on the screen"""
         disco_lights = self.create_light_point(
-            random.randint(-500, 2000),
-            random.randint(-500, 2000),
+            random.randint(0, main.MAP_BOUNDARY),
+            random.randint(0, main.MAP_BOUNDARY),
             random.randint(30, 70),
             random.choice(
                 [
@@ -142,7 +138,7 @@ class GameLight:
 
     def create_lightning(self):
         """Create a lightning point"""
-        l = self.create_light_point(0, 0, 10000, arcade.csscolor.LEMON_CHIFFON, "hard")
+        l = self.create_light_point(0, 0, 5000, arcade.csscolor.LEMON_CHIFFON, "hard")
         return l
 
     def call_lightning(self, player: player.Player):

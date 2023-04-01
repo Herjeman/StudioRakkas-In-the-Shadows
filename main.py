@@ -21,7 +21,7 @@ SCREEN_HEIGHT = 1000
 SCREEN_TITLE = "Unknown Game"
 
 MAP_SIZE = 2400
-SCALING = 2  # TODO  -implement globaly
+SCALING = 2  # TODO - implement globaly where needed
 MAP_BOUNDARY = MAP_SIZE * SCALING
 # Color of darkness
 AMBIENT_COLOR = light.AMBIENT_COLOR
@@ -38,7 +38,7 @@ class GameWindow(arcade.Window):
         self.game_over_view = None
         self.game_over = None
         self.player_light = None
-        self.background_sprite_list = None
+        self.te_list = None
         self.pause = None
         self.light_layer = None
         self.light = None
@@ -86,7 +86,7 @@ class GameWindow(arcade.Window):
                 "use_spatial_hash": True,
             },
         }
-        self.game_map = arcade.load_tilemap(map_1, 2, layer_options)
+        self.game_map = arcade.load_tilemap(map_1, SCALING, layer_options)
         self.end_of_map = self.game_map.width
 
         self.ground_layer = self.game_map.sprite_lists["ground"]
@@ -97,14 +97,6 @@ class GameWindow(arcade.Window):
         )
 
         self.game_over_view = game_ower_view.GameOverView(self.music_player, self)
-
-        # Creates a bigger background from one sprite
-        # self.background_sprite_list = arcade.SpriteList()
-        # for x in range(-128, 2000, 128):
-        #     for y in range(-128, 1000, 128):
-        #         sprite = arcade.Sprite(os.path.join("assets", "tile", "grass_400.png"))
-        #         sprite.position = x, y
-        #         self.background_sprite_list.append(sprite)
 
         self.light_layer.set_background_color(arcade.color.BLACK)
         self.player_light = self.light.player_light
@@ -132,9 +124,8 @@ class GameWindow(arcade.Window):
             self.player.draw_self()
 
         self.light_layer.draw(ambient_color=AMBIENT_COLOR)
-        # self.light.light_on()d
         self.camera.draw_test_box()
-
+        # score is shown on ths layer
         self.camera.camera_gui.use()
 
         # use this if u want a border
