@@ -18,6 +18,9 @@ class SFXPlayer:
         moo_sfx_path = os.path.join("assets", "audio", "moo.wav")
         self.sfx_moo = arcade.load_sound(moo_sfx_path)
 
+        button_sfx_path = os.path.join("assets", "audio", "Press Button.wav")
+        self.sfx_button = arcade.load_sound(button_sfx_path)
+
         self.volume = main.GAME_MANAGER.sound_volume
         self.pan = 0.0
         self.loop = False
@@ -49,6 +52,11 @@ class SFXPlayer:
         if self.sound_on:
             self.active_sfx_player = arcade.play_sound(
                 self.sfx_poop_walk, self.volume, self.pan, self.loop, self.speed
+            )
+    def play_button_sound(self):
+        if self.sound_on:
+            self.active_sfx_player = arcade.play_sound(
+                self.sfx_button, self.volume/2, self.pan, self.loop, self.speed
             )
 
     def sound_enabled(self):

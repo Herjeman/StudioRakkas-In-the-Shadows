@@ -96,11 +96,13 @@ class GeneralOptions:
         return self.uimanager.draw()
 
     def resume_game_button_click(self, event):
+        self.sfx_player.play_button_sound()
         self.uimanager.disable()
         self.window_class.pause = False
         main.GAME_MANAGER.open_options = False
 
     def new_game_button_click(self, event):
+        self.sfx_player.play_button_sound()
         if not self.new_game:
             self.new_game = True
             main.GAME_MANAGER.open_options = False
@@ -109,14 +111,17 @@ class GeneralOptions:
             self.window_class.setup()
 
     def music_button_click(self, event):
+        self.sfx_player.play_button_sound()
         main.GAME_MANAGER.current_options = soundoptions.SoundOptions(self.sfx_player, self.music_player, self.window_class)
         self.uimanager.disable()
 
     def sound_button_click(self, event):
+        self.sfx_player.play_button_sound()
         main.GAME_MANAGER.current_options = sfxoptions.SfxOptions(self.sfx_player, self.music_player, self.window_class)
         self.uimanager.disable()
 
     def disco_button_click(self, event):
+        self.sfx_player.play_button_sound()
         if main.GAME_MANAGER.disco_mode:
             main.GAME_MANAGER.disco_mode = False
         else:
@@ -125,4 +130,5 @@ class GeneralOptions:
 
 
     def quit_game_button_click(self, event):
+        self.sfx_player.play_button_sound()
         arcade.exit()

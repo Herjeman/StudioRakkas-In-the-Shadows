@@ -86,12 +86,14 @@ class SfxOptions:
     # different buttons
     def volume_on_click(self, event):
         self.sfx_player.sound_enabled()
+        self.sfx_player.play_button_sound()
         self.sound_on = True
         self.volume_buttons()
         main.GAME_MANAGER.play_sound = True
 
 
     def volume_off_click(self, event):
+        self.sfx_player.play_button_sound()
         self.sfx_player.sound_disabled()
         self.sound_on = False
         self.volume_buttons()
@@ -100,12 +102,15 @@ class SfxOptions:
         # self.uimanager.remove(child=volume_off_button)
 
     def volume_up_click(self, event):
+        self.sfx_player.play_button_sound()
         self.sfx_player.volume_up()
 
     def volume_down_click(self, event):
+        self.sfx_player.play_button_sound()
         self.sfx_player.volume_down()
 
     # disables uimannager for sound options
     def options_click(self, event):
+        self.sfx_player.play_button_sound()
         main.GAME_MANAGER.current_options = generaloptions.GeneralOptions(self.sfx_player, self.music_player, self.window_class)
         self.uimanager.disable()
