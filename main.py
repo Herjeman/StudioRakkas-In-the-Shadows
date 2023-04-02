@@ -21,7 +21,7 @@ from GameObjectRework import sprite
 
 SCREEN_WIDTH = 1600
 SCREEN_HEIGHT = 1000
-SCREEN_TITLE = "Unknown Game"
+SCREEN_TITLE = "In the Shadows, by studio Rakkas"
 
 MAP_SIZE = 2400
 SCALING = 2  # TODO - implement globally where needed
